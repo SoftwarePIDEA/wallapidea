@@ -27,6 +27,5 @@
         <input type="hidden" name="idProducto" value="<%=id%>"/>
         <input type="submit" value="Enviar valoración">
         </form>
-        
     </body>
 </html>
