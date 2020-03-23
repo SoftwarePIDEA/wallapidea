@@ -21,7 +21,7 @@
         <form action="ValorarProducto" method="post">
         <h1>Valorar Producto</h1>
         Nota del producto : <input type="text" name="notaProducto" required /><br/>
-        Comentario del producto : <textarea name ="comentarioProducto" row="5" cols="30" required>
+        Comentario del producto : <br/><textarea name ="comentarioProducto" row="5" cols="30" required>
         Escribir comentario del producto aquí
         </textarea><br/>
         <input type="hidden" name="idProducto" value="<%=id%>"/>
