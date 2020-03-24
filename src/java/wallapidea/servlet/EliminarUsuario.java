@@ -7,7 +7,9 @@ package wallapidea.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,16 +40,23 @@ public class EliminarUsuario extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        RequestDispatcher rd;
         response.setContentType("text/html;charset=UTF-8");
         
         //pasamos por parámetro el id del producto a eliminar
         String id = request.getParameter("id");
+        System.out.println("----------------------");
+        System.out.println(id);
         // obtenemos el producto
-        Usuario usuario = usuarioFacade.find(id);
+        Usuario usuario = usuarioFacade.find(Integer.parseInt(id));
         // lo elimninamos
         usuarioFacade.remove(usuario);
+        
+        List<Usuario> listaUsuarios=usuarioFacade.findAll();
+         request.setAttribute("listaUsuarios", listaUsuarios);
         /// hay que controlar como se llama realmente esta jsp 
-        response.sendRedirect("usuarios.jsp");
+        rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
+        rd.forward(request, response); 
        
     }
 

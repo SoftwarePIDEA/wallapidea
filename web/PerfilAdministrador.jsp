@@ -24,18 +24,23 @@
         <table border="1">
             <thead>
                 <tr>
-                    <th>Nombre</th>
+                    <th>ID</th>
+                    <th>NOMBRE </th>
                     <th>¿Es Administrador? </th>
                     <th>Contraseña</th>
+                    <th> </th>
 
                 </tr>
             </thead>
             <tbody>
                 <%for(Usuario us : lista) { %>
                 <tr>
+                    
+                    <td><%=us.getUsuarioId()%></td>
                     <td><%=us.getNombre()%></td>
                     <td><%=us.getIsadmin()%></td>
                     <td><%= us.getPass()  %></td>
+                    <td> <a href="EliminarUsuario?id=<%= us.getUsuarioId() %>"> Eliminar</a></td>
                 </tr>
                <% } %>
             </tbody>
