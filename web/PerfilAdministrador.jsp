@@ -45,5 +45,7 @@
                <% } %>
             </tbody>
         </table>
+            
+            <a href="AnyadirUsuario.jsp">Añadir Usuario</a>
     </body>
 </html>
