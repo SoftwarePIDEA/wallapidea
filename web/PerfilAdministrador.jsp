@@ -5,11 +5,12 @@
 --%>
 
 <%@page import="wallapidea.entity.Usuario"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
     Usuario u = (Usuario)session.getAttribute("usuario");
-    
+    List<Usuario> lista = (List) request.getAttribute("listaUsuarios");
     
 %>  
 <html>
@@ -18,6 +19,26 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1><h1>Bienvenido Administrador <%= u.getNombre()%></h1></h1>
+        <h1>Bienvenido Administrador <%= u.getNombre()%></h1>
+        
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>¿Es Administrador? </th>
+                    <th>Contraseña</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <%for(Usuario us : lista) { %>
+                <tr>
+                    <td><%=us.getNombre()%></td>
+                    <td><%=us.getIsadmin()%></td>
+                    <td><%= us.getPass()  %></td>
+                </tr>
+               <% } %>
+            </tbody>
+        </table>
     </body>
 </html>

@@ -7,6 +7,7 @@ package wallapidea.servlet;
 
 
 import java.io.IOException;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -65,7 +66,10 @@ public class InicioSesionServlet extends HttpServlet {
             if(usuario.getIsadmin()){ // Si es Administrador accede al panel de administrador
              session.setAttribute("usuario", usuario);
             status="Bienvenido: "+usuario.getNombre();
-            request.setAttribute("status", status);    
+            request.setAttribute("status", status);
+            // Lista de todos los usuarios
+            List<Usuario> listaUsuarios = usuarios.findAll();
+            request.setAttribute("listaUsuarios", listaUsuarios);
             rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
             //
             }else{
