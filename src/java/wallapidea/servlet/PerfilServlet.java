@@ -5,28 +5,28 @@
  */
 package wallapidea.servlet;
 
-
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import static javax.ws.rs.core.Response.status;
-import wallapidea.entity.Usuario;
 import wallapidea.dao.UsuarioFacade;
+import wallapidea.entity.Usuario;
 
 /**
  *
- * @author Pablo
+ * @author eduge
  */
-@WebServlet(name = "InicioSesionServlet", urlPatterns = {"/InicioSesionServlet"})
-public class InicioSesionServlet extends HttpServlet {
-   @EJB
-    private UsuarioFacade usuarios;
+@WebServlet(name = "PerfilServlet", urlPatterns = {"/PerfilServlet"})
+public class PerfilServlet extends HttpServlet {
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,40 +36,15 @@ public class InicioSesionServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-  
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher rd;
-        Usuario usuario=null;
+        
         HttpSession session = request.getSession();
         
-        //OBTENEMOS LOS PARAMETROS DEL FORM DE iniciosesion.JSP
-        String user= request.getParameter("user");
-        String pass= request.getParameter("pass");
-        String status= "SIN STATUS";
+        session.setAttribute("usuarioActivo", usuarioFacade.find(1));
         
-        try{
-            System.out.println(user);
-            usuario = this.usuarios.findByNombre(user);        
-        }
-        catch(Exception exc){
-            status=exc.getMessage();
-            System.out.println(status);
-        }
-        if (usuario == null || !usuario.getPass().equals(pass) ) {             
-            status = "El usuario o la contraseña es incorrecto";
-            request.setAttribute("status", status);
-            rd = request.getRequestDispatcher("InicioSesion.jsp");
-        } else { // el usuarioestá y la clave es correcta          
-            session.setAttribute("usuario", usuario);
-            status="Bienvenido: "+usuario.getNombre();
-            request.setAttribute("status", status);    
-            rd = request.getRequestDispatcher("PerfilUsuario.jsp");
-        }      
-
-        rd.forward(request, response); 
-        
+        response.sendRedirect("PerfilUsuario.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

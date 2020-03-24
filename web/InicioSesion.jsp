@@ -21,7 +21,7 @@
     <body>
         <h1>Inicio de sesión de usuarios WALLAPIDEA</h1>
         <h3><%=status%></h3>
-        <form action="InicioSesionServlet">
+        <form action="InicioSesionServlet" method="post">
             Usuario:
             <input type="text" name="user" value="" /><br/>
             Contraseña: 
