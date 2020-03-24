@@ -28,5 +28,6 @@
             <input type="password" name="pass" value="" /><br/>
             <input type="submit" value="Registrarse" />
         </form>
+        <a href="InicioSesion.jsp">Iniciar Sesion</a>
     </body>
 </html>

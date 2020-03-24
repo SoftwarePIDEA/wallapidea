@@ -61,7 +61,7 @@ public class RegistroServlet extends HttpServlet {
             request.setAttribute("status", status);
             rd = request.getRequestDispatcher("Registro.jsp");
         }else{
-            status = "El usuario ya existe en wallaPIDEA";
+            status = "El usuario ya existe en wallaPIDEA, inicie sesion";
             request.setAttribute("status", status);
             rd = request.getRequestDispatcher("InicioSesion.jsp");
         }
