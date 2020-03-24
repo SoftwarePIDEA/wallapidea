@@ -22,13 +22,15 @@
                 <tr>
                     <th>Nombre</th>
                     <th>Descripcion </th>
+                    <th>Usuario </th>
                 </tr>
             </thead>
             <tbody>
                 <%for(Producto p : Producto) { %>
                 <tr>
-                    <td><%= p.getTitulo()%>td>
+                    <td><%= p.getTitulo()%></td>
                     <td><%= p.getDescripcion() %></td>
+                    <td><%= p.getUsuarioId() %></td>
                 </tr>
                <% } %>
             </tbody>
