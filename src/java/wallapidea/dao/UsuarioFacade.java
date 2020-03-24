@@ -42,4 +42,23 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return usuario;
     }
         
+        public boolean isNombreRegistered (String nombre) {
+        Query q;
+        Usuario usuario=null;
+        
+        // Las "Named Query" son consultas predefinidas que se ubican antes de la declaración
+        // de la clase entidad, en este caso, "Administrador":
+        // @NamedQuery(name = "Administrador.findByEmail", query = "SELECT a FROM Administrador a WHERE a.email = :email")
+        q = this.getEntityManager().createNamedQuery("Usuario.isNombreRegistered");
+        q.setParameter("nombre", nombre); // Los parámetros son aquellas cadenas de caracteres que van precedidas de los dos puntos.
+        try{
+            usuario = (Usuario) q.getSingleResult();
+        }catch(Exception exc){
+            System.out.println("ERROR: "+exc.toString());
+        }
+        
+        return usuario!=null;
+    }
+        
+        
 }
