@@ -16,9 +16,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/style.css">
         <title>Inicio de sesión</title>
     </head>
     <body>
+        <div class="header">
+            &nbsp;
+        </div>
         <h1>Inicio de sesión de usuarios WALLAPIDEA</h1>
         <h3><%=status%></h3>
         <form action="InicioSesionServlet" method="post">

@@ -15,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -40,7 +42,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Producto p WHERE p.descripcion = :descripcion")
     , @NamedQuery(name = "Producto.findByPrecio", query = "SELECT p FROM Producto p WHERE p.precio = :precio")
     , @NamedQuery(name = "Producto.findByFoto", query = "SELECT p FROM Producto p WHERE p.foto = :foto")
-    , @NamedQuery(name = "Producto.findByPalabrasclaves", query = "SELECT p FROM Producto p WHERE p.palabrasclaves = :palabrasclaves")
     , @NamedQuery(name = "Producto.findByFechayhora", query = "SELECT p FROM Producto p WHERE p.fechayhora = :fechayhora")
     , @NamedQuery(name = "Producto.findByValoracionmedia", query = "SELECT p FROM Producto p WHERE p.valoracionmedia = :valoracionmedia")})
 public class Producto implements Serializable {
@@ -63,19 +64,21 @@ public class Producto implements Serializable {
     @Size(max = 500)
     @Column(name = "FOTO")
     private String foto;
-    @Size(max = 500)
-    @Column(name = "PALABRASCLAVES")
-    private String palabrasclaves;
     @Column(name = "FECHAYHORA")
     @Temporal(TemporalType.DATE)
     private Date fechayhora;
     @Column(name = "VALORACIONMEDIA")
     private Double valoracionmedia;
+    @JoinTable(name = "PRODPALABRAS", joinColumns = {
+        @JoinColumn(name = "PROD_ID", referencedColumnName = "PRODUCT_ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "PAL_ID", referencedColumnName = "ID")})
+    @ManyToMany
+    private List<Palabraclave> palabraclaveList;
     @OneToMany(mappedBy = "productId")
     private List<Valoracion> valoracionList;
-    @JoinColumn(name = "NOMBRE_CATEGORIA", referencedColumnName = "NOMBRE_CATEGORIA")
+    @JoinColumn(name = "CAT_ID", referencedColumnName = "CAT_ID")
     @ManyToOne(optional = false)
-    private Categoria nombreCategoria;
+    private Categoria catId;
     @JoinColumn(name = "USUARIO_ID", referencedColumnName = "USUARIO_ID")
     @ManyToOne(optional = false)
     private Usuario usuarioId;
@@ -127,14 +130,6 @@ public class Producto implements Serializable {
         this.foto = foto;
     }
 
-    public String getPalabrasclaves() {
-        return palabrasclaves;
-    }
-
-    public void setPalabrasclaves(String palabrasclaves) {
-        this.palabrasclaves = palabrasclaves;
-    }
-
     public Date getFechayhora() {
         return fechayhora;
     }
@@ -152,6 +147,15 @@ public class Producto implements Serializable {
     }
 
     @XmlTransient
+    public List<Palabraclave> getPalabraclaveList() {
+        return palabraclaveList;
+    }
+
+    public void setPalabraclaveList(List<Palabraclave> palabraclaveList) {
+        this.palabraclaveList = palabraclaveList;
+    }
+
+    @XmlTransient
     public List<Valoracion> getValoracionList() {
         return valoracionList;
     }
@@ -160,12 +164,12 @@ public class Producto implements Serializable {
         this.valoracionList = valoracionList;
     }
 
-    public Categoria getNombreCategoria() {
-        return nombreCategoria;
+    public Categoria getCatId() {
+        return catId;
     }
 
-    public void setNombreCategoria(Categoria nombreCategoria) {
-        this.nombreCategoria = nombreCategoria;
+    public void setCatId(Categoria catId) {
+        this.catId = catId;
     }
 
     public Usuario getUsuarioId() {
@@ -198,8 +202,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        //return "wallapidea.entity.Producto[ productId=" + productId + " ]";
-        return "Producto: " + getTitulo() + ", " + getDescripcion() + ", Precio: " + getPrecio();
+        return "wallapidea.entity.Producto[ productId=" + productId + " ]";
     }
     
 }

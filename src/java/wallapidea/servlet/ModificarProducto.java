@@ -51,12 +51,12 @@ public class ModificarProducto extends HttpServlet {
         Producto producto = (Producto)request.getAttribute("producto");
         // obtengo categoría nueva del producto 
         Categoria categoria = categoriaFacade.find(nombreCategoria);
-        producto.setNombreCategoria(categoria);
+        //producto.setNombreCategoria(categoria);
         producto.setTitulo(titulo);
         producto.setDescripcion(descripcion);
         producto.setPrecio(Double.parseDouble(precio));
         producto.setFoto(foto);
-        producto.setPalabrasclaves(palabrasClave);
+        //producto.setPalabrasclaves(palabrasClave);
         /// mandar a pagina de lista de productos
         response.sendRedirect("listaProductos.jsp");
    
