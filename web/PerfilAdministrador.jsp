@@ -16,36 +16,45 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/style.css">
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Bienvenido Administrador <%= u.getNombre()%></h1>
+       
         
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>NOMBRE </th>
-                    <th>¿Es Administrador? </th>
-                    <th>Contraseña</th>
-                    <th> </th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <%for(Usuario us : lista) { %>
-                <tr>
-                    
-                    <td><%=us.getUsuarioId()%></td>
-                    <td><%=us.getNombre()%></td>
-                    <td><%=us.getIsadmin()%></td>
-                    <td><%= us.getPass()  %></td>
-                    <td> <a href="EliminarUsuario?id=<%= us.getUsuarioId() %>"> Eliminar</a></td>
-                </tr>
-               <% } %>
-            </tbody>
-        </table>
+        <div class="header">
+            &nbsp;
+        </div>
+        
+        <div class="tarjeta sidepanel">
+            <h1>Bienvenido, <%= u.getNombre() %></h1>
+    
+            <div class="tarjeta button">Cerrar sesión</div>
+    
+            <div class="separator">&nbsp;</div>
+    
+            <div class="sidepanelButton">Editar perfil</div>
+            <div class="sidepanelButton">Añadir un nuevo producto</div>
+            <div class="sidepanelButton">Buscar algún producto</div>
+            <div class="sidepanelButton"><a href="AnyadirUsuario.jsp">Añadir Usuario</a></div>
+        </div>
+        <div class="tarjeta section">
             
-            <a href="AnyadirUsuario.jsp">Añadir Usuario</a>
+            Usuarios:
+        
+                <%for(Usuario us : lista) { %>
+                <div class="producto">
+                    
+                    <b>ID:</b> <%=us.getUsuarioId()%></BR>
+                    <b> USUARIO: </b> <%=us.getNombre()%></BR>
+                    <b>  ADMIN: </b> <%=us.getIsadmin()%></BR>
+                    <b> CONTRASEÑA </b> <%= us.getPass()  %></BR>
+                     <a href="EliminarUsuario?id=<%= us.getUsuarioId() %>"> Eliminar</a>
+                </div>
+               <% } %>
+               
+          
+        </div>
+            
     </body>
 </html>

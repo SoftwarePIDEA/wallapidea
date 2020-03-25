@@ -45,8 +45,7 @@ public class EliminarUsuario extends HttpServlet {
         
         //pasamos por parámetro el id del producto a eliminar
         String id = request.getParameter("id");
-        System.out.println("----------------------");
-        System.out.println(id);
+        
         // obtenemos el producto
         Usuario usuario = usuarioFacade.find(Integer.parseInt(id));
         // lo elimninamos
