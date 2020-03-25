@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
+/*
+#2EA082
+#69C171
+#D8EC8A
+rgb(152, 180, 51)
+#515760
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: #2EA082;
+}
+
+.body {
+    padding: 7px;
+}
+
+.separator{
+    height: 4px;
+    background-color: #2EA082;
+    margin: 20px 5px;
+    border-radius: 10px;
+}
+
+.header {
+    background-color: rgb(23, 99, 78);
+    height: 80px;
+}
+
+.tarjeta{
+    background-color: aliceblue;
+    border-radius: 10px;
+}
+
+.tarjeta.sidepanel{
+    margin: 7px;
+    float: left;
+    width: 200px;
+    padding: 0 0 3px 0;
+}
+
+.tarjeta.sidepanel h1{
+    font-family: Nunito;
+    color: #3c4147;
+    font-weight: 400;
+    margin: 10px 10px 20px 10px;
+}
+
+.sidepanelButton {
+    background-color: #D8EC8A;
+    font-family: Nunito;
+    color: #3c4147;
+    font-weight: 100;
+    font-size: 18px;
+    padding: 5px 5px 5px 10px;
+    margin: 0 0 4px 0;
+    border-color: #69C171;
+    border-style: solid;
+    border-width: 0 0 0 8px;
+}
+
+.sidepanelButton:hover {
+    background-color: rgb(152, 180, 51);
+}
+
+.tarjeta.button{
+    background-color: #D8EC8A;
+    width: fit-content;
+    margin: 10px;
+    padding: 10px;
+    font-family: Nunito;
+    color: #3c4147;
+    font-weight: 100;
+    font-size: 20px;
+}
+
+.tarjeta.button:hover {
+    background-color: rgb(152, 180, 51);
+}
+
+.tarjeta.section{
+    margin: 7px;
+    padding: 6px 3px;
+    float: left;
+    width: 1650px;
+}
+
+.tarjeta.section h3{
+    font-family: Nunito;
+    font-size: 25px;
+    color: #3c4147;
+    font-weight: 400;
+    margin: 10px 20px 10px 20px;
+}
+
+.fila{
+    padding: 2px;
+}
+
+.producto{
+    width: 180px;
+    padding: 10px;
+    background-color: #D8EC8A;
+    border-radius: 10px;
+    margin: 2px;
+    float: left;
+    height: fit-content;
+}
+
+.producto img{
+    width: 180px;
+    height: 150px;
+    object-fit: contain;
+    align-self: center;
+}
+
+.producto h1{
+    font-family: Nunito;
+    font-size: 18px;
+    color: #3c4147;
+    font-weight: 500;
+    width: 170px;
+    height: 70px;
+    margin: 5px;
+    text-align: center;
+}
+
+.producto h2{
+    font-family: Nunito;
+    font-size: 22px;
+    color: #3c4147;
+    font-weight: 600;
+    width: 160px;
+    margin: 10px;
+    text-align: end;
+}
+
+
