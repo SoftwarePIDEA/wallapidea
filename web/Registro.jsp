@@ -16,9 +16,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/style.css">
         <title>Registro de un usuario</title>
     </head>
     <body>
+         <div class="header">
+            &nbsp;
+        </div>
         <h1>Introduce tus datos para registrarte</h1>
         <h3><%=status%></h3>
         <form name="registro" action="RegistroServlet" method="POST">
