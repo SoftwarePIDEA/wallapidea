@@ -7,27 +7,18 @@ package wallapidea.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import wallapidea.dao.ProductoFacade;
-import wallapidea.entity.Producto;
-import wallapidea.entity.Usuario;
 
 /**
  *
- * @author ivanl
+ * @author aleja
  */
-@WebServlet(name = "ProductosServlet", urlPatterns = {"/ProductosServlet"})
-public class ProductosServlet extends HttpServlet {
-
-    @EJB
-    private ProductoFacade productoFacade;
+@WebServlet(name = "BuscarProducto", urlPatterns = {"/BuscarProducto"})
+public class BuscarProducto extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,14 +31,19 @@ public class ProductosServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
         response.setContentType("text/html;charset=UTF-8");
-        List<Producto> productos = productoFacade.findAll();
-        request.setAttribute("productos", productos);
-        RequestDispatcher rd = request.getRequestDispatcher("PanelProductos.jsp");
-        rd.forward(request, response);
-        
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet BuscarProducto</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet BuscarProducto at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

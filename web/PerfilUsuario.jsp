@@ -19,6 +19,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
         <title>JSP Page</title>
+        
+        <script>
+            function llamarServlet(direccion)
+            {
+                document.requestForm.action = direccion;
+                document.requestForm.submit();
+            }
+        </script>
+        
     </head>
     <body>
         <div class="header">
@@ -27,14 +36,19 @@
         
         <div class="tarjeta sidepanel">
             <h1>Bienvenido, <%= u.getNombre() %></h1>
-    
+            
+        <form name="requestForm" method="post">
             <div class="tarjeta button">Cerrar sesión</div>
     
             <div class="separator">&nbsp;</div>
     
             <div class="sidepanelButton">Editar perfil</div>
             <div class="sidepanelButton">Añadir un nuevo producto</div>
-            <div class="sidepanelButton">Buscar algún producto</div>
+            
+            
+                <div class="sidepanelButton" onclick="llamarServlet('BuscarProducto')">Buscar Productos</div>
+        
+        </form>
         </div>
             
         <div class="tarjeta section">
