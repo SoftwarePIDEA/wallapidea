@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <%
     Usuario u = (Usuario)session.getAttribute("usuario");
+    System.out.println("Ha entrado en el PANEL ADMIN: "+u.getNombre());
     List<Usuario> lista = (List) request.getAttribute("listaUsuarios");
     
 %>  
@@ -17,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
-        <title>JSP Page</title>
+        <title>Panel ADMIN</title>
     </head>
     <body>
        
@@ -29,7 +30,7 @@
         <div class="tarjeta sidepanel">
             <h1>Bienvenido, <%= u.getNombre() %></h1>
     
-            <div class="tarjeta button">Cerrar sesión</div>
+            <div class="tarjeta button"><a href="CerrarSesionServlet">Cerrar sesión</a></div>
     
             <div class="separator">&nbsp;</div>
     
@@ -38,18 +39,17 @@
             <div class="sidepanelButton">Buscar algún producto</div>
             <div class="sidepanelButton"><a href="AnyadirUsuario.jsp">Añadir Usuario</a></div>
         </div>
-        <div class="tarjeta section">
             
+        <div class="tarjeta section">
             Usuarios:
-        
                 <%for(Usuario us : lista) { %>
                 <div class="producto">
                     
                     <b>ID:</b> <%=us.getUsuarioId()%></BR>
                     <b> USUARIO: </b> <%=us.getNombre()%></BR>
                     <b>  ADMIN: </b> <%=us.getIsadmin()%></BR>
-                    <b> CONTRASEÑA </b> <%= us.getPass()  %></BR>
-                     <a href="EliminarUsuario?id=<%= us.getUsuarioId() %>"> Eliminar</a>
+                    <%if(!us.getIsadmin()){%><b> CONTRASEÑA: </b> <%= us.getPass()  %></BR>
+                    <a href="EliminarUsuario?id=<%= us.getUsuarioId() %>"> Eliminar</a><%}%>
                 </div>
                <% } %>
                
