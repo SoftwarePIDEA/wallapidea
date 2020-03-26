@@ -38,7 +38,7 @@
             <h1>Bienvenido, <%= u.getNombre() %></h1>
             
         <form name="requestForm" method="post">
-            <div class="tarjeta button">Cerrar sesión</div>
+            <div class="tarjeta button" onclick="llamarServlet('CerrarSesionServlet')">Cerrar sesión</div>
     
             <div class="separator">&nbsp;</div>
     
@@ -46,7 +46,7 @@
             <div class="sidepanelButton">Añadir un nuevo producto</div>
             
             
-                <div class="sidepanelButton" onclick="llamarServlet('BuscarProducto')">Buscar Productos</div>
+            <div class="sidepanelButton" onclick="llamarServlet('ProductosServlet')">Buscar Productos</div>
         
         </form>
         </div>
