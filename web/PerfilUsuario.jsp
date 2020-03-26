@@ -18,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
-        <title>JSP Page</title>
+        <title>Perfil Usuario</title>
     </head>
     <body>
         <div class="header">
@@ -28,7 +28,7 @@
         <div class="tarjeta sidepanel">
             <h1>Bienvenido, <%= u.getNombre() %></h1>
     
-            <div class="tarjeta button">Cerrar sesión</div>
+            <div class="tarjeta button"><a href="CerrarSesionServlet">Cerrar sesión</a></div>
     
             <div class="separator">&nbsp;</div>
     

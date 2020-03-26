@@ -30,7 +30,7 @@
         <div class="tarjeta sidepanel">
             <h1>Bienvenido, <%= u.getNombre() %></h1>
     
-            <div class="tarjeta button">Cerrar sesión</div>
+            <div class="tarjeta button"><a href="CerrarSesionServlet">Cerrar sesión</a></div>
     
             <div class="separator">&nbsp;</div>
     
