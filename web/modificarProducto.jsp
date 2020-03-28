@@ -9,17 +9,19 @@
 <!DOCTYPE html>
 <%
 // hay que enviar el producto por Attribute 
+
 Producto producto = (Producto)request.getAttribute("producto");
 
 %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/style.css">
         <title>JSP Page</title>
     </head>
     <body>
         <h1>Modificar Producto</h1>
-        <<form action="ModificarProducto" method="post">
+        <form action="ModificarProducto" method="post">
         <h1>Valorar Producto</h1>
         Nombre de la categoria :<select name="idCategoria" multiple size="4">
                                 <optgroup label="Electrodomesticos">
@@ -33,12 +35,12 @@ Producto producto = (Producto)request.getAttribute("producto");
                                   <option value="5">Video 2</option>
                                   <option value="6">Video 3</option>
                                 </optgroup>
-                              </select>
+                              </select><br/>
         Titulo Producto : <input type="text" name="tituloProducto" value="<%=producto.getTitulo()%>" /><br/>
-        Descripción Producto : <textarea name="descripcion" ><%=producto.getDescripcion()%></textarea>
-        Precio : <input type="text" name="precioProducto" value="<%=producto.getPrecio()%>" />
-        Foto : <input type="text" name="fotoProducto" value="<%=producto.getFoto()%>" />
-        Palabras Claves : <input type="text" name="palabrasClaveProducto" value="<%=producto.getPalabraclaveList()%>" />
+        Descripción Producto : <textarea name="descripcion" ><%=producto.getDescripcion()%></textarea><br/>
+        Precio : <input type="text" name="precioProducto" value="<%=producto.getPrecio()%>" /><br/>
+        Foto : <input type="text" name="fotoProducto" value="<%=producto.getFoto()%>" /><br/>
+        Palabras Claves : <input type="text" name="palabrasClaveProducto" value="" /><br/>
         <input type="submit" value="Enviar modificación">
         </form>     
     </body>
