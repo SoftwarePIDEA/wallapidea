@@ -68,13 +68,17 @@
                     %>
                     
                     <div class="producto">
+                        
+                     
                         <img src=<%= p.getFoto()%>>
                         <h1><%= p.getTitulo()%></h1>
                         <h2><%= p.getPrecio()%> €</h2>
-                        <div class="tarjeta button editar">Editar</div>
-                        <div class="tarjeta button eliminar">Eliminar</div>
+                        <div type="button" class="tarjeta button editar" href="ModificarProducto?idProducto=<%=p.getProductId()%>">Editar</div>
+                        <div type="button" class="tarjeta button eliminar" href="EliminarProducto?idProducto=<%=p.getProductId()%>">Eliminar</div>
+                        
+                      
                     </div>
-
+                    
                     <%
                         }
                     %>
