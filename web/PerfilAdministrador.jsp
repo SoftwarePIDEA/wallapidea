@@ -56,8 +56,8 @@
         <div class="topPanel">
             <form name="requestForm" method="post">
                 <div class="topPanelButton">Editar perfil</div>
-                <div class="topPanelButton" onclick="llamarServlet('AnyadirUsuario')">Añadir un nuevo Usuario</div>
-                <div class="topPanelButton" onclick="llamarServlet('ProductosServlet')">Buscar algún usuario</div>
+                <div class="topPanelButton" onclick="location.href='AnyadirUsuario.jsp'">Añadir un nuevo Usuario</div>
+                <div class="topPanelButton">Buscar algún usuario</div>
             </form>
         </div>
         
@@ -76,7 +76,7 @@
                     <b> USUARIO: </b> <%=us.getNombre()%></BR>
                     <b>  ADMIN: </b> <%=us.getIsadmin()%></BR>
                     <%if(!us.getIsadmin()){%><b> CONTRASEÑA: </b> <%= us.getPass()  %></BR> <% } %>
-                    <div  class="tarjeta button editar" >Editar</div>
+                    <div  class="tarjeta button editar" onclick="location.href='ModificarUsuario?id=<%=us%>'">Editar</div>
                     <div  class="tarjeta button eliminar" onclick="location.href='EliminarUsuario?id=<%=us.getUsuarioId()%>'">Eliminar</div>
                 </div>
                <% } %>               
