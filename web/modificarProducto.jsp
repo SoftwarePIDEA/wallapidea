@@ -38,7 +38,7 @@ Producto producto = (Producto)request.getAttribute("producto");
         Descripción Producto : <textarea name="descripcion" ><%=producto.getDescripcion()%></textarea>
         Precio : <input type="text" name="precioProducto" value="<%=producto.getPrecio()%>" />
         Foto : <input type="text" name="fotoProducto" value="<%=producto.getFoto()%>" />
-        Palabras Claves : <input type="text" name="palabrasClaveProducto" value="<%=producto.getPalabrasclaves()%>" />
+        Palabras Claves : <input type="text" name="palabrasClaveProducto" value="<%=producto.getPalabraclaveList()%>" />
         <input type="submit" value="Enviar modificación">
         </form>     
     </body>
