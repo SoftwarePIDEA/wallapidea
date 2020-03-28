@@ -13,8 +13,14 @@ rgb(152, 180, 51)
     padding: 0;
 }
 
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
 html {
     background-color: #2EA082;
+    box-sizing: border-box;
+    font-family: Nunito;
 }
 
 .body {
@@ -30,7 +36,42 @@ html {
 
 .header {
     background-color: rgb(23, 99, 78);
-    height: 80px;
+    height: 7em;
+}
+
+.header h1{
+    color: aliceblue;
+    font-weight: 200;
+    font-size: 1.4em;
+    float: right;
+    text-align: end;
+    margin: 1.8em 0.5em;
+}
+
+.cerrarSesion{
+    float: right;
+    width: 8em;
+    margin: 1.6em;
+}
+
+.topPanelButton{
+    width: 33.33%;
+    float: left;
+    background-color: #D8EC8A;
+    font-family: Nunito;
+    text-align: center;
+    padding: 10px;
+    color: #3c4147;
+    font-weight: 300;
+    font-size: 23px;
+    border-color: #69C171;
+    border-style: solid;
+    border-width: 0 1px 10px 1px;
+}
+
+.topPanelButton:hover {
+    background-color: rgb(152, 180, 51);
+    cursor: pointer ;
 }
 
 .tarjeta{
@@ -38,43 +79,10 @@ html {
     border-radius: 10px;
 }
 
-.tarjeta.sidepanel{
-    margin: 7px;
-    float: left;
-    width: 200px;
-    padding: 0 0 3px 0;
-}
-
-.tarjeta.sidepanel h1{
-    font-family: Nunito;
-    color: #3c4147;
-    font-weight: 400;
-    margin: 10px 10px 20px 10px;
-}
-
-.sidepanelButton {
-    background-color: #D8EC8A;
-    font-family: Nunito;
-    color: #3c4147;
-    font-weight: 100;
-    font-size: 18px;
-    padding: 5px 5px 5px 10px;
-    margin: 0 0 4px 0;
-    border-color: #69C171;
-    border-style: solid;
-    border-width: 0 0 0 8px;
-}
-
-.sidepanelButton:hover {
-    background-color: rgb(152, 180, 51);
-}
-
 .tarjeta.button{
     background-color: #D8EC8A;
-    width: fit-content;
-    margin: 10px;
     padding: 10px;
-    font-family: Nunito;
+    text-align: center;
     color: #3c4147;
     font-weight: 100;
     font-size: 20px;
@@ -82,13 +90,13 @@ html {
 
 .tarjeta.button:hover {
     background-color: rgb(152, 180, 51);
+    cursor: pointer;
 }
 
 .tarjeta.section{
-    margin: 7px;
+    margin: 65px 3px;
     padding: 6px 3px;
-    float: left;
-    width: 1650px;
+    overflow: hidden;
 }
 
 .tarjeta.section h3{
@@ -100,15 +108,47 @@ html {
 }
 
 .fila{
-    padding: 2px;
+}
+
+#borrarProductos{
+    float: right;
+    margin: 5px;
+    color: aliceblue;
+    background-color: rgb(238, 61, 61);
+}
+
+#borrarProductos:hover{
+    background-color: rgb(148, 25, 25);
+}
+
+.producto>.eliminar{
+    display: none;
+    margin: 5px;
+    color: aliceblue;
+    background-color: rgb(238, 61, 61);
+}
+
+.producto>.eliminar:hover{
+    background-color: rgb(148, 25, 25);
+}
+
+.producto>.editar{
+    display: none;
+    margin: 5px;
+    color: aliceblue;
+    background-color: rgb(228, 177, 37);
+}
+
+.producto>.editar:hover{
+    background-color: rgb(163, 125, 19);
 }
 
 .producto{
-    width: 180px;
+    width: 200px;
     padding: 10px;
     background-color: #D8EC8A;
     border-radius: 10px;
-    margin: 2px;
+    margin: 5px;
     float: left;
     height: fit-content;
 }

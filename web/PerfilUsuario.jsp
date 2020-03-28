@@ -26,48 +26,59 @@
                 document.requestForm.action = direccion;
                 document.requestForm.submit();
             }
+            
+            function activarEliminar(){
+                var elements = document.querySelectorAll('.eliminar,.editar');
+                for(var i=0; i<elements.length; i++){
+                    if (elements[i].style.display == "block"){
+                        elements[i].style.display = "none";
+                    }else{
+                        elements[i].style.display = "block";
+                    }
+                }
+            }
         </script>
         
     </head>
     <body>
         <div class="header">
-            &nbsp;
-        </div>
-        
-        <div class="tarjeta sidepanel">
+            <form name="requestForm" method="post">
+                <div class="tarjeta button cerrarSesion" onclick="llamarServlet('CerrarSesionServlet')">Cerrar sesión</div>
+            </form>
             <h1>Bienvenido, <%= u.getNombre() %></h1>
-            
-        <form name="requestForm" method="post">
-            <div class="tarjeta button" onclick="llamarServlet('CerrarSesionServlet')">Cerrar sesión</div>
-    
-            <div class="separator">&nbsp;</div>
-    
-            <div class="sidepanelButton">Editar perfil</div>
-            <div class="sidepanelButton">Añadir un nuevo producto</div>
-            
-            
-            <div class="sidepanelButton" onclick="llamarServlet('ProductosServlet')">Buscar Productos</div>
+        </div>
         
-        </form>
+        <div class="topPanel">
+            <form name="requestForm" method="post">
+                <div class="topPanelButton">Editar perfil</div>
+                <div class="topPanelButton">Añadir un nuevo producto</div>
+                <div class="topPanelButton" onclick="llamarServlet('ProductosServlet')">Buscar algún producto</div>
+            </form>
         </div>
             
-        <div class="tarjeta section">
-            <h3>Productos que tienes a la venta: </h3>
-            
-            <div class="fila">
-                
-                <%
-                    for(Producto p: lista){
-                %>
-                <div class="producto">
-                    <img src=<%= p.getFoto()%>>
-                    <h1><%= p.getTitulo()%></h1>
-                    <h2><%= p.getPrecio()%> €</h2>
+        <div class="body">
+            <div class="tarjeta section">
+                <div id="borrarProductos" class="tarjeta button" onclick="activarEliminar()">Borrar o editar algún producto</div>
+                <div class="fila">
+                    <h3>Productos que tienes a la venta: </h3>
                 </div>
-                
-                <%
-                    }
-                %>
+                <div class="fila">
+                    <%
+                        for(Producto p: lista){
+                    %>
+                    
+                    <div class="producto">
+                        <img src=<%= p.getFoto()%>>
+                        <h1><%= p.getTitulo()%></h1>
+                        <h2><%= p.getPrecio()%> €</h2>
+                        <div class="tarjeta button editar">Editar</div>
+                        <div class="tarjeta button eliminar">Eliminar</div>
+                    </div>
+
+                    <%
+                        }
+                    %>
+                </div>
             </div>
         </div>
 
