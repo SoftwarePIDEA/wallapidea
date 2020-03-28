@@ -7,6 +7,7 @@ package wallapidea.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,8 +15,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import wallapidea.dao.ProductoFacade;
+import wallapidea.dao.ValoracionFacade;
 import wallapidea.entity.Producto;
+import wallapidea.entity.Usuario;
+import wallapidea.entity.Valoracion;
 
 /**
  *
@@ -26,6 +31,8 @@ public class EliminarProducto extends HttpServlet {
 
     @EJB
     private ProductoFacade productoFacade;
+    @EJB
+    private ValoracionFacade valFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,15 +46,26 @@ public class EliminarProducto extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        HttpSession session = request.getSession();
+        Usuario u = (Usuario)session.getAttribute("usuario");
         //pasamos por parámetro el id del producto a eliminar
-        String id = request.getParameter("id");
+        String idS = request.getParameter("idProducto");
+        System.out.println("ID DEL PRODUCTO A ELIMINAR: __"+idS);
         // obtenemos el producto
+        Integer id;
+        id =Integer.parseInt(idS);
         Producto producto = productoFacade.find(id);
+        //eliminamos sus valoraciones
+        valFacade.deleteByProduct(producto);
+        List<Producto>lista=u.getProductoList();
+        lista.remove(producto);
+        u.setProductoList(lista);
         // lo elimninamos
+        System.out.println("PRODUCTO A ELIMINAR: "+producto.getTitulo());
         productoFacade.remove(producto);
+        
         /// hay que controlar como se llama realmente esta jsp 
-        response.sendRedirect("listaProductos.jsp");
+        response.sendRedirect("PerfilUsuario.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
