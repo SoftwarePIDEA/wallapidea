@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import wallapidea.dao.PalabraclaveFacade;
 import wallapidea.dao.ProductoFacade;
 import wallapidea.dao.ValoracionFacade;
 import wallapidea.entity.Producto;
@@ -28,6 +29,9 @@ import wallapidea.entity.Valoracion;
  */
 @WebServlet(name = "EliminarProducto", urlPatterns = {"/EliminarProducto"})
 public class EliminarProducto extends HttpServlet {
+
+    @EJB
+    private PalabraclaveFacade palabraclaveFacade;
 
     @EJB
     private ProductoFacade productoFacade;
@@ -57,6 +61,7 @@ public class EliminarProducto extends HttpServlet {
         Producto producto = productoFacade.find(id);
         //eliminamos sus valoraciones
         valFacade.deleteByProduct(producto);
+        palabraclaveFacade.deleteByProduct(producto);
         List<Producto>lista=u.getProductoList();
         lista.remove(producto);
         u.setProductoList(lista);
