@@ -31,12 +31,10 @@ import wallapidea.entity.Valoracion;
 public class EliminarProducto extends HttpServlet {
 
     @EJB
-    private PalabraclaveFacade palabraclaveFacade;
-
-    @EJB
     private ProductoFacade productoFacade;
     @EJB
     private ValoracionFacade valFacade;
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,12 +59,16 @@ public class EliminarProducto extends HttpServlet {
         Producto producto = productoFacade.find(id);
         //eliminamos sus valoraciones
         valFacade.deleteByProduct(producto);
-        palabraclaveFacade.deleteByProduct(producto);
+      
+       
+        
+        // eliminamos de la lista de productos de usuario 
         List<Producto>lista=u.getProductoList();
         lista.remove(producto);
         u.setProductoList(lista);
         // lo elimninamos
         System.out.println("PRODUCTO A ELIMINAR: "+producto.getTitulo());
+        // ver como hacer el cascade para que elimine demás relaciones en base de datos 
         productoFacade.remove(producto);
         
         /// hay que controlar como se llama realmente esta jsp 
