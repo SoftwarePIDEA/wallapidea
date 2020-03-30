@@ -8,7 +8,7 @@
 <%
     String status= (String) request.getAttribute("status");
     if(status==null){
-    status="Esta a un paso de ser usuario de wallaPIDEA";
+    status="";
     }
 
 %>
@@ -22,16 +22,24 @@
     <body>
          <div class="header">
             &nbsp;
+        </div>      
+        <div class="centralSection tarjeta">
+            <h1>Introduce tus datos para registrarte</h1>
+            <h2>Esta a un paso de ser usuario de wallaPIDEA</h2>
+            <h3><%=status%></h3>
+            <form id="registro" action="RegistroServlet" method="post">
+                E-mail:<br/>
+                <input type="text" name="user" value="" /><br/>
+                Contraseña: <br/>
+                <input type="password" name="pass" value="" /><br/>
+                <div id="loginButton" class="tarjeta button" onclick="document.forms['registro'].submit();">
+                    Registrarse
+                </div>
+            </form>
+            <h2>O inicia sesión si ya estás registrado</h2>
+            <div class="tarjeta button" onclick="location.href='InicioSesion.jsp';">
+                Iniciar Sesion
+            </div>
         </div>
-        <h1>Introduce tus datos para registrarte</h1>
-        <h3><%=status%></h3>
-        <form name="registro" action="RegistroServlet" method="POST">
-            E-mail:
-            <input type="text" name="user" value="" /><br/>
-            Contraseña: 
-            <input type="password" name="pass" value="" /><br/>
-            <input type="submit" value="Registrarse" />
-        </form>
-        <a href="InicioSesion.jsp">Iniciar Sesion</a>
     </body>
 </html>

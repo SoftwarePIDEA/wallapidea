@@ -7,7 +7,7 @@
     String status;
     status=(String) request.getAttribute("status");
     if(status==null){
-    status="Introduzca sus datos";
+    status="";
     }
 
 %>
@@ -18,20 +18,36 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
         <title>Inicio de sesión</title>
+        
+        <script>
+            function llamarServlet(direccion)
+            {
+                document.requestForm.action = direccion;
+                document.requestForm.submit();
+            }
+        </script>
     </head>
     <body>
         <div class="header">
             &nbsp;
         </div>
-        <h1>Inicio de sesión de usuarios WALLAPIDEA</h1>
-        <h3><%=status%></h3>
-        <form action="InicioSesionServlet" method="post">
-            Usuario:
-            <input type="text" name="user" value="" /><br/>
-            Contraseña: 
-            <input type="password" name="pass" value="" /><br/>
-            <input type="submit" value="Iniciar sesion" />
-        </form>
-        <a href="Registro.jsp">Registro</a>
+        
+        <div class="centralSection tarjeta">
+            <h1>Inicio de sesión de usuarios WALLAPIDEA</h1>
+            <h3><%=status%></h3>
+            <form id="login" action="InicioSesionServlet" method="post">
+                Usuario:<br/>
+                <input type="text" name="user" value="" /><br/>
+                Contraseña: <br/>
+                <input type="password" name="pass" value="" /><br/>
+                <div id="loginButton" class="tarjeta button" onclick="document.forms['login'].submit();">
+                    Inicio sesión
+                </div>
+            </form>
+            <h2>    O registrate si no lo estás:</h2>
+            <div class="tarjeta button" onclick="location.href='Registro.jsp';">
+                Registro
+            </div>
+        </div>
     </body>
 </html>
