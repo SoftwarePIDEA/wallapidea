@@ -68,7 +68,6 @@
                     %>
                     
                     <div class="producto">
-                        
                      
                         <img src=<%= p.getFoto()%>>
                         <h1><%= p.getTitulo()%></h1>
@@ -76,7 +75,6 @@
                         <div  class="tarjeta button editar" onclick="location.href='preModiProducto?idProducto=<%=p.getProductId()%>'">Editar</div>
                         <div  class="tarjeta button eliminar" onclick="location.href='EliminarProducto?idProducto=<%=p.getProductId()%>'">Eliminar</div>
                         
-                      
                     </div>
                     
                     <%

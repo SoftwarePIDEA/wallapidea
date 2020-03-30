@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import wallapidea.entity.Palabraclave;
 import wallapidea.entity.Usuario;
+import wallapidea.entity.Producto;
 
 /**
  *
@@ -47,6 +48,16 @@ public class PalabraclaveFacade extends AbstractFacade<Palabraclave> {
         //Si no hay saltará una excepción y la variable pc seguirá siendo null, si hay palabara clave pc se actualizará a su valor de Palabra clave
         return pc!=null; //Si es null-> no existe ninguna Palabraclave-> devuelve FALSE, si no -> existe una Palabaclave ya en la bd con esa palabra -> devuelve TRUE
         //Para llamar a este metodo se instancia en cualquier servlet un PalabraclaveFacade y se llama al metodo existsPalabra y se le pasa como argumento la palabra que queremos comprobar que existe.
+    }
+    
+       public void deleteByProduct (Producto productId) {
+        Query q;
+        // Las "Named Query" son consultas predefinidas que se ubican antes de la declaración
+        // de la clase entidad, en este caso, "Administrador":
+        // @NamedQuery(name = "Administrador.findByEmail", query = "SELECT a FROM Administrador a WHERE a.email = :email")
+        q = this.getEntityManager().createNamedQuery("Palabraclave.deleteByProductId");
+        q.setParameter("productId", productId); // Los parámetros son aquellas cadenas de caracteres que van precedidas de los dos puntos.
+        q.executeUpdate();
     }
     
 }
