@@ -6,10 +6,14 @@
 package wallapidea.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+
 import java.util.Arrays;
+
 import java.util.List;
 import javax.ejb.EJB;
+
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +26,7 @@ import wallapidea.dao.PalabraclaveFacade;
 import wallapidea.dao.ProductoFacade;
 import wallapidea.entity.Categoria;
 import wallapidea.entity.Palabraclave;
+
 import wallapidea.entity.Producto;
 import wallapidea.entity.Usuario;
 
@@ -31,6 +36,9 @@ import wallapidea.entity.Usuario;
  */
 @WebServlet(name = "ModificarProducto", urlPatterns = {"/ModificarProducto"})
 public class ModificarProducto extends HttpServlet {
+
+    @EJB
+    private PalabraclaveFacade palabraclaveFacade;
 
    
 
@@ -66,10 +74,9 @@ public class ModificarProducto extends HttpServlet {
         String precio = request.getParameter("precioProducto");
         String foto = request.getParameter("fotoProducto");
         String  pCs = request.getParameter("palabrasClaveProducto"); 
-        String [] palabrasClave = pCs.split("");
-        
-        
-        System.out.print(foto);
+        System.out.println(pCs);
+        String [] palabrasClave = pCs.split(" ");
+     
        
         
         // obtengo el producto por atributos
@@ -81,6 +88,24 @@ public class ModificarProducto extends HttpServlet {
         Categoria categoria = categoriaFacade.find(Integer.parseInt(categoriaId));
         
         System.out.print(categoria.getCatId());
+        
+        List<Palabraclave> listaClaves = new ArrayList<>() ; 
+         //añadimos nuevas palabras clave
+        for(String pc : palabrasClave){
+               
+           if(!palabraclaveFacade.existsPalabra(pc)){
+               
+               palabraclaveFacade.insertPalabraClave(pc);
+             
+           } 
+            
+        }
+        
+       
+        
+        //actulizamos p.clave a producto 
+        //producto.setPalabraclaveList(producto.getPalabraclaveList());
+        
         
         // actualizo valores del producto 
         producto.setCatId(categoria);
@@ -94,13 +119,7 @@ public class ModificarProducto extends HttpServlet {
      
         lista.add(producto);
         
-        //añadimos nuevas palabras clave
-        for(String pc : palabrasClave){
-            
-        }
-        
-         // actulizamos p.clave a producto 
-         //producto.setPalabraclaveList();
+       
          
         RequestDispatcher rd = request.getRequestDispatcher("PerfilUsuario.jsp");
         rd.forward(request, response);

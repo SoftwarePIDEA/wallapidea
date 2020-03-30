@@ -45,7 +45,7 @@ Producto producto = (Producto)request.getAttribute("producto");
         Foto : <input type="file" name="fotoProducto" placeholder="Description" value="<%=producto.getFoto()%>" /> <br/>
         Palabras Clave actuales :<br/>
         <% for(Palabraclave pc : producto.getPalabraclaveList()){%>
-        <input type="text" name="palabrasClaveProducto" value="<%=pc.getPalabra()%>" /><br/>
+        <input type="text" name="" value="<%=pc.getPalabra()%>" /><br/>
         <% } %>
         
         Palabras Clave :<br/> <textarea name="palabrasClaveProducto" rows="5" cols="50">
