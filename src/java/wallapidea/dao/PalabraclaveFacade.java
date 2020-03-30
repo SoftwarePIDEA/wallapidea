@@ -50,14 +50,4 @@ public class PalabraclaveFacade extends AbstractFacade<Palabraclave> {
         //Para llamar a este metodo se instancia en cualquier servlet un PalabraclaveFacade y se llama al metodo existsPalabra y se le pasa como argumento la palabra que queremos comprobar que existe.
     }
     
-       public void deleteByProduct (Producto productId) {
-        Query q;
-        // Las "Named Query" son consultas predefinidas que se ubican antes de la declaración
-        // de la clase entidad, en este caso, "Administrador":
-        // @NamedQuery(name = "Administrador.findByEmail", query = "SELECT a FROM Administrador a WHERE a.email = :email")
-        q = this.getEntityManager().createNamedQuery("Palabraclave.deleteByProductId");
-        q.setParameter("productId", productId); // Los parámetros son aquellas cadenas de caracteres que van precedidas de los dos puntos.
-        q.executeUpdate();
-    }
-    
 }

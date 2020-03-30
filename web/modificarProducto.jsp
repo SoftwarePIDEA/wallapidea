@@ -42,7 +42,7 @@ Producto producto = (Producto)request.getAttribute("producto");
         Titulo Producto : <input type="text" name="tituloProducto" value="<%=producto.getTitulo()%>" /><br/>
         Descripción Producto :<br/> <textarea name="descripcion" ><%=producto.getDescripcion()%></textarea><br/>
         Precio : <input type="text" name="precioProducto" value="<%=producto.getPrecio()%>" /><br/>
-        Foto : <input type="file" name="fotoProducto" placeholder="Description" value="<%=producto.getFoto()%>" > <br/>
+        Foto : <input type="file" name="fotoProducto" placeholder="Description" value="<%=producto.getFoto()%>" /> <br/>
         Palabras Clave actuales :<br/>
         <% for(Palabraclave pc : producto.getPalabraclaveList()){%>
         <input type="text" name="palabrasClaveProducto" value="<%=pc.getPalabra()%>" /><br/>
