@@ -202,7 +202,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "wallapidea.entity.Producto[ productId=" + productId + " ]";
+        return "PRODUCTO: " + productId + ". ";
     }
     
 }

@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 import java.util.List;
 import javax.ejb.EJB;
-
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,11 +40,8 @@ public class ModificarProducto extends HttpServlet {
     @EJB
     private PalabraclaveFacade palabraclaveFacade;
 
-   
-
     @EJB
     private ProductoFacade productoFacade;
-
 
     @EJB
     private CategoriaFacade categoriaFacade;
@@ -61,11 +58,10 @@ public class ModificarProducto extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         HttpSession session = request.getSession();
-        Usuario u = (Usuario)session.getAttribute("usuario");
-        
-       
+        Usuario u = (Usuario) session.getAttribute("usuario");
+
         // obtengo datos nuevos del producto
         String idP = request.getParameter("productoId");
         String categoriaId = request.getParameter("idCategoria");
@@ -73,58 +69,59 @@ public class ModificarProducto extends HttpServlet {
         String descripcion = request.getParameter("descripcion");
         String precio = request.getParameter("precioProducto");
         String foto = request.getParameter("fotoProducto");
-        String  pCs = request.getParameter("palabrasClaveProducto"); 
+        String pCs = request.getParameter("palabrasClaveProducto");
         System.out.println(pCs);
-        String [] palabrasClave = pCs.split(" ");
-     
-       
-        
+        pCs = pCs.replaceAll("\\s+","").toUpperCase();
+        String[] palabrasClave = pCs.split(",");
+
         // obtengo el producto por atributos
         Producto producto = productoFacade.find(Integer.parseInt(idP));
-        List<Producto>lista=u.getProductoList();
+        List<Producto> lista = u.getProductoList();
         lista.remove(producto);
-        
-        // obtengo categoría nueva del producto 
+
+        // obtengo categoría nueva del producto
         Categoria categoria = categoriaFacade.find(Integer.parseInt(categoriaId));
-        
         System.out.print(categoria.getCatId());
-        
-        List<Palabraclave> listaClaves = new ArrayList<>() ; 
-         //añadimos nuevas palabras clave
-        for(String pc : palabrasClave){
-               
-           if(!palabraclaveFacade.existsPalabra(pc)){
-               
-               palabraclaveFacade.insertPalabraClave(pc);
-             
-           } 
-            
+        List<Palabraclave> listaClave = new LinkedList<>();
+        List<Producto> listaProd; 
+        //añadimos nuevas palabras clave
+        Palabraclave pclave;
+        for (String palabra : palabrasClave) {
+            if (!palabraclaveFacade.existsPalabra(palabra)) {
+                pclave= new Palabraclave();
+                listaProd= new LinkedList<>();
+                pclave.setPalabra(palabra);
+                pclave.setProductoList(listaProd);
+                palabraclaveFacade.create(pclave);             
+            }
+                pclave= palabraclaveFacade.findByPalabra(palabra);
+                listaProd = pclave.getProductoList();
+                listaProd.add(producto);
+                pclave.setProductoList(listaProd);
+                palabraclaveFacade.edit(pclave);
+                     
+         listaClave.add(pclave);
         }
-        
-       
-        
-        //actulizamos p.clave a producto 
+
+        //actulizamos p.clave a producto
         //producto.setPalabraclaveList(producto.getPalabraclaveList());
-        
-        
-        // actualizo valores del producto 
+        // actualizo valores del producto
         producto.setCatId(categoria);
         producto.setTitulo(titulo);
         producto.setDescripcion(descripcion);
         producto.setPrecio(Double.parseDouble(precio));
         producto.setFoto(foto);
-        
-        
-        productoFacade.updateByProduct(producto.getProductId(),producto.getCatId(),producto.getTitulo(),producto.getDescripcion(),producto.getPrecio(), producto.getFoto(),producto.getValoracionmedia());
-     
+        producto.setPalabraclaveList(listaClave);
+        productoFacade.edit(producto);
+        productoFacade.updateByProduct(producto.getProductId(), producto.getCatId(), producto.getTitulo(), producto.getDescripcion(), producto.getPrecio(), producto.getFoto(), producto.getValoracionmedia());
+
         lista.add(producto);
-        
-       
-         
+
         RequestDispatcher rd = request.getRequestDispatcher("PerfilUsuario.jsp");
         rd.forward(request, response);
-   
+
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

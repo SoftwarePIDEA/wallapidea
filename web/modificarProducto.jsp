@@ -12,6 +12,7 @@
 // hay que enviar el producto por Attribute 
 
 Producto producto = (Producto)request.getAttribute("producto");
+String palabrasclavesstring="";
 
 %>
 <html>
@@ -44,13 +45,18 @@ Producto producto = (Producto)request.getAttribute("producto");
         Precio : <input type="text" name="precioProducto" value="<%=producto.getPrecio()%>" /><br/>
         Foto : <input type="file" name="fotoProducto" placeholder="Description" value="<%=producto.getFoto()%>" /> <br/>
         Palabras Clave actuales :<br/>
-        <% for(Palabraclave pc : producto.getPalabraclaveList()){%>
-        <input type="text" name="" value="<%=pc.getPalabra()%>" /><br/>
+        <% for(Palabraclave pc : producto.getPalabraclaveList()){
+            String pal= pc.getPalabra();
+            if(palabrasclavesstring==""){
+                palabrasclavesstring=pal;
+            }else{
+                palabrasclavesstring=palabrasclavesstring+","+pal;
+            }
+        %>
+        <input disabled type="text" name="" value="<%=pal%>" /><br/>
         <% } %>
         
-        Palabras Clave :<br/> <textarea name="palabrasClaveProducto" rows="5" cols="50">
-        Introduzca las Palabras Clave separadas por espacio 
-        </textarea><br/>
+        Palabras Clave :<br/> <textarea name="palabrasClaveProducto" rows="5" cols="50"><%=palabrasclavesstring%></textarea><br/>
         <input type="submit" value="Enviar modificación">
         </form>    
     </body>
