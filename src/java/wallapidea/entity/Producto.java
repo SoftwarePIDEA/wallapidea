@@ -52,17 +52,17 @@ public class Producto implements Serializable {
     @Basic(optional = false)
     @Column(name = "PRODUCT_ID")
     private Integer productId;
-    @Size(max = 50)
-    @Column(name = "TITULO")
+    //@Size(max = 50)
+    @Column(name = "TITULO", length=50)
     private String titulo;
-    @Size(max = 200)
-    @Column(name = "DESCRIPCION")
+    //@Size(max = 200)
+    @Column(name = "DESCRIPCION", length=200)
     private String descripcion;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "PRECIO")
     private Double precio;
-    @Size(max = 500)
-    @Column(name = "FOTO")
+    //@Size(max = 500)
+    @Column(name = "FOTO" , length=500)
     private String foto;
     @Column(name = "FECHAYHORA")
     @Temporal(TemporalType.DATE)

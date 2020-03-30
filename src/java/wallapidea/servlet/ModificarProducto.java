@@ -74,7 +74,8 @@ public class ModificarProducto extends HttpServlet {
         
         // obtengo el producto por atributos
         Producto producto = productoFacade.find(Integer.parseInt(idP));
-        
+        List<Producto>lista=u.getProductoList();
+        lista.remove(producto);
         
         // obtengo categoría nueva del producto 
         Categoria categoria = categoriaFacade.find(Integer.parseInt(categoriaId));
@@ -87,10 +88,11 @@ public class ModificarProducto extends HttpServlet {
         producto.setDescripcion(descripcion);
         producto.setPrecio(Double.parseDouble(precio));
         producto.setFoto(foto);
-    
         
-        productoFacade.updateByProduct(producto);
+        
+        productoFacade.updateByProduct(producto.getProductId(),producto.getCatId(),producto.getTitulo(),producto.getDescripcion(),producto.getPrecio(), producto.getFoto(),producto.getValoracionmedia());
      
+        lista.add(producto);
         
         //añadimos nuevas palabras clave
         for(String pc : palabrasClave){

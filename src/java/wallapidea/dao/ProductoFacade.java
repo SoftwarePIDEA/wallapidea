@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import wallapidea.entity.Categoria;
 import wallapidea.entity.Producto;
 
 /**
@@ -30,14 +31,20 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         super(Producto.class);
     }
     
-     public void updateByProduct (Producto producto) {
+     public void updateByProduct (Integer id , Categoria categoria , String titulo , String descripcion , Double precio , String foto , Double valoracionmedia) {
         Query q;
         // Las "Named Query" son consultas predefinidas que se ubican antes de la declaración
         // de la clase entidad, en este caso, "Administrador":
         // @NamedQuery(name = "Administrador.findByEmail", query = "SELECT a FROM Administrador a WHERE a.email = :email")
-        q = this.getEntityManager().createQuery("UPDATE Producto p set p.catId = "+ producto.getCatId().getCatId() + ", p.titulo = '" + producto.getTitulo() + "', p.descripcion = '"+producto.getDescripcion()+"', "
-                + "  p.precio =  " + producto.getPrecio()  +  ",  p.foto =  '"+ producto.getFoto() +"',  p.valoracionmedia = "+producto.getValoracionmedia()+" WHERE p.productId = " + producto.getProductId());
-        q.setParameter("producto", producto); // Los parámetros son aquellas cadenas de caracteres que van precedidas de los dos puntos.
+        q = this.getEntityManager().createQuery("UPDATE Producto p set p.catId = :categoria , p.titulo = :titulo , p.descripcion = :descripcion , "
+                + "  p.precio = :precio ,  p.foto = :foto ,  p.valoracionmedia = :valoracionmedia  WHERE p.productId = :id " );
+        q.setParameter("categoria", categoria); // Los parámetros son aquellas cadenas de caracteres que van precedidas de los dos puntos.
+        q.setParameter("titulo", titulo);
+        q.setParameter("descripcion", descripcion);
+        q.setParameter("precio", precio);
+        q.setParameter("foto", foto);
+        q.setParameter("valoracionmedia", valoracionmedia);
+        q.setParameter("id", id);
         q.executeUpdate();
                 
                 
