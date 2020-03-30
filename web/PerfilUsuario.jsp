@@ -43,7 +43,7 @@
     <body>
         <div class="header">
             <form name="requestForm" method="post">
-                <div class="tarjeta button cerrarSesion" onclick="llamarServlet('CerrarSesionServlet')">Cerrar sesión</div>
+                <div class="tarjeta button cerrarSesion" onclick="location.href='CerrarSesionServlet'">Cerrar sesión</div>
             </form>
             <h1>Bienvenido, <%= u.getNombre() %></h1>
         </div>
