@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Palabraclave.findAll", query = "SELECT p FROM Palabraclave p")
     , @NamedQuery(name = "Palabraclave.findById", query = "SELECT p FROM Palabraclave p WHERE p.id = :id")
+    , @NamedQuery(name = "Palabraclave.existsPalabra", query = "SELECT p FROM Palabraclave p WHERE p.palabra = :palabra")
     , @NamedQuery(name = "Palabraclave.findByPalabra", query = "SELECT p FROM Palabraclave p WHERE p.palabra = :palabra")})
 public class Palabraclave implements Serializable {
 

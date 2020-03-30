@@ -18,14 +18,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
         <title>Inicio de sesión</title>
-        
-        <script>
-            function llamarServlet(direccion)
-            {
-                document.requestForm.action = direccion;
-                document.requestForm.submit();
-            }
-        </script>
     </head>
     <body>
         <div class="header">
