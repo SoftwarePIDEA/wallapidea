@@ -86,6 +86,7 @@ public class ModificarProducto extends HttpServlet {
         List<Producto> listaProd; 
         //añadimos nuevas palabras clave
         Palabraclave pclave;
+        if(palabrasClave.length>0 && !palabrasClave[0].equals("")){
         for (String palabra : palabrasClave) {
             if (!palabraclaveFacade.existsPalabra(palabra)) {
                 pclave= new Palabraclave();
@@ -102,7 +103,7 @@ public class ModificarProducto extends HttpServlet {
                      
          listaClave.add(pclave);
         }
-
+        }
         //actulizamos p.clave a producto
         //producto.setPalabraclaveList(producto.getPalabraclaveList());
         // actualizo valores del producto
