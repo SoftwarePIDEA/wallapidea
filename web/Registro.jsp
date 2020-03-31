@@ -17,7 +17,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
-        <title>Registro de un usuario</title>
+        <title>Registrarse en Wallapidea</title>
     </head>
     <body>
          <div class="header">

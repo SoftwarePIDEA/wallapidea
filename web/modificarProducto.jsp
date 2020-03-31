@@ -19,7 +19,7 @@ String palabrasclavesstring="";
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
-        <title>JSP Page</title>
+        <title>ADMIN: Modificar producto</title>
     </head>
     <body>
         <h1>Modificar Producto</h1>
