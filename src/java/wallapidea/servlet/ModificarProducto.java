@@ -6,14 +6,9 @@
 package wallapidea.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import java.util.Arrays;
 import java.util.LinkedList;
-
 import java.util.List;
 import javax.ejb.EJB;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +21,6 @@ import wallapidea.dao.PalabraclaveFacade;
 import wallapidea.dao.ProductoFacade;
 import wallapidea.entity.Categoria;
 import wallapidea.entity.Palabraclave;
-
 import wallapidea.entity.Producto;
 import wallapidea.entity.Usuario;
 
@@ -82,27 +76,32 @@ public class ModificarProducto extends HttpServlet {
         // obtengo categoría nueva del producto
         Categoria categoria = categoriaFacade.find(Integer.parseInt(categoriaId));
         System.out.print(categoria.getCatId());
-        List<Palabraclave> listaClave = new LinkedList<>();
-        List<Producto> listaProd; 
+        //Creamos la lista de productos que va a tener una pclave(listaProd) y la lista de palabras clave que va a tener nuestro producto (listaClave)
+        List<Palabraclave> listaClave = new LinkedList<>(); //siempre es nueva ya que las cogemos del campo de texto (textarea)
+        List<Producto> listaProd; //La lista de productos de una palabra clave existe ya si la palabra ya era palabra clave.
         //añadimos nuevas palabras clave
         Palabraclave pclave;
         if(palabrasClave.length>0 && !palabrasClave[0].equals("")){
-        for (String palabra : palabrasClave) {
-            if (!palabraclaveFacade.existsPalabra(palabra)) {
-                pclave= new Palabraclave();
-                listaProd= new LinkedList<>();
-                pclave.setPalabra(palabra);
-                pclave.setProductoList(listaProd);
-                palabraclaveFacade.create(pclave);             
+            for (String palabra : palabrasClave) {
+                if (!palabraclaveFacade.existsPalabra(palabra)) { //creamos una pclave si antes no existia en la bd
+                    pclave= new Palabraclave();
+                    listaProd= new LinkedList<>();
+                    pclave.setPalabra(palabra);
+                    pclave.setProductoList(listaProd);
+                    palabraclaveFacade.create(pclave);             
+                }
+                pclave= palabraclaveFacade.findByPalabra(palabra); //se busca esa palabraclave (estamos seguros de que essta porque si no estaba la hemos creado antes.)
+                listaProd = pclave.getProductoList(); //vemos su lista de productos (si es nueva o no tiene ningun producto estara vacía)
+                if(!listaProd.contains(producto)){
+                    listaProd.add(producto); //le añadimos nuestro producto (si ya está..?)
+                    pclave.setProductoList(listaProd);  
+                    palabraclaveFacade.edit(pclave); 
+                }
+                //editamos esa palabraclave
+                if(!listaClave.contains(pclave)){
+                    listaClave.add(pclave);
+                }              
             }
-                pclave= palabraclaveFacade.findByPalabra(palabra);
-                listaProd = pclave.getProductoList();
-                listaProd.add(producto);
-                pclave.setProductoList(listaProd);
-                palabraclaveFacade.edit(pclave);
-                     
-         listaClave.add(pclave);
-        }
         }
         //actulizamos p.clave a producto
         //producto.setPalabraclaveList(producto.getPalabraclaveList());
