@@ -77,7 +77,7 @@ public class EliminarProducto extends HttpServlet {
         // ver como hacer el cascade para que elimine demás relaciones en base de datos 
         productoFacade.remove(producto);
         
-        List<Producto> productos = buscarProductoService.getAll(); 
+        List<Producto> productos = buscarProductoService.getAll(u.getUsuarioId()); 
         
         /// hay que controlar como se llama realmente esta jsp 
         // Si es admin lo envia al panel de admin de productos

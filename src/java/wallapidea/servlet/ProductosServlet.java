@@ -43,16 +43,19 @@ public class ProductosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {     
         response.setContentType("text/html;charset=UTF-8");
+        
         String buscar = request.getParameter("busqueda");
         List<Producto> productos;
+        HttpSession session = request.getSession();
+        Usuario user = (Usuario)session.getAttribute("usuario");
         
          HttpSession session = request.getSession();
         Usuario u = (Usuario) session.getAttribute("usuario");
         
         if(buscar == null || buscar.equals("")){
-           productos = buscarProductoService.getAll(); 
+           productos = buscarProductoService.getAll(user.getUsuarioId()); 
         }else{
-           productos = buscarProductoService.findByKeys(buscar);
+           productos = buscarProductoService.findByKeys(buscar, user.getUsuarioId());
         }
         
         request.setAttribute("productos", productos);
