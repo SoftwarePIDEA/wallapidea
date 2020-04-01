@@ -76,7 +76,7 @@
                     <b> USUARIO: </b> <%=us.getNombre()%></BR>
                     <b>  ADMIN: </b> <%=us.getIsadmin()%></BR>
                     <%if(!us.getIsadmin()){%><b> CONTRASEÑA: </b> <%= us.getPass()  %></BR> <% } %>
-                    <div  class="tarjeta button editar" onclick="location.href='ModificarUsuario?id=<%=us%>'">Editar</div>
+                    <div  class="tarjeta button editar" onclick="location.href='preModiUsuario?id=<%=us.getUsuarioId()%>'">Editar</div>
                     <div  class="tarjeta button eliminar" onclick="location.href='EliminarUsuario?id=<%=us.getUsuarioId()%>'">Eliminar</div>
                 </div>
                <% } %>               

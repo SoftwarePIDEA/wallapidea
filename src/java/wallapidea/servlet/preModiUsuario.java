@@ -7,7 +7,6 @@ package wallapidea.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,12 +19,14 @@ import wallapidea.entity.Usuario;
 
 /**
  *
- * @author Pablo
+ * @author ivanl
  */
-@WebServlet(name = "AnyadirUsuario", urlPatterns = {"/AnyadirUsuario"})
-public class AnyadirUsuario extends HttpServlet {
-   @EJB
+@WebServlet(name = "preModiUsuario", urlPatterns = {"/preModiUsuario"})
+public class preModiUsuario extends HttpServlet {
+
+    @EJB
     private UsuarioFacade usuarioFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,46 +37,22 @@ public class AnyadirUsuario extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException { // String user, String pass, bool admin
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher rd;
-        Usuario usuario=null;
-        String status;
-        //OBTENEMOS LOS PARAMETROS DEL FORM DE AnyadirUsuario.jsp
-        String user= request.getParameter("user");
-        String pass= request.getParameter("pass");
-        String isAdminParameter= request.getParameter("isAdmin");
-        Boolean isAdmin;
-        if (isAdminParameter.equals("0")){
-            isAdmin=false;
-        }else{
-            isAdmin=true;
-        }
-
-        System.out.println("Intentamos Anyadir Usuario: "+user+"-"+pass+"-"+isAdmin);
-        if(!usuarioFacade.isNombreRegistered(user)){
-            usuario = new Usuario();
-            usuario.setNombre(user);
-            usuario.setPass(pass);
-            usuario.setIsadmin(isAdmin);
-            usuarioFacade.create(usuario);
-            status = "Usuario registrado correctamente en wallaPIDEA";
-            System.out.println(status);
-            request.setAttribute("status", status);
-            List<Usuario> listaUsuarios=usuarioFacade.findAll();
-            request.setAttribute("listaUsuarios", listaUsuarios);
-            rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
-            rd.forward(request, response);
-        }else{
-            status = "El usuario ya existe en wallaPIDEA";
-            System.out.println(status);
-            request.setAttribute("status", status);
-            rd = request.getRequestDispatcher("AnyadirUsuario.jsp");
-            rd.forward(request, response); 
-        }
-            
-    }
         
+        
+       String id = request.getParameter("id");
+        // obtenemos el producto
+       Usuario usuario = usuarioFacade.find(Integer.parseInt(id));
+       System.out.print(id);
+       System.out.print(usuario);
+       
+       request.setAttribute("usuario", usuario);
+       
+       RequestDispatcher rd = request.getRequestDispatcher("modificarUsuario.jsp");
+       rd.forward(request, response);
+        }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
