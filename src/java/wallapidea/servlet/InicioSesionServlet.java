@@ -7,7 +7,6 @@ package wallapidea.servlet;
 
 
 import java.io.IOException;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -50,12 +49,10 @@ public class InicioSesionServlet extends HttpServlet {
         String status;
         
         try{
-            System.out.println(user);
             usuario = this.usuarioFacade.findByNombre(user);        
         }
         catch(Exception exc){
             status=exc.getMessage();
-            System.out.println(status);
         }
         if (usuario == null || !usuario.getPass().equals(pass) ) {             
             status = "El usuario o la contraseña es incorrecto";

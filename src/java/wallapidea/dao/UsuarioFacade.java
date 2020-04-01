@@ -31,14 +31,19 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     }
         public Usuario findByNombre (String nombre) {
         Query q;
-        Usuario usuario;
+        Usuario usuario=null;
         
         // Las "Named Query" son consultas predefinidas que se ubican antes de la declaración
         // de la clase entidad, en este caso, "Administrador":
         // @NamedQuery(name = "Administrador.findByEmail", query = "SELECT a FROM Administrador a WHERE a.email = :email")
         q = this.getEntityManager().createNamedQuery("Usuario.findByNombre");
         q.setParameter("nombre", nombre); // Los parámetros son aquellas cadenas de caracteres que van precedidas de los dos puntos.
-        usuario = (Usuario) q.getSingleResult();
+        try{
+            usuario = (Usuario) q.getSingleResult();
+        }catch(Exception exc){
+            System.out.println("ERROR: "+exc.toString());
+        }
+        
         return usuario;
     }
         
