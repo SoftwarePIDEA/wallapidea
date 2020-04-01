@@ -17,9 +17,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>ADMIN: Añadir usuario</title>
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <h3><%=status%></h3>
+        <div class="header">
+            &nbsp;
+        </div>
+        <div class="centralSection tarjeta">
+        <h1><%=status%></h1>
          <form name="anyadirusuario" action="AnyadirUsuario" method="POST">
             Email: <input type="text" name="user" value="" /><br/>
             Contraseña: <input type="password" name="pass" value="" /><br/>
@@ -29,5 +34,6 @@
             </select><br/>
             <input type="submit" value="Añadir">
          </form>
+        </div>
     </body>
 </html>
