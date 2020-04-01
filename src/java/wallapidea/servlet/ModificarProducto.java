@@ -23,6 +23,7 @@ import wallapidea.entity.Categoria;
 import wallapidea.entity.Palabraclave;
 import wallapidea.entity.Producto;
 import wallapidea.entity.Usuario;
+import wallapidea.service.BuscarProductoService;
 
 /**
  *
@@ -30,6 +31,9 @@ import wallapidea.entity.Usuario;
  */
 @WebServlet(name = "ModificarProducto", urlPatterns = {"/ModificarProducto"})
 public class ModificarProducto extends HttpServlet {
+
+    @EJB
+    private BuscarProductoService buscarProductoService;
 
     @EJB
     private PalabraclaveFacade palabraclaveFacade;
@@ -114,9 +118,22 @@ public class ModificarProducto extends HttpServlet {
         productoFacade.edit(producto);
         productoFacade.updateByProduct(producto.getProductId(), producto.getCatId(), producto.getTitulo(), producto.getDescripcion(), producto.getPrecio(), producto.getFoto(), producto.getValoracionmedia());
         lista.add(producto);
+        
+        if(u.getIsadmin()){
+            
+            List<Producto> productos = buscarProductoService.getAll(); 
+        
+        /// hay que controlar como se llama realmente esta jsp 
+        // Si es admin lo envia al panel de admin de productos
+       
+            request.setAttribute("productos", productos);
+        RequestDispatcher rd = request.getRequestDispatcher("ListadoProductos.jsp");
+        rd.forward(request, response);    
+            
+        }else{
         RequestDispatcher rd = request.getRequestDispatcher("PerfilUsuario.jsp");
         rd.forward(request, response);
-
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

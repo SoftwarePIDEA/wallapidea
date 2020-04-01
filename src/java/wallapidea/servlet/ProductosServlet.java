@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import wallapidea.dao.ProductoFacade;
 import wallapidea.entity.Producto;
 import wallapidea.entity.Usuario;
@@ -45,6 +46,9 @@ public class ProductosServlet extends HttpServlet {
         String buscar = request.getParameter("busqueda");
         List<Producto> productos;
         
+         HttpSession session = request.getSession();
+        Usuario u = (Usuario) session.getAttribute("usuario");
+        
         if(buscar == null || buscar.equals("")){
            productos = buscarProductoService.getAll(); 
         }else{
@@ -52,8 +56,14 @@ public class ProductosServlet extends HttpServlet {
         }
         
         request.setAttribute("productos", productos);
-        RequestDispatcher rd = request.getRequestDispatcher("PanelProductos.jsp");
+       if(u.getIsadmin()){
+           RequestDispatcher rd = request.getRequestDispatcher("ListadoProductos.jsp");
         rd.forward(request, response);
+       }else{
+           RequestDispatcher rd = request.getRequestDispatcher("PanelProductos.jsp");
+        rd.forward(request, response);
+       }
+        
         
     }
 
