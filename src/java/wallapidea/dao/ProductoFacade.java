@@ -54,8 +54,8 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     public List<Producto> findByKey(String key){
         Query q;
         
-        q = this.getEntityManager().createQuery("SELECT p FROM Producto p, Palabraclave pc WHERE p IN (pc.productoList) AND pc.palabra LIKE :palabra");
-        q.setParameter("palabra", "%" + key + "%");
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p, Palabraclave pc WHERE p IN (pc.productoList) AND UPPER(pc.palabra) LIKE :palabra");
+        q.setParameter("palabra", "%" + key.toUpperCase() + "%");
         
         return q.getResultList();
     }
