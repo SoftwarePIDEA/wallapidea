@@ -28,12 +28,13 @@ public class BuscarProductoService {
     @EJB
     private ProductoFacade productoFacade;
     
-    public List<Producto> getAll(){
-        return this.productoFacade.findAll();
+    public List<Producto> getAll(int user_id){
+        return this.productoFacade.findAllExceptUserProduct(user_id);
     }
     
-    
-    public List<Producto> findByKeys(String keys){
-        return this.productoFacade.findByKey(keys);
+    //busca todos los productos que coinciden con las palabras claves
+    //y no son productos subidos por el usuario
+    public List<Producto> findByKeys(String keys, int user_id){
+        return this.productoFacade.findByKey(keys, user_id);
     }
 }

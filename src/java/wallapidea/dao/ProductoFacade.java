@@ -51,16 +51,32 @@ public class ProductoFacade extends AbstractFacade<Producto> {
                 
     }
      
-    public List<Producto> findByKey(String key){
+    //busca todos los productos que coinciden con las palabras claves
+    //y no son productos subidos por el usuario
+    public List<Producto> findByKey(String key, int user_id){
         Query q;
-        
-        q = this.getEntityManager().createQuery("SELECT p FROM Producto p, Palabraclave pc WHERE p IN (pc.productoList) AND UPPER(pc.palabra) LIKE :palabra");
+
+        q = this.getEntityManager().createQuery("SELECT p " 
+                                                + "FROM Producto p, Palabraclave pc "
+                                                + "WHERE p IN (pc.productoList) AND "
+                                                + "UPPER(pc.palabra) LIKE :palabra AND "
+                                                + "p.usuarioId.usuarioId <> :user_id");
         q.setParameter("palabra", "%" + key.toUpperCase() + "%");
+        q.setParameter("user_id", user_id);
         
         return q.getResultList();
     }
      
-     
+    
+    public List<Producto> findAllExceptUserProduct(int user_id){
+        Query q;
+        
+        q = this.getEntityManager().createQuery("SELECT P FROM Producto p WHERE p.usuarioId.usuarioId <> :user_id");
+        
+        q.setParameter("user_id", user_id);
+        
+        return q.getResultList();
+    }
     
     
     
