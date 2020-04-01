@@ -5,6 +5,7 @@
  */
 package wallapidea.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -48,6 +49,15 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         q.executeUpdate();
                 
                 
+    }
+     
+    public List<Producto> findByKey(String key){
+        Query q;
+        
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p, Palabraclave pc WHERE p IN (pc.productoList) AND pc.palabra LIKE :palabra");
+        q.setParameter("palabra", "%" + key + "%");
+        
+        return q.getResultList();
     }
      
      

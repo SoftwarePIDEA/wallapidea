@@ -70,6 +70,11 @@ public class PalabraclaveFacade extends AbstractFacade<Palabraclave> {
         //Para llamar a este metodo se instancia en cualquier servlet un PalabraclaveFacade y se llama al metodo existsPalabra y se le pasa como argumento la palabra que queremos comprobar que existe.
     }
     
+    public List<Integer> finAllByPalabraClave(){
+        return null;
+    }
+        
+        
      public void insertPalabraClave (String palabraClave) {
         EntityManager em ; 
         em = this.getEntityManager();

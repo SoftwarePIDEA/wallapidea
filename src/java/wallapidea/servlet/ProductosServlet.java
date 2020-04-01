@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import wallapidea.dao.ProductoFacade;
 import wallapidea.entity.Producto;
 import wallapidea.entity.Usuario;
+import wallapidea.service.BuscarProductoService;
 
 /**
  *
@@ -27,7 +28,7 @@ import wallapidea.entity.Usuario;
 public class ProductosServlet extends HttpServlet {
 
     @EJB
-    private ProductoFacade productoFacade;
+    private BuscarProductoService buscarProductoService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,7 +44,15 @@ public class ProductosServlet extends HttpServlet {
         
         
         response.setContentType("text/html;charset=UTF-8");
-        List<Producto> productos = productoFacade.findAll();
+        String buscar = request.getParameter("busqueda");
+        List<Producto> productos;
+        
+        if(buscar == null || buscar.equals("")){
+           productos = buscarProductoService.getAll(); 
+        }else{
+           productos = buscarProductoService.findByKeys(buscar);
+        }
+        
         request.setAttribute("productos", productos);
         RequestDispatcher rd = request.getRequestDispatcher("PanelProductos.jsp");
         rd.forward(request, response);

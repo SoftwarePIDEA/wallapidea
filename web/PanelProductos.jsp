@@ -17,6 +17,12 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <form action="ProductosServlet" method="post">
+            Buscar Producto: <input type="text" name="busqueda"/>
+            <input type="submit" value="Buscar"/>
+        </form>
+        
+        
         <table border="1">
             <thead>
                 <tr>
