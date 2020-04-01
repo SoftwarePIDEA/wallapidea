@@ -59,11 +59,11 @@ public class ModificarProducto extends HttpServlet {
         // obtengo datos nuevos del producto
         String idP = request.getParameter("productoId");
         String categoriaId = request.getParameter("idCategoria");
-        String titulo = request.getParameter("tituloProducto");
-        String descripcion = request.getParameter("descripcion");
+        String titulo = new String(request.getParameter("tituloProducto").getBytes(),"UTF-8");
+        String descripcion = new String(request.getParameter("descripcion").getBytes(),"UTF-8");
         String precio = request.getParameter("precioProducto");
         String foto = request.getParameter("fotoProducto");
-        String pCs = request.getParameter("palabrasClaveProducto");
+        String pCs = new String(request.getParameter("palabrasClaveProducto").getBytes(),"UTF-8");
         pCs = pCs.replaceAll("\\s+","").toUpperCase();
         String[] palabrasClave = pCs.split(",");
 
@@ -82,6 +82,7 @@ public class ModificarProducto extends HttpServlet {
         //Empezamos a recorrer las palabras claves escritas por el usuario.
         if(palabrasClave.length>0 && !palabrasClave[0].equals("")){
             for (String palabra : palabrasClave) {
+                  palabra = new String(palabra.getBytes(),"UTF-8");
                 if (!palabraclaveFacade.existsPalabra(palabra)) { //creamos una pclave si antes no existia en la bd
                     pclave= new Palabraclave();
                     listaProd= new LinkedList<>();
