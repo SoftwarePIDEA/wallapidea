@@ -47,14 +47,8 @@ public class AnyadirUsuario extends HttpServlet {
         String user= request.getParameter("user");
         String pass= request.getParameter("pass");
         String isAdminParameter= request.getParameter("isAdmin");
-        Boolean isAdmin;
-        if (isAdminParameter.equals("0")){
-            isAdmin=false;
-        }else{
-            isAdmin=true;
-        }
+        Boolean isAdmin= !isAdminParameter.equals("0");
 
-        System.out.println("Intentamos Anyadir Usuario: "+user+"-"+pass+"-"+isAdmin);
         if(!usuarioFacade.isNombreRegistered(user)){
             usuarioService.Anyadir(user, pass, isAdmin);
             status = "Usuario registrado correctamente en wallaPIDEA";
