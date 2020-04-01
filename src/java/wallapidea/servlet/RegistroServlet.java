@@ -7,7 +7,6 @@ package wallapidea.servlet;
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import wallapidea.dao.UsuarioFacade;
 import wallapidea.entity.Usuario;
+import wallapidea.service.UsuarioService;
 
 /**
  *
@@ -27,6 +27,8 @@ import wallapidea.entity.Usuario;
 public class RegistroServlet extends HttpServlet {
     @EJB
         private UsuarioFacade usuarioFacade;
+    @EJB
+        private UsuarioService usuarioService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,30 +42,23 @@ public class RegistroServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher rd;
-        Usuario usuario;
-        Usuario usuarioenbd = null;
-        HttpSession session = request.getSession();
         
         //OBTENEMOS LOS PARAMETROS DEL FORM DE iniciosesion.JSP
         String user= request.getParameter("user");
         String pass= request.getParameter("pass");
-        String status="";
+        String status;
         
         
         //CREAMOS LOS DATOS DE USUARIO
         if(!usuarioFacade.isNombreRegistered(user)){
-            usuario = new Usuario();
-            usuario.setNombre(user);
-            usuario.setPass(pass);
-            usuario.setIsadmin(Boolean.FALSE);
-            usuarioFacade.create(usuario);
+            usuarioService.Anyadir(user, pass, Boolean.FALSE);
             status = "Usuario registrado correctamente en wallaPIDEA";
             request.setAttribute("status", status);
-            rd = request.getRequestDispatcher("Registro.jsp");
+            rd = request.getRequestDispatcher("InicioSesion.jsp");
         }else{
             status = "El usuario ya existe en wallaPIDEA, inicie sesion";
             request.setAttribute("status", status);
-            rd = request.getRequestDispatcher("InicioSesion.jsp");
+            rd = request.getRequestDispatcher("Registro.jsp");
         }
             rd.forward(request, response); 
     }

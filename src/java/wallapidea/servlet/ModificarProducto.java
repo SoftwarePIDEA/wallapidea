@@ -64,7 +64,6 @@ public class ModificarProducto extends HttpServlet {
         String precio = request.getParameter("precioProducto");
         String foto = request.getParameter("fotoProducto");
         String pCs = request.getParameter("palabrasClaveProducto");
-        System.out.println(pCs);
         pCs = pCs.replaceAll("\\s+","").toUpperCase();
         String[] palabrasClave = pCs.split(",");
 
@@ -75,12 +74,12 @@ public class ModificarProducto extends HttpServlet {
 
         // obtengo categoría nueva del producto
         Categoria categoria = categoriaFacade.find(Integer.parseInt(categoriaId));
-        System.out.print(categoria.getCatId());
         //Creamos la lista de productos que va a tener una pclave(listaProd) y la lista de palabras clave que va a tener nuestro producto (listaClave)
         List<Palabraclave> listaClave = new LinkedList<>(); //siempre es nueva ya que las cogemos del campo de texto (textarea)
         List<Producto> listaProd; //La lista de productos de una palabra clave existe ya si la palabra ya era palabra clave.
         //añadimos nuevas palabras clave
         Palabraclave pclave;
+        //Empezamos a recorrer las palabras claves escritas por el usuario.
         if(palabrasClave.length>0 && !palabrasClave[0].equals("")){
             for (String palabra : palabrasClave) {
                 if (!palabraclaveFacade.existsPalabra(palabra)) { //creamos una pclave si antes no existia en la bd
@@ -114,9 +113,7 @@ public class ModificarProducto extends HttpServlet {
         producto.setPalabraclaveList(listaClave);
         productoFacade.edit(producto);
         productoFacade.updateByProduct(producto.getProductId(), producto.getCatId(), producto.getTitulo(), producto.getDescripcion(), producto.getPrecio(), producto.getFoto(), producto.getValoracionmedia());
-
         lista.add(producto);
-
         RequestDispatcher rd = request.getRequestDispatcher("PerfilUsuario.jsp");
         rd.forward(request, response);
 

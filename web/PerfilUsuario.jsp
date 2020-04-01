@@ -45,7 +45,7 @@
         
         <div class="topPanel">
             <form name="requestForm" method="post">
-                <div class="topPanelButton">Editar perfil</div>
+                <div class="topPanelButton" onclick="location.href='EditarPerfil.jsp'">Editar perfil</div>
                 <div class="topPanelButton">Añadir un nuevo producto</div>
                 <div class="topPanelButton" onclick="location.href='ProductosServlet'">Buscar algún producto</div>
             </form>

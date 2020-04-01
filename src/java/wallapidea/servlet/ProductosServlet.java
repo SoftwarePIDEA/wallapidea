@@ -40,9 +40,7 @@ public class ProductosServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        
+            throws ServletException, IOException {     
         response.setContentType("text/html;charset=UTF-8");
         String buscar = request.getParameter("busqueda");
         List<Producto> productos;
