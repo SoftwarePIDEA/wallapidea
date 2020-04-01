@@ -4,6 +4,7 @@
     Author     : ivanl
 --%>
 
+<%@page import="wallapidea.entity.Palabraclave"%>
 <%@page import="wallapidea.entity.Usuario"%>
 <%@page import="java.util.List"%>
 <%@page import="wallapidea.entity.Producto"%>
@@ -62,10 +63,10 @@
         <div class="body">
             
             <div class="tarjeta section">
-             <form action="AdministradorProductosServlet" method="post">
+             <form action="ProductosServlet" method="post">
             <h3>Buscar Producto: <input type="text" name="busqueda"/>
             <input type="submit" value="Buscar"/>
-        </form>
+            </form>
             </div>
             <div class="tarjeta section">
                 <div id="borrarProductos" class="tarjeta button" onclick="activarEliminar()">Borrar o editar algún producto</div>
@@ -86,6 +87,13 @@
                         <h4><b> Fecha: </b></br> <%= p.getFechayhora()    %></h4>
                         <h4> <b>Valoración:</b> <%= p.getValoracionmedia()    %></h4>
                         <h4> <b>Categoría:</b> <%= p.getCatId().getNombreCategoria()  %></h4>
+                        <h4> <b>Palabras Claves: </b>  
+                        <%
+                        for(Palabraclave pc: p.getPalabraclaveList()){
+                            %>
+                            <%= pc.getPalabra()   %>
+                            <% }%>
+                        </h4>
                         <h2><%= p.getPrecio()%> €</h2>
                         <div  class="tarjeta button editar" onclick="location.href='preModiProducto?idProducto=<%=p.getProductId()%>'">Editar</div>
                         <div  class="tarjeta button eliminar" onclick="location.href='EliminarProducto?idProducto=<%=p.getProductId()%>'">Eliminar</div>
