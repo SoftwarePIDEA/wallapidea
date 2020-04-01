@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import wallapidea.dao.UsuarioFacade;
 import wallapidea.entity.Usuario;
+import wallapidea.service.UsuarioService;
 
 /**
  *
@@ -26,6 +27,8 @@ import wallapidea.entity.Usuario;
 public class AnyadirUsuario extends HttpServlet {
    @EJB
     private UsuarioFacade usuarioFacade;
+       @EJB
+        private UsuarioService usuarioService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,7 +42,6 @@ public class AnyadirUsuario extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher rd;
-        Usuario usuario=null;
         String status;
         //OBTENEMOS LOS PARAMETROS DEL FORM DE AnyadirUsuario.jsp
         String user= request.getParameter("user");
@@ -54,16 +56,11 @@ public class AnyadirUsuario extends HttpServlet {
 
         System.out.println("Intentamos Anyadir Usuario: "+user+"-"+pass+"-"+isAdmin);
         if(!usuarioFacade.isNombreRegistered(user)){
-            usuario = new Usuario();
-            usuario.setNombre(user);
-            usuario.setPass(pass);
-            usuario.setIsadmin(isAdmin);
-            usuarioFacade.create(usuario);
+            usuarioService.Anyadir(user, pass, isAdmin);
             status = "Usuario registrado correctamente en wallaPIDEA";
             System.out.println(status);
             request.setAttribute("status", status);
-            List<Usuario> listaUsuarios=usuarioFacade.findAll();
-            request.setAttribute("listaUsuarios", listaUsuarios);
+            request.setAttribute("listaUsuarios", usuarioFacade.findAll());
             rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
             rd.forward(request, response);
         }else{

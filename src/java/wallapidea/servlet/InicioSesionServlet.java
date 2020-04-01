@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import static javax.ws.rs.core.Response.status;
 import wallapidea.entity.Usuario;
 import wallapidea.dao.UsuarioFacade;
 
@@ -48,7 +47,7 @@ public class InicioSesionServlet extends HttpServlet {
         //OBTENEMOS LOS PARAMETROS DEL FORM DE iniciosesion.JSP
         String user= request.getParameter("user");
         String pass= request.getParameter("pass");
-        String status= "SIN STATUS";
+        String status;
         
         try{
             System.out.println(user);
@@ -62,24 +61,18 @@ public class InicioSesionServlet extends HttpServlet {
             status = "El usuario o la contraseña es incorrecto";
             request.setAttribute("status", status);
             rd = request.getRequestDispatcher("InicioSesion.jsp");
-        } else { // el usuarioestá y la clave es correcta     
-            if(usuario.getIsadmin()){ // Si es Administrador accede al panel de administrador
+        }else{ // el usuarioestá y la clave es correcta
             session.setAttribute("usuario", usuario);
             status="Bienvenido: "+usuario.getNombre();
             request.setAttribute("status", status);
-            // Lista de todos los usuarios
-            List<Usuario> listaUsuarios = usuarioFacade.findAll();
-            request.setAttribute("listaUsuarios", listaUsuarios);
-            rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
-            //
-            }else{
-            session.setAttribute("usuario", usuario);
-            status="Bienvenido: "+usuario.getNombre();
-            request.setAttribute("status", status);    
-            rd = request.getRequestDispatcher("PerfilUsuario.jsp");
+            if(usuario.getIsadmin()){ // Si es Administrador accede al panel de administrador             
+                // Lista de todos los usuarios
+                request.setAttribute("listaUsuarios", usuarioFacade.findAll());
+                rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
+            }else{  
+                rd = request.getRequestDispatcher("PerfilUsuario.jsp");
             }
         }      
-
         rd.forward(request, response); 
         
     }
