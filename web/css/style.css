@@ -166,10 +166,21 @@ html {
     color: #3c4147;
     font-weight: 500;
     width: 170px;
-    height: 70px;
+    height: 50px;
     margin: 5px;
     text-align: center;
 }
+
+.producto h4{
+    font-family: Nunito;
+    font-size: 18px;
+    color: #3c4147;
+    font-weight: 500;
+    width: 160px;
+    margin: 10px;
+    text-align: center;
+}
+
 
 .producto h2{
     font-family: Nunito;

@@ -15,31 +15,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import wallapidea.dao.PalabraclaveFacade;
-import wallapidea.dao.ProductoFacade;
-import wallapidea.dao.ValoracionFacade;
 import wallapidea.entity.Producto;
-import wallapidea.entity.Usuario;
-import wallapidea.entity.Valoracion;
 import wallapidea.service.BuscarProductoService;
-
 /**
  *
- * @author David
+ * @author ivanl
  */
-@WebServlet(name = "EliminarProducto", urlPatterns = {"/EliminarProducto"})
-public class EliminarProducto extends HttpServlet {
+@WebServlet(name = "AdministradorProductosServlet", urlPatterns = {"/AdministradorProductosServlet"})
+public class AdministradorProductosServlet extends HttpServlet {
 
     @EJB
     private BuscarProductoService buscarProductoService;
-    
-    @EJB
-    private ProductoFacade productoFacade;
-    @EJB
-    private ValoracionFacade valFacade;
-    
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,42 +38,20 @@ public class EliminarProducto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd;
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Usuario u = (Usuario)session.getAttribute("usuario");
-        //pasamos por parámetro el id del producto a eliminar
-        String idS = request.getParameter("idProducto");
-        System.out.println("ID DEL PRODUCTO A ELIMINAR: __"+idS);
-        // obtenemos el producto
-        Integer id;
-        id =Integer.parseInt(idS);
-        Producto producto = productoFacade.find(id);
-        //eliminamos sus valoraciones
-        valFacade.deleteByProduct(producto);
-      
-       
+       String buscar = request.getParameter("busqueda");
+        List<Producto> productos;
         
-        // eliminamos de la lista de productos de usuario 
-        List<Producto>lista=u.getProductoList();
-        lista.remove(producto);
-        u.setProductoList(lista);
-        // lo elimninamos
-        System.out.println("PRODUCTO A ELIMINAR: "+producto.getTitulo());
-        // ver como hacer el cascade para que elimine demás relaciones en base de datos 
-        productoFacade.remove(producto);
-        
-        List<Producto> productos = buscarProductoService.getAll(); 
-        
-        /// hay que controlar como se llama realmente esta jsp 
-        // Si es admin lo envia al panel de admin de productos
-        if(u.getIsadmin()){
-            request.setAttribute("productos", productos);
-            rd = request.getRequestDispatcher("ListadoProductos.jsp");
-                        rd.forward(request, response);
+        if(buscar == null || buscar.equals("")){
+           productos = buscarProductoService.getAll(); 
         }else{
-        response.sendRedirect("PerfilUsuario.jsp");
+           productos = buscarProductoService.findByKeys(buscar);
         }
+        
+        request.setAttribute("productos", productos);
+        RequestDispatcher rd = request.getRequestDispatcher("ListadoProductos.jsp");
+        rd.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
