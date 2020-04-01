@@ -21,11 +21,6 @@
         <title>Wallapidea: Perfil</title>
         
         <script>
-            function llamarServlet(direccion)
-            {
-                document.requestForm.action = direccion;
-                document.requestForm.submit();
-            }
             
             function activarEliminar(){
                 var elements = document.querySelectorAll('.eliminar,.editar');
@@ -52,7 +47,7 @@
             <form name="requestForm" method="post">
                 <div class="topPanelButton">Editar perfil</div>
                 <div class="topPanelButton">Añadir un nuevo producto</div>
-                <div class="topPanelButton" onclick="llamarServlet('ProductosServlet')">Buscar algún producto</div>
+                <div class="topPanelButton" onclick="location.href='ProductosServlet'">Buscar algún producto</div>
             </form>
         </div>
             
