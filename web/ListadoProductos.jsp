@@ -61,10 +61,12 @@
         
         <div class="body">
             
+            <div class="tarjeta section">
              <form action="AdministradorProductosServlet" method="post">
-            Buscar Producto: <input type="text" name="busqueda"/>
+            <h3>Buscar Producto: <input type="text" name="busqueda"/>
             <input type="submit" value="Buscar"/>
         </form>
+            </div>
             <div class="tarjeta section">
                 <div id="borrarProductos" class="tarjeta button" onclick="activarEliminar()">Borrar o editar algún producto</div>
                 <div class="fila">
@@ -78,11 +80,12 @@
                     <div class="producto">
                      
                         <img src=<%= p.getFoto()%>>
-                        <h1><%= p.getTitulo()%></h1>
-                        <h1> Valoración: <%= p.getValoracionmedia()    %></h1>
-                        <h1> Propietario <%= p.getUsuarioId().getNombre()    %></h1>
-                        <h1>Descripción: </br> <%= p.getDescripcion()    %></h1>
-                        <h1>Fecha: </br> <%= p.getFechayhora()    %></h1>
+                        <h1><b><%= p.getTitulo()%></b></h1>
+                        <h4> <b>Propietario: </b><%= p.getUsuarioId().getNombre()    %></h4>
+                        <h4> <b>Descripción: </b></br> <%= p.getDescripcion()    %></h4>
+                        <h4><b> Fecha: </b></br> <%= p.getFechayhora()    %></h4>
+                        <h4> <b>Valoración:</b> <%= p.getValoracionmedia()    %></h4>
+                        <h4> <b>Categoría:</b> <%= p.getCatId().getNombreCategoria()  %></h4>
                         <h2><%= p.getPrecio()%> €</h2>
                         <div  class="tarjeta button editar" onclick="location.href='preModiProducto?idProducto=<%=p.getProductId()%>'">Editar</div>
                         <div  class="tarjeta button eliminar" onclick="location.href='EliminarProducto?idProducto=<%=p.getProductId()%>'">Eliminar</div>
