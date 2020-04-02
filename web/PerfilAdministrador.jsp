@@ -50,7 +50,7 @@
             <form name="requestForm" method="post">
                 <div class="tarjeta button cerrarSesion" onclick="location.href='CerrarSesionServlet'">Cerrar sesión</div>
             </form>
-            <h1>Bienvenido, <%= u.getNombre() %></h1>
+            <h1>Bienvenido Administrador, <%= u.getNombre() %></h1>
         </div>
         
         <div class="topPanel">

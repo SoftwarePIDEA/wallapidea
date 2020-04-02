@@ -47,15 +47,13 @@ public class ProductosServlet extends HttpServlet {
         String buscar = request.getParameter("busqueda");
         List<Producto> productos;
         HttpSession session = request.getSession();
-        Usuario user = (Usuario)session.getAttribute("usuario");
         
-         HttpSession session = request.getSession();
         Usuario u = (Usuario) session.getAttribute("usuario");
         
         if(buscar == null || buscar.equals("")){
-           productos = buscarProductoService.getAll(user.getUsuarioId()); 
+           productos = buscarProductoService.getAll(u.getUsuarioId()); 
         }else{
-           productos = buscarProductoService.findByKeys(buscar, user.getUsuarioId());
+           productos = buscarProductoService.findByKeys(buscar, u.getUsuarioId());
         }
         
         request.setAttribute("productos", productos);
