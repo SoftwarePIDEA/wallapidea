@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,7 +49,7 @@ public class ValorarProducto extends HttpServlet {
         // hay que pasar por formulario el id del producto , la nota y el comentario 
         String id = request.getParameter("idProducto");
         String nota = request.getParameter("notaProducto");
-        String comentario = request.getParameter("comentarioProducto");
+        String comentario = new String(request.getParameter("comentarioProducto").getBytes(),"UTF-8");
         // obtenemos el producto de la base de datos
         Producto producto = productoFacade.find(Integer.parseInt(id));
         // obtenemos lista de valoraciones de bd y valoracion concreta del producto
@@ -72,6 +73,9 @@ public class ValorarProducto extends HttpServlet {
         valoracion.setComentario(comentario);
         valoracion.setNota(Integer.parseInt(nota));
         valoracion.setProductId(producto);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("PerfilUsuario.jsp");
+        rd.forward(request, response);
    
         
     }
