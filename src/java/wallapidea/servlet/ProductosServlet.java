@@ -53,7 +53,7 @@ public class ProductosServlet extends HttpServlet {
         if(buscar == null || buscar.equals("")){
            productos = buscarProductoService.getAll(u.getUsuarioId()); 
         }else{
-           productos = buscarProductoService.findByKeys(buscar, u.getUsuarioId());
+           productos = buscarProductoService.findByKeysOrTitle(buscar, u.getUsuarioId());
         }
         
         request.setAttribute("productos", productos);

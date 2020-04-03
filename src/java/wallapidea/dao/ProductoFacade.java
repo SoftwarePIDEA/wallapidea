@@ -66,7 +66,18 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         
         return q.getResultList();
     }
-     
+     public List<Producto> findByTitle(String title, int user_id){
+        Query q;
+
+        q = this.getEntityManager().createQuery("SELECT p " 
+                                                + "FROM Producto p "                                                
+                                                + "WHERE UPPER(p.titulo) LIKE :titulo AND "
+                                                + "p.usuarioId.usuarioId <> :user_id");
+        q.setParameter("titulo", "%" + title.toUpperCase() + "%");
+        q.setParameter("user_id", user_id);
+        
+        return q.getResultList();
+    }
     
     public List<Producto> findAllExceptUserProduct(int user_id){
         Query q;

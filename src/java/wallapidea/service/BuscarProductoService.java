@@ -6,8 +6,11 @@
 package wallapidea.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.ejb.EJB;
 import wallapidea.dao.ProductoFacade;
@@ -36,5 +39,19 @@ public class BuscarProductoService {
     //y no son productos subidos por el usuario
     public List<Producto> findByKeys(String keys, int user_id){
         return this.productoFacade.findByKey(keys, user_id);
+    }
+    public List<Producto> findByTitle(String title, int user_id){
+        return this.productoFacade.findByTitle(title, user_id);
+    }
+    public List<Producto> findByKeysOrTitle(String search, int user_id){
+        List<Producto> lista = this.findByKeys(search, user_id);
+        List<Producto> lista2 = this.findByTitle(search, user_id);  
+        for (Producto x : lista){
+            if(!lista2.contains(x)){
+                lista2.add(x);
+            }
+        }
+        lista2 = lista2.stream().distinct().collect(Collectors.toList());
+        return lista2;
     }
 }
