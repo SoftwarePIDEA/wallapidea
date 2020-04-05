@@ -6,7 +6,7 @@
 package wallapidea.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -80,6 +80,9 @@ public class ValorarProducto extends HttpServlet {
         valoracion.setNota(Integer.parseInt(nota));
         valoracion.setProductId(producto);
         
+        // formato de la fecha 
+        valoracion.setFechayhora(new Date());
+        valoracionFacade.create(valoracion);
         
         
         List<Producto> productos;
