@@ -5,6 +5,7 @@
  */
 package wallapidea.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,17 +32,21 @@ public class ValoracionFacade extends AbstractFacade<Valoracion> {
     public ValoracionFacade() {
         super(Valoracion.class);
     }
-      public Valoracion findByProductId (Integer productId) {
+      public List<Valoracion> findByProductId (Producto productId) {
         Query q;
-        Valoracion val=null;
+        List<Valoracion> val=null;
         
         // Las "Named Query" son consultas predefinidas que se ubican antes de la declaración
         // de la clase entidad, en este caso, "Administrador":
         // @NamedQuery(name = "Administrador.findByEmail", query = "SELECT a FROM Administrador a WHERE a.email = :email")
-        q = this.getEntityManager().createNamedQuery("Valoracion.findByProductId");
+        q = this.getEntityManager().createQuery("SELECT v " 
+                                                + "FROM Valoracion v  "
+                                                + "WHERE v.productId = :productId ");
+   
         q.setParameter("productId", productId); // Los parámetros son aquellas cadenas de caracteres que van precedidas de los dos puntos.
+       
         try{
-            val = (Valoracion) q.getSingleResult();
+            val = (List<Valoracion>)q.getResultList();
         }catch(Exception exc){
             System.out.println(exc.toString());
         }     

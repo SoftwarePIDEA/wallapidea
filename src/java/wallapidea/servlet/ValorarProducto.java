@@ -59,17 +59,14 @@ public class ValorarProducto extends HttpServlet {
         // obtenemos el producto de la base de datos
         Producto producto = productoFacade.find(Integer.parseInt(id));
         // obtenemos lista de valoraciones de bd y valoracion concreta del producto
-        List<Valoracion> valoraciones = valoracionFacade.findAll();
-      
+        List<Valoracion> valoraciones = valoracionFacade.findByProductId(producto);
+       
         
         double sumaTotal = 0 ; 
-        int totalValoraciones = 0 ; 
+        int totalValoraciones = valoraciones.size() ; 
         // calculamos valoracion media y numero de valoraciones
         for(Valoracion v : valoraciones){
-            if(v.getProductId().equals(producto.getProductId())){
-                sumaTotal += v.getNota();
-                totalValoraciones++;
-            }
+                sumaTotal += v.getNota();     
         }
         double valoracionFinal = (sumaTotal + Integer.parseInt(nota)) / (totalValoraciones + 1) ; 
         /// fijamos la valoracion media nueva al producto en cuestión
@@ -83,6 +80,9 @@ public class ValorarProducto extends HttpServlet {
         // formato de la fecha 
         valoracion.setFechayhora(new Date());
         valoracionFacade.create(valoracion);
+        
+        //actualizamos valoracion media del producto 
+        productoFacade.updateValoracion(producto.getProductId(),valoracionFinal);
         
         
         List<Producto> productos;

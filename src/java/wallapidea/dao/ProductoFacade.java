@@ -51,6 +51,18 @@ public class ProductoFacade extends AbstractFacade<Producto> {
                 
     }
      
+       public void updateValoracion (Integer id ,Double valoracionmedia) {
+        Query q;
+        // Las "Named Query" son consultas predefinidas que se ubican antes de la declaración
+        // de la clase entidad, en este caso, "Administrador":
+        // @NamedQuery(name = "Administrador.findByEmail", query = "SELECT a FROM Administrador a WHERE a.email = :email")
+        q = this.getEntityManager().createQuery("UPDATE Producto p set p.valoracionmedia = :valoracionmedia  WHERE p.productId = :id " );
+        q.setParameter("valoracionmedia", valoracionmedia);
+        q.setParameter("id", id);
+        q.executeUpdate();
+                         
+    }
+     
     //busca todos los productos que coinciden con las palabras claves
     //y no son productos subidos por el usuario
     public List<Producto> findByKey(String key, int user_id){
