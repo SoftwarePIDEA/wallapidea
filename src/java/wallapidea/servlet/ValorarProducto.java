@@ -15,10 +15,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import wallapidea.dao.ProductoFacade;
 import wallapidea.dao.ValoracionFacade;
 import wallapidea.entity.Producto;
+import wallapidea.entity.Usuario;
 import wallapidea.entity.Valoracion;
+import wallapidea.service.BuscarProductoService;
 
 /**
  *
@@ -32,6 +35,9 @@ public class ValorarProducto extends HttpServlet {
 
     @EJB
     private ProductoFacade productoFacade;
+    
+    @EJB
+    private BuscarProductoService buscarProductoService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -65,7 +71,7 @@ public class ValorarProducto extends HttpServlet {
                 totalValoraciones++;
             }
         }
-        double valoracionFinal = sumaTotal + Integer.parseInt(nota) / totalValoraciones + 1 ; 
+        double valoracionFinal = (sumaTotal + Integer.parseInt(nota)) / (totalValoraciones + 1) ; 
         /// fijamos la valoracion media nueva al producto en cuestión
         producto.setValoracionmedia(valoracionFinal);
         // creamos nueva valoracion con datos obtenidos por parámetros
@@ -74,9 +80,18 @@ public class ValorarProducto extends HttpServlet {
         valoracion.setNota(Integer.parseInt(nota));
         valoracion.setProductId(producto);
         
-        RequestDispatcher rd = request.getRequestDispatcher("PerfilUsuario.jsp");
+        
+        
+        List<Producto> productos;
+        HttpSession session = request.getSession();
+        
+        Usuario u = (Usuario) session.getAttribute("usuario");
+        productos = buscarProductoService.getAll(u.getUsuarioId()); 
+        
+        request.setAttribute("productos", productos);
+        RequestDispatcher rd = request.getRequestDispatcher("PanelProductos.jsp");
         rd.forward(request, response);
-   
+     
         
     }
 

@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <%
   List <Producto> Producto = (List)request.getAttribute("productos");
+  
 %>
 <html>
     <head>
@@ -29,6 +30,7 @@
                     <th>Nombre</th>
                     <th>Descripcion </th>
                     <th>Usuario </th>
+                    <th>Hacer Valoracion</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +39,7 @@
                     <td><%= p.getTitulo()%></td>
                     <td><%= p.getDescripcion() %></td>
                     <td><%= p.getUsuarioId() %></td>
+                    <td><div  class="tarjeta button editar" onclick="location.href='preValorarProducto.jsp?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Valorar</div></td>
                 </tr>
                <% } %>
             </tbody>
