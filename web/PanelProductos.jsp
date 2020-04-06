@@ -4,17 +4,19 @@
     Author     : ivanl
 --%>
 
+<%@page import="wallapidea.entity.Palabraclave"%>
 <%@page import="wallapidea.entity.Producto"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-  List <Producto> Producto = (List)request.getAttribute("productos");
+  List <Producto> listaProductos = (List)request.getAttribute("productos");
   
 %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/style.css">
         <title>JSP Page</title>
     </head>
     <body>
@@ -23,26 +25,39 @@
             <input type="submit" value="Buscar"/>
         </form>
         
+            <div class="fila">
+                    <%
+                        for(Producto p: listaProductos){
+                    %>
+                    
+                    <div class="producto">
+                     
+                        <img src=<%= p.getFoto()%>>
+                        <h1><b><%= p.getTitulo()%></b></h1>
+                        <h4> <b>Propietario: </b><%= p.getUsuarioId().getNombre()    %></h4>
+                        <h4> <b>Descripción: </b></br> <%= p.getDescripcion()    %></h4>
+                        <h4><b> Fecha: </b></br> <%= p.getFechayhora()    %></h4>
+                        <h4> <b>Valoración:</b> <%= p.getValoracionmedia()    %></h4>
+                        <h4> <b>Categoría:</b> <%= p.getCatId().getNombreCategoria()  %></h4>
+                        <h4> <b>Palabras Claves: </b>  
+                        <%
+                        for(Palabraclave pc: p.getPalabraclaveList()){
+                            %>
+                            <%= pc.getPalabra()   %>
+                            <% }%>
+                        </h4>
+                        <h2><%= p.getPrecio()%> €</h2>
+                        <div class="tarjeta button editar" onclick="location.href='preValorarProducto.jsp?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Valorar</div>
+                        
+                    </div>
+                    
+                    <%
+                        }
+                    %>
+                </div>
         
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripcion </th>
-                    <th>Usuario </th>
-                    <th>Hacer Valoracion</th>
-                </tr>
-            </thead>
-            <tbody>
-                <%for(Producto p : Producto) { %>
-                <tr>
-                    <td><%= p.getTitulo()%></td>
-                    <td><%= p.getDescripcion() %></td>
-                    <td><%= p.getUsuarioId() %></td>
-                    <td><div  class="tarjeta button editar" onclick="location.href='preValorarProducto.jsp?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Valorar</div></td>
-                </tr>
-               <% } %>
-            </tbody>
-        </table>
+        
+               
+ 
     </body>
 </html>

@@ -24,11 +24,6 @@
         <link rel="stylesheet" href="css/style.css">
         
         <script>
-            function llamarServlet(direccion)
-            {
-                document.requestForm.action = direccion;
-                document.requestForm.submit();
-            }
             
             function activarEliminar(){
                 var elements = document.querySelectorAll('.eliminar,.editar');

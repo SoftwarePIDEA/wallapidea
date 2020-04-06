@@ -59,10 +59,10 @@ public class ProductosServlet extends HttpServlet {
         request.setAttribute("productos", productos);
        if(u.getIsadmin()){
            RequestDispatcher rd = request.getRequestDispatcher("ListadoProductos.jsp");
-        rd.forward(request, response);
+            rd.forward(request, response);
        }else{
            RequestDispatcher rd = request.getRequestDispatcher("PanelProductos.jsp");
-        rd.forward(request, response);
+           rd.forward(request, response);
        }
         
         
