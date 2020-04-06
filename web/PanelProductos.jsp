@@ -13,6 +13,7 @@
   List <Producto> listaProductos = (List)request.getAttribute("productos");
   
 %>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -47,17 +48,12 @@
                             <% }%>
                         </h4>
                         <h2><%= p.getPrecio()%> €</h2>
-                        <div class="tarjeta button editar" onclick="location.href='preValorarProducto.jsp?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Valorar</div>
-                        
+                        <div class="tarjeta button valorar" onclick="location.href='preValorarProducto.jsp?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Valorar</div>
                     </div>
                     
                     <%
                         }
                     %>
                 </div>
-        
-        
-               
- 
     </body>
 </html>
