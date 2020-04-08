@@ -23,7 +23,7 @@ String descripcion = new String(producto.getDescripcion().getBytes(),"UTF-8");
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
-        <title>Usuario: Modificar producto</title>
+        <title>Modificar producto</title>
     </head>
     <body>
            <div class="header">

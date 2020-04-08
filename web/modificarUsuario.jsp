@@ -18,7 +18,7 @@ Usuario usuario = (Usuario)request.getAttribute("usuario");
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
-        <title>JSP Page</title>
+        <title>ADMIN: Modificar usuario</title>
     </head>
     <body>
         <div class="header">
