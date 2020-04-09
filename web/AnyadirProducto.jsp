@@ -3,7 +3,16 @@
     Created on : 09-abr-2020, 18:07:58
     Author     : Pablo
 --%>
+<%@page import="javax.ejb.EJB"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="wallapidea.entity.Categoria"%>
+<%@page import="java.util.List"%>
+<%@page import="wallapidea.dao.CategoriaFacade"%>
+<%
+    List<Categoria> lista = new LinkedList<Categoria>();
+    lista= (LinkedList<Categoria>)request.getAttribute("listaCat");
 
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
     <head>
@@ -23,7 +32,13 @@
             Precio: <input type="number" name="precio" value="" /><br/>
             Palabras clave:<br/> <textarea name="palabrasclave" ></textarea><br/>
             Foto (URL): <input type="text" name="foto" value="" /><br/>
-            Categoría: <input type="text" name="cat" value="" /><br/>
+            Categoría: 
+            <select name="cat">
+                <%
+                    for(Categoria cat : lista){ %>
+            <option value="<%=cat.getCatId()%>"><%=cat.getNombreCategoria()%></option> 
+                     <% } %>
+            </select>
             <input type="submit" value="Añadir">
          </form>
         </div>

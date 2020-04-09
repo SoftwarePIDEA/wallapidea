@@ -4,6 +4,9 @@
     Author     : David
 --%>
 
+<%@page import="java.util.LinkedList"%>
+<%@page import="java.util.List"%>
+<%@page import="wallapidea.entity.Categoria"%>
 <%@page import="wallapidea.entity.Usuario"%>
 <%@page import="wallapidea.entity.Palabraclave"%>
 <%@page import="wallapidea.entity.Producto"%>
@@ -15,8 +18,12 @@ Usuario u = (Usuario)session.getAttribute("usuario");
 Producto producto = (Producto)request.getAttribute("producto");
 String palabrasclavesstring="";
 
+    List<Categoria> lista = new LinkedList<Categoria>();
+    lista= (LinkedList<Categoria>)request.getAttribute("listaCat");
+    
 String titulo = new String(producto.getTitulo().getBytes(),"UTF-8");
 String descripcion = new String(producto.getDescripcion().getBytes(),"UTF-8");
+String catprod="";
 
 %>
 <html>
@@ -44,26 +51,13 @@ String descripcion = new String(producto.getDescripcion().getBytes(),"UTF-8");
         <h3>Modificar Producto</h3>
         </div>
         <form action="ModificarProducto" method="post">
-        Nombre de la categoria :</br><select name="idCategoria"  size="4" required>
-                                <optgroup label="Informática">
-                                  <option value="0">Sin subcategoria</option>  
-                                  <option value="1"  >Portátiles</option>
-                                  <option value="2"  >Tablet´s</option>
-                                  <option value="3"  >Pc´s</option>
-                                </optgroup>
-                                <optgroup label="Telefonía">
-                                  <option value="4" >Sin subcategoria</option>
-                                  <option value="5" >Iphone</option>
-                                  <option value="6" >Android</option>
-                                  <option value="7" >Windows phone</option>
-                                </optgroup>
-                                <optgroup label="TV">
-                                  <option value="8" >Sin subcategoria</option>
-                                  <option value="9" >Led´s</option>
-                                  <option value="10" >LCD</option>
-                                  <option value="11" >Plasmas</option>
-                                </optgroup>
-                              </select><br/>
+        Categoria:           
+        <select name="cat">
+                <%
+                    for(Categoria cat : lista){ if(producto.getCatId().getCatId() == cat.getCatId()){catprod="selected";}else{catprod="";}%>
+                    <option value="<%=cat.getCatId()%>" <%=catprod%> > <%=cat.getNombreCategoria()%> </option> 
+                     <% } %>
+            </select>
         <input type="hidden" name="productoId" value="<%=producto.getProductId()%>" /><br/>
         Titulo Producto : <input type="text" name="tituloProducto" value="<%=titulo%>" /><br/>
         Descripción Producto :<br/> <textarea name="descripcion" ><%=descripcion%></textarea><br/>

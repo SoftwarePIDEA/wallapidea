@@ -62,7 +62,7 @@ public class ModificarProducto extends HttpServlet {
 
         // obtengo datos nuevos del producto
         String idP = request.getParameter("productoId");
-        String categoriaId = request.getParameter("idCategoria");
+        String categoriaId = request.getParameter("cat");
         String titulo = new String(request.getParameter("tituloProducto").getBytes(),"UTF-8");
         String descripcion = new String(request.getParameter("descripcion").getBytes(),"UTF-8");
         String precio = request.getParameter("precioProducto");
