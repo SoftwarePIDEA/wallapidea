@@ -48,6 +48,7 @@
                             <% }%>
                         </h4>
                         <h2><%= p.getPrecio()%> €</h2>
+                        <div class="tarjeta button comentar" onclick="location.href='preVerComentario?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Ver Comentarios</div>
                         <div class="tarjeta button valorar" onclick="location.href='preValorarProducto.jsp?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Valorar</div>
                     </div>
                     

@@ -146,6 +146,15 @@ html {
     background-color: rgb(228, 177, 37);
 }
 
+.producto>.comentar{
+    display: block;
+    margin: 5px;
+    color: aliceblue;
+    background-color: rgb(27, 27, 120);
+}
+
+
+
 .producto>.editar:hover{
     background-color: rgb(163, 125, 19);
 }

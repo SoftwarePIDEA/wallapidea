@@ -40,6 +40,7 @@
         </script>
     </head>
     <body>
+        
          <div class="header">
             <form name="requestForm" method="post">
                 <div class="tarjeta button cerrarSesion" onclick="location.href='CerrarSesionServlet'">Cerrar sesión</div>
