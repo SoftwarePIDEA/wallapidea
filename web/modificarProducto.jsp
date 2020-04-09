@@ -68,7 +68,7 @@ String descripcion = new String(producto.getDescripcion().getBytes(),"UTF-8");
         Titulo Producto : <input type="text" name="tituloProducto" value="<%=titulo%>" /><br/>
         Descripción Producto :<br/> <textarea name="descripcion" ><%=descripcion%></textarea><br/>
         Precio : <input type="text" name="precioProducto" value="<%=producto.getPrecio()%>" /><br/>
-        Foto : <input type="file" name="fotoProducto" placeholder="Description" value="<%=producto.getFoto()%>" /> <br/>
+        Foto : <input type="text" name="fotoProducto" value="<%=producto.getFoto()%>" /> <br/>
         Palabras Clave actuales :<br/>
         <% for(Palabraclave pc : producto.getPalabraclaveList()){
             String pal= new String(pc.getPalabra().getBytes(),"UTF-8");
