@@ -104,7 +104,6 @@ public class AnyadirProducto extends HttpServlet {
         //Añadimos nuestro producto ya creado a todas las palabras clave
         if(palabrasClave.length>0 && !palabrasClave[0].equals("")){
             for (String palabra : palabrasClave){
-                palabra = new String(palabra.getBytes(),"UTF-8");
                 pclave= palabraclaveFacade.findByPalabra(palabra); //se busca esa palabraclave (estamos seguros de que essta porque si no estaba la hemos creado antes.)
                 listaProd = pclave.getProductoList(); //vemos su lista de productos (si es nueva o no tiene ningun producto estara vacía)
                 listaProd.add(producto); //le añadimos nuestro producto (si ya está..?)
