@@ -24,6 +24,7 @@ String palabrasclavesstring="";
 String titulo = new String(producto.getTitulo().getBytes(),"UTF-8");
 String descripcion = new String(producto.getDescripcion().getBytes(),"UTF-8");
 String catprod="";
+String catpadre="";
 
 %>
 <html>
@@ -54,8 +55,11 @@ String catprod="";
         Categoria:           
         <select name="cat">
                 <%
-                    for(Categoria cat : lista){ if(producto.getCatId().getCatId() == cat.getCatId()){catprod="selected";}else{catprod="";}%>
-                    <option value="<%=cat.getCatId()%>" <%=catprod%> > <%=cat.getNombreCategoria()%> </option> 
+                    for(Categoria cat : lista){ 
+                        if(producto.getCatId().getCatId() == cat.getCatId()){catprod="selected";}else{catprod="";}
+                        if(cat.getCategoriaPadre()==null){catpadre="style=\"font-weight:bold;\" ";}else{catpadre="";}
+                %>
+                    <option value="<%=cat.getCatId()%>" <%=catpadre%> <%=catprod%> >  <%=cat.getNombreCategoria()%> </option> 
                      <% } %>
             </select>
         <input type="hidden" name="productoId" value="<%=producto.getProductId()%>" /><br/>

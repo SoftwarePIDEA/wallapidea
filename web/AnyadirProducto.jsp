@@ -11,7 +11,7 @@
 <%
     List<Categoria> lista = new LinkedList<Categoria>();
     lista= (LinkedList<Categoria>)request.getAttribute("listaCat");
-
+    String catpadre="";
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
@@ -35,8 +35,10 @@
             Categoría: 
             <select name="cat">
                 <%
-                    for(Categoria cat : lista){ %>
-            <option value="<%=cat.getCatId()%>"><%=cat.getNombreCategoria()%></option> 
+                    for(Categoria cat : lista){ 
+                if(cat.getCategoriaPadre()==null){catpadre="style=\"font-weight:bold;\" ";}else{catpadre="";}
+                %>
+            <option value="<%=cat.getCatId()%>" <%=catpadre%>><%=cat.getNombreCategoria()%></option> 
                      <% } %>
             </select>
             <input type="submit" value="Añadir">
