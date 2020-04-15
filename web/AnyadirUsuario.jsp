@@ -20,8 +20,12 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <div class="header">
-            &nbsp;
+        
+       <div class="header">
+            <form name="requestForm" method="post">
+                <div class="tarjeta button cerrarSesion" onclick="location.href='CerrarSesionServlet'">Cerrar sesión</div>
+            </form>
+           
         </div>
         <div class="centralSection tarjeta">
         <h1><%=status%></h1>

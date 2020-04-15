@@ -3,20 +3,11 @@
     Created on : 24-mar-2020, 11:09:37
     Author     : Pablo
 --%>
-<%@page import="wallapidea.entity.Usuario"%>
 <%
     String status;
     status=(String) request.getAttribute("status");
-    Usuario usuario=(Usuario)session.getAttribute("usuario");
     if(status==null){
     status="";
-    }
-    if(usuario!=null){
-        if(usuario.getIsadmin()){
-        response.sendRedirect("PerfilAdministrador.jsp");
-        }else{
-        response.sendRedirect("PerfilUsuario.jsp");    
-        }
     }
 
 %>
