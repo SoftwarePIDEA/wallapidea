@@ -49,10 +49,8 @@ String catpadre="";
             </form>
         </div>
         <div class="tarjeta section">
-        <h3>Modificar Producto: <%=producto.getTitulo() %></h3>
+        <h3>Modificar Producto</h3>
         </div>
-            <div>
-        <img src="<%=producto.getFoto()%>" alt="<%=producto.getTitulo() %>"></div>
         <form action="ModificarProducto" method="post">
         Categoria:           
         <select name="cat">

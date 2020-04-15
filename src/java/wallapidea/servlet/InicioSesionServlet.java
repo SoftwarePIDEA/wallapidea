@@ -57,7 +57,7 @@ public class InicioSesionServlet extends HttpServlet {
         if (usuario == null || !usuario.getPass().equals(pass) ) {             
             status = "El usuario o la contraseña es incorrecto";
             request.setAttribute("status", status);
-            response.sendRedirect("InicioSesion.jsp");   
+            rd = request.getRequestDispatcher("InicioSesion.jsp");
         }else{ // el usuarioestá y la clave es correcta
             session.setAttribute("usuario", usuario);
             status="Bienvenido: "+usuario.getNombre();
@@ -65,11 +65,12 @@ public class InicioSesionServlet extends HttpServlet {
             if(usuario.getIsadmin()){ // Si es Administrador accede al panel de administrador             
                 // Lista de todos los usuarios
                 request.setAttribute("listaUsuarios", usuarioFacade.findAll());
-                response.sendRedirect("PerfilAdministrador.jsp");   
+                rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
             }else{  
-                response.sendRedirect("PerfilUsuario.jsp");   
+                rd = request.getRequestDispatcher("PerfilUsuario.jsp");
             }
         }      
+        rd.forward(request, response); 
         
     }
 
