@@ -51,7 +51,7 @@
         <div class="topPanel">
             <form name="requestForm" method="post">
                 <div class="topPanelButton">Buscar producto</div>
-                <div class="topPanelButton" >Añadir un nuevo Producto</div>
+                <div class="topPanelButton" ></div>
                 <div class="topPanelButton">Buscar usuario</div>
             </form>
         </div>

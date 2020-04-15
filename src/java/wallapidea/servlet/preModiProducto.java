@@ -7,8 +7,6 @@ package wallapidea.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,9 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import wallapidea.dao.CategoriaFacade;
+import javax.servlet.http.HttpSession;
 import wallapidea.dao.ProductoFacade;
-import wallapidea.entity.Categoria;
 import wallapidea.entity.Producto;
 
 /**
@@ -30,8 +27,7 @@ public class preModiProducto extends HttpServlet {
 
     @EJB
     private ProductoFacade productoFacade;
-    @EJB
-    CategoriaFacade catfacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,11 +40,10 @@ public class preModiProducto extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      
-        List<Categoria> lista = new LinkedList<Categoria>();
-        lista.addAll(catfacade.findAll());
-        request.setAttribute("listaCat", lista);
-        
+         HttpSession session = request.getSession();
+        if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
+            response.sendRedirect("login.jsp");            
+        }else{
        
        String id = request.getParameter("idProducto");
         // obtenemos el producto
@@ -60,7 +55,7 @@ public class preModiProducto extends HttpServlet {
        
        RequestDispatcher rd = request.getRequestDispatcher("modificarProducto.jsp");
        rd.forward(request, response);
-       
+        }
         
     }
 
