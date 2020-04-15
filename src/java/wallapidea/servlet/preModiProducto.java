@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import wallapidea.dao.ProductoFacade;
 import wallapidea.entity.Producto;
 
@@ -39,8 +40,10 @@ public class preModiProducto extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      
-
+         HttpSession session = request.getSession();
+        if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
+            response.sendRedirect("login.jsp");            
+        }else{
        
        String id = request.getParameter("idProducto");
         // obtenemos el producto
@@ -52,7 +55,7 @@ public class preModiProducto extends HttpServlet {
        
        RequestDispatcher rd = request.getRequestDispatcher("modificarProducto.jsp");
        rd.forward(request, response);
-       
+        }
         
     }
 
