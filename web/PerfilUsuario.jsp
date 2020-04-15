@@ -7,9 +7,15 @@
 <%@page import="java.util.List"%>
 <%@page import="wallapidea.entity.*"%>
 <%
+    RequestDispatcher rd;
     Usuario u = (Usuario)session.getAttribute("usuario");
-    
-    List<Producto> lista = u.getProductoList();
+    List<Producto> lista=null;
+    if(u==null || u.getIsadmin()){
+        rd = request.getRequestDispatcher("InicioSesion.jsp");
+        rd.forward(request, response);
+    }else{
+     lista= u.getProductoList();
+    }
 %>    
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
