@@ -114,10 +114,11 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         return q.getResultList();
     }
     
-    public List<Producto> getRecentProducts(){
+    public List<Producto> getRecentProducts(int user_id){
         Query q;
         
-        q = this.getEntityManager().createQuery("SELECT p FROM Producto p ORDER BY p.fechayhora DESC");
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.usuarioId.usuarioId <> :user_id ORDER BY p.fechayhora DESC");
+        q.setParameter("user_id", user_id);
         
         return q.getResultList();
     } 

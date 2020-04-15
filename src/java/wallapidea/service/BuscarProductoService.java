@@ -71,7 +71,7 @@ public class BuscarProductoService {
         return lista2;
     }
         
-    public List<Producto> getRecentProducts(){
-        return this.productoFacade.getRecentProducts();
+    public List<Producto> getRecentProducts(int user_id){
+        return this.productoFacade.getRecentProducts(user_id);
     }
 }

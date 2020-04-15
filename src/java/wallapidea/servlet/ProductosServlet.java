@@ -45,15 +45,42 @@ public class ProductosServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         String buscar = request.getParameter("busqueda");
+        String modo = request.getParameter("modoBusqueda");
         List<Producto> productos;
         HttpSession session = request.getSession();
         
         Usuario u = (Usuario) session.getAttribute("usuario");
         
-        if(buscar == null || buscar.equals("")){
-           productos = buscarProductoService.getAll(u.getUsuarioId()); 
+        if(modo == null){
+            productos = buscarProductoService.getAll(u.getUsuarioId());
         }else{
-           productos = buscarProductoService.findByKeysOrTitleOrDesc(buscar, u.getUsuarioId());
+            switch (modo) {
+                case "Todo":
+                    productos = buscarProductoService.getAll(u.getUsuarioId());
+                    break;
+                case "Recientes":
+                    productos = buscarProductoService.getRecentProducts(u.getUsuarioId());
+                    break;
+                    
+                case "TituloDescripcion":
+                    //productos = buscarProductoService
+                    break;
+                    
+                case "Categoria":
+                    
+                    break;
+                    
+                case "PalabrasClave":
+                    productos = buscarProductoService.findByKeys(buscar, u.getUsuarioId());
+                    break;
+                    
+                case "Fecha":
+                    
+                    break;
+                default:
+                    productos = buscarProductoService.getAll(u.getUsuarioId());
+                    break;
+            }       
         }
         
         request.setAttribute("productos", productos);
