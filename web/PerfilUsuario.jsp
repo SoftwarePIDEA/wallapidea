@@ -18,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
-        <title>Wallapidea: Perfil</title>
+        <title>Perfil de <%=u.getNombre()%></title>
         
         <script>
             
@@ -32,6 +32,12 @@
                     }
                 }
             }
+             function llamarServlet(direccion)
+            {
+                document.requestForm.action = direccion;
+                document.requestForm.submit();
+            }
+            
         </script>
         
     </head>
@@ -46,7 +52,7 @@
         <div class="topPanel">
             <form name="requestForm" method="post">
                 <div class="topPanelButton" onclick="location.href='EditarPerfil.jsp'">Editar perfil</div>
-                <div class="topPanelButton">Añadir un nuevo producto</div>
+                <div class="topPanelButton" onclick="location.href='preAnyProducto'">Añadir un nuevo producto</div>
                 <div class="topPanelButton" onclick="location.href='ProductosServlet'">Buscar algún producto</div>
             </form>
         </div>

@@ -20,7 +20,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>ADMIN: Buscar producto</title>
         <link rel="stylesheet" href="css/style.css">
         
         <script>
@@ -40,6 +40,7 @@
         </script>
     </head>
     <body>
+        
          <div class="header">
             <form name="requestForm" method="post">
                 <div class="tarjeta button cerrarSesion" onclick="location.href='CerrarSesionServlet'">Cerrar sesión</div>

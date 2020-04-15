@@ -5,8 +5,9 @@
  */
 package wallapidea.servlet;
 
-
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,18 +15,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import wallapidea.entity.Usuario;
-import wallapidea.dao.UsuarioFacade;
+import wallapidea.dao.ProductoFacade;
+import wallapidea.dao.ValoracionFacade;
+import wallapidea.entity.Producto;
+import wallapidea.entity.Valoracion;
 
 /**
  *
- * @author Pablo
+ * @author David
  */
-@WebServlet(name = "InicioSesionServlet", urlPatterns = {"/InicioSesionServlet"})
-public class InicioSesionServlet extends HttpServlet {
-   @EJB
-    private UsuarioFacade usuarioFacade;
+@WebServlet(name = "preVerComentario", urlPatterns = {"/preVerComentario"})
+public class preVerComentario extends HttpServlet {
+
+    @EJB
+    private ProductoFacade productoFacade;
+
+    @EJB
+    private ValoracionFacade valoracionFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,41 +42,21 @@ public class InicioSesionServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-  
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher rd;
-        Usuario usuario=null;
-        HttpSession session = request.getSession();
+        // obtengo el producto y luego sus valoraciones 
+        String id = request.getParameter("idProducto");
+        String titulo = request.getParameter("titulo");
+        Producto p = productoFacade.find(Integer.parseInt(id));
+        List<Valoracion> comentarios = (List<Valoracion>)valoracionFacade.findByProductId(p);
         
-        //OBTENEMOS LOS PARAMETROS DEL FORM DE iniciosesion.JSP
-        String user= request.getParameter("user");
-        String pass= request.getParameter("pass");
-        String status;
-        
-        try{
-            usuario = this.usuarioFacade.findByNombre(user);        
-        }
-        catch(Exception exc){
-            status=exc.getMessage();
-        }
-        if (usuario == null || !usuario.getPass().equals(pass) ) {             
-            status = "El usuario o la contraseña es incorrecto";
-            request.setAttribute("status", status);
-            response.sendRedirect("InicioSesion.jsp");   
-        }else{ // el usuarioestá y la clave es correcta
-            session.setAttribute("usuario", usuario);
-            status="Bienvenido: "+usuario.getNombre();
-            request.setAttribute("status", status);
-            if(usuario.getIsadmin()){ // Si es Administrador accede al panel de administrador             
-                // Lista de todos los usuarios
-                request.setAttribute("listaUsuarios", usuarioFacade.findAll());
-                response.sendRedirect("PerfilAdministrador.jsp");   
-            }else{  
-                response.sendRedirect("PerfilUsuario.jsp");   
-            }
-        }      
+        // añadimos el atributo comentarios para mostrarlos a continuacion en una jsp 
+        request.setAttribute("comentarios", comentarios);
+     
+        // damos el control a la jsp que muestra los comentarios
+        RequestDispatcher rd = request.getRequestDispatcher("VerComentarios.jsp");
+        rd.forward(request, response);
         
     }
 

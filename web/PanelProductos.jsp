@@ -18,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
-        <title>JSP Page</title>
+        <title>Productos</title>
     </head>
     <body>
         <form action="ProductosServlet" method="post">
@@ -48,6 +48,7 @@
                             <% }%>
                         </h4>
                         <h2><%= p.getPrecio()%> €</h2>
+                        <div class="tarjeta button comentar" onclick="location.href='preVerComentario?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Ver Comentarios</div>
                         <div class="tarjeta button valorar" onclick="location.href='preValorarProducto.jsp?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Valorar</div>
                     </div>
                     
