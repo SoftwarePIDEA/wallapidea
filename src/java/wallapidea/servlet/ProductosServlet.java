@@ -57,6 +57,7 @@ public class ProductosServlet extends HttpServlet {
         }
         
         request.setAttribute("productos", productos);
+        
        if(u.getIsadmin()){
            RequestDispatcher rd = request.getRequestDispatcher("ListadoProductos.jsp");
             rd.forward(request, response);

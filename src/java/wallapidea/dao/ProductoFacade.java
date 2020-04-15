@@ -114,6 +114,12 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         return q.getResultList();
     }
     
-    
+    public List<Producto> getRecentProducts(){
+        Query q;
+        
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p ORDER BY p.fechayhora DESC");
+        
+        return q.getResultList();
+    } 
     
 }

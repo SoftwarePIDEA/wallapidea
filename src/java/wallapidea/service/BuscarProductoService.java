@@ -70,4 +70,8 @@ public class BuscarProductoService {
         lista2 = lista2.stream().distinct().collect(Collectors.toList());
         return lista2;
     }
+        
+    public List<Producto> getRecentProducts(){
+        return this.productoFacade.getRecentProducts();
+    }
 }
