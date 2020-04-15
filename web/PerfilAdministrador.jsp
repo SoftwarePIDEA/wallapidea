@@ -10,7 +10,7 @@
 
 <%
     Usuario u = (Usuario)session.getAttribute("usuario");
-    System.out.println("Ha entrado en el PANEL ADMIN: "+u.getNombre());
+    System.out.println("Ha entrado en el PANEL ADMIN: " + u.getNombre());
     List<Usuario> lista = (List) request.getAttribute("listaUsuarios");
     
 %>  
