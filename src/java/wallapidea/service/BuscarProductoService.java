@@ -62,6 +62,17 @@ public class BuscarProductoService {
         lista2 = lista2.stream().distinct().collect(Collectors.toList());
         return lista2;
     }
+    public List<Producto> findByDescOrTitle(String search, int user_id){
+        List<Producto> lista = this.findByDesc(search, user_id);
+        List<Producto> lista2 = this.findByTitle(search, user_id);  
+        for (Producto x : lista){
+            if(!lista2.contains(x)){
+                lista2.add(x);
+            }
+        }
+        lista2 = lista2.stream().distinct().collect(Collectors.toList());
+        return lista2;
+    }
         public List<Producto> findByKeysOrTitleOrDesc(String search, int user_id){
         List<Producto> lista = this.findByKeysOrTitle(search, user_id);
         List<Producto> lista2 = this.findByDesc(search, user_id);  
