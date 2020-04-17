@@ -48,6 +48,17 @@ html {
     margin: 1.8em 0.5em;
 }
 
+.header img{
+    width: 60px;
+    height: 60px;
+    margin: 25px 35px;
+}
+
+.header img:hover{
+    width: 70px;
+    cursor: pointer;
+}
+
 .cerrarSesion{
     float: right;
     width: 8em;

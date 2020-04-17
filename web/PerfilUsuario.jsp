@@ -53,6 +53,7 @@
                 <div class="tarjeta button cerrarSesion" onclick="location.href='CerrarSesionServlet'">Cerrar sesión</div>
             </form>
             <h1>Bienvenido, <%= u.getNombre() %></h1>
+            <img src="img/home.svg" onclick="location.href='PerfilUsuario.jsp'">
         </div>
         
         <div class="topPanel">
