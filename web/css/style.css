@@ -153,8 +153,6 @@ html {
     background-color: rgb(27, 27, 120);
 }
 
-
-
 .producto>.editar:hover{
     background-color: rgb(163, 125, 19);
 }
@@ -244,4 +242,113 @@ html {
     margin: 10px 0px 20px;
 }
 
+.productSection {
+    padding: 30px;
+    overflow: hidden;
+}
+
+.productSection .productImage {
+    float: left;
+}
+
+.productSection .productImage img {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+}
+
+.productSection .datosProducto{
+    float: left;
+    margin: 0px 30px;
+}
+
+.productSection .datosProducto h1{
+    color: #3c4147;
+    padding: 0;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+}
+
+.productSection .datosProducto h2{
+    color: #3c4147;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0 0 20px 0;
+}
+
+.productSection .datosProducto h3{
+    color: #3c4147;
+    font-size: 15px;
+    font-weight: 400;
+    margin: 0 0 20px 0;
+}
+
+.body>h1 {
+    color: aliceblue;
+    font-size: 30px;
+    padding: 10px 10px;
+}
+
+.comentarioSection {
+    padding: 0px 10px ;
+    overflow: hidden;
+}
+
+.comentarioSection .comentario {
+    background-color: #D8EC8A;
+    margin: 10px 0px;
+}
+
+.comentarioSection .comentario .pSupComentario{
+    overflow: hidden;
+    padding: 5px;
+    text-align: center;
+}
+
+.comentarioSection .comentario .pSupComentario h2{
+    float: right;
+    color: #3c4147;
+    font-size: 25px;
+    font-weight: 400;
+    margin: 7px 10px;
+}
+
+.comentarioSection .comentario .pSupComentario h3{
+    float: right;
+    color: #3c4147;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+    margin: 13px 20px;
+}
+
+.comentarioSection .comentario .pInfComentario{
+    overflow: hidden;
+    padding: 0px 10px 10px 10px;
+    text-align: center;
+}
+
+.comentarioSection .comentario .pInfComentario h2{
+    float: right;
+    color: #3c4147;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: start;
+    margin: 0px 10px;
+}
+
+.comentarioSection .escribirComentario textarea {
+    width: 1000px;
+}
+
+.comentarioSection .escribirComentario .valorar{
+    display: block;
+    margin: 5px;
+    width: 100px;
+    padding: 10px;
+    text-align: center;
+    color: aliceblue;
+    background-color: rgb(228, 177, 37);
+}
 
