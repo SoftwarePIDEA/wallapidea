@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import wallapidea.dao.UsuarioFacade;
 import wallapidea.entity.Usuario;
+import wallapidea.service.UsuarioService;
 
 /**
  *
@@ -27,6 +28,8 @@ public class UsuariosServlet extends HttpServlet {
 
     @EJB
     private UsuarioFacade usuarioFacade;
+    @EJB
+    private UsuarioService usuarioService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,7 +46,13 @@ public class UsuariosServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String buscar = request.getParameter("busqueda");
-
+        if (buscar.equals("")) {
+            request.setAttribute("listaUsuarios", usuarioFacade.findAll());
+        } else {
+            List<Usuario> lista = usuarioService.BuscarPorNombreoID(buscar);
+            request.setAttribute("listaUsuarios", lista);
+        }
+        /*
         Usuario us = usuarioFacade.findByNombre(buscar);
 
         if (us != null) {
@@ -53,7 +62,7 @@ public class UsuariosServlet extends HttpServlet {
         } else {
             List<Usuario> lista = usuarioFacade.findAll();
             request.setAttribute("listaUsuarios", lista);
-        }
+        }*/
 
         RequestDispatcher rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
         rd.forward(request, response);
