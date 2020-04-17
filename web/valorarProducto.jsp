@@ -11,6 +11,15 @@
    //  pasar producto como atributo o su id 
    String id = (String)request.getAttribute("id");
    //Producto producto = (Producto)request.getAttribute("producto");
+   
+    String status;
+    status=(String) request.getAttribute("status");
+    System.out.println(status);
+    if(status==null){
+    status="";
+    }
+
+%>
 %>
 <html>
     <head>
@@ -26,6 +35,8 @@
         </textarea><br/>
         <input type="hidden" name="idProducto" value="<%=id%>"/>
         <input type="submit" value="Enviar valoración">
+        <h3><%=status %></h3>
         </form>
+        
     </body>
 </html>

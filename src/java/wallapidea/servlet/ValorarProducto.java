@@ -59,6 +59,9 @@ public class ValorarProducto extends HttpServlet {
         // obtenemos lista de valoraciones de bd y valoracion concreta del producto
         List<Valoracion> valoraciones = valoracionFacade.findByProductId(producto);
        
+        int notafinal=Integer.parseInt(nota);
+        if(notafinal>=0 && notafinal<=5){
+            
         
         double sumaTotal = 0 ; 
         int totalValoraciones = valoraciones.size() ; 
@@ -82,6 +85,8 @@ public class ValorarProducto extends HttpServlet {
         //actualizamos valoracion media del producto 
         productoFacade.updateValoracion(producto.getProductId(),valoracionFinal);
         
+        String status="Valoración insertada correctamente.";
+            request.setAttribute("status", status);
         /*
         
         List<Producto> productos;
@@ -93,7 +98,10 @@ public class ValorarProducto extends HttpServlet {
         request.setAttribute("productos", productos);
         
         */
-        
+        }else{
+            String status="El numero debe ser mayor que cero y menor que cinco.";
+            request.setAttribute("status", status);
+        }
         request.setAttribute("producto", producto);
         
         RequestDispatcher rd = request.getRequestDispatcher("VistaProducto.jsp");

@@ -25,11 +25,16 @@
         <script>
             function showOrHide(selectorModo){
                 var s = document.getElementById("categoria");
+                var c = document.getElementById("calendario");
                 
                 if(selectorModo.value === "Categoria"){
                     s.style.display = "inline";
+                    
+                }else if(selectorModo.value === "Fecha"){
+                    c.style.display = "inline";
                 }else{
                     s.style.display = "none";
+                    c.style.display ="none";
                 }
             }
         </script>
@@ -59,6 +64,8 @@
                     <option value="<%=cat.getCatId()%>" <%=catpadre%>  >  <%=cat.getNombreCategoria()%> </option> 
                      <% } %>
             </select>
+            
+            <input type="date" name="Calendario" id="calendario" style="display:none"/>
             
             <input type="submit" value="Buscar"/>
         </form>
