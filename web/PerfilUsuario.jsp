@@ -74,7 +74,7 @@
                         for(Producto p: lista){
                     %>
                     
-                    <div class="producto">
+                    <div class="producto" onclick="location.href='MostrarProducto?idProducto=<%=p.getProductId()%>'">
                      
                         <img src=<%= p.getFoto()%>>
                         <h1><%= p.getTitulo()%></h1>
