@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import wallapidea.dao.UsuarioFacade;
 import wallapidea.service.UsuarioService;
 
@@ -42,6 +43,7 @@ public class AnyadirUsuario extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher rd;
         String status;
+         HttpSession session = request.getSession();
         //OBTENEMOS LOS PARAMETROS DEL FORM DE AnyadirUsuario.jsp
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
@@ -53,7 +55,7 @@ public class AnyadirUsuario extends HttpServlet {
             status = "Usuario registrado correctamente en wallaPIDEA";
             System.out.println(status);
             request.setAttribute("status", status);
-            request.setAttribute("listaUsuarios", usuarioFacade.findAll());
+            session.setAttribute("listaUsuarios", usuarioFacade.findAll());
             rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
             rd.forward(request, response);
         } else {

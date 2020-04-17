@@ -64,7 +64,7 @@ public class InicioSesionServlet extends HttpServlet {
             request.setAttribute("status", status);
             if (usuario.getIsadmin()) { // Si es Administrador accede al panel de administrador             
                 // Lista de todos los usuarios
-                request.setAttribute("listaUsuarios", usuarioFacade.findAll());
+                session.setAttribute("listaUsuarios", usuarioFacade.findAll());
                 rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
             } else {
                 rd = request.getRequestDispatcher("PerfilUsuario.jsp");

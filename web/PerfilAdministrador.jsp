@@ -17,7 +17,7 @@
         rd = request.getRequestDispatcher("InicioSesion.jsp");
         rd.forward(request, response);
     }else{
-        lista=(List) request.getAttribute("listaUsuarios");
+        lista=(List) session.getAttribute("listaUsuarios");
         System.out.println("Ha entrado en el PANEL ADMIN: "+u.getNombre());
     }
 %>  

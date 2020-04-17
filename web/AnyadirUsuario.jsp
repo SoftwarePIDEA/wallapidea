@@ -4,13 +4,17 @@
     Author     : ivanl
 --%>
 
+<%@page import="wallapidea.dao.UsuarioFacade"%>
+<%@page import="javax.ejb.EJB"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    
+    UsuarioFacade usuarioFacade;
     String status= (String) request.getAttribute("status");
     if(status==null){
     status="Añadir un usuario";
     }
-
+   // request.setAttribute("listaUsuarios", usuarioFacade.findAll());
 %>
 <!DOCTYPE html>
 <html>
@@ -24,6 +28,7 @@
        <div class="header">
             <form name="requestForm" method="post">
                 <div class="tarjeta button cerrarSesion" onclick="location.href='CerrarSesionServlet'">Cerrar sesión</div>
+                <img src="img/home.svg" onclick="location.href='PerfilAdministrador.jsp'">
             </form>
            
         </div>
