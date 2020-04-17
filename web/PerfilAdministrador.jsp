@@ -70,6 +70,14 @@
         
       
        <div class="body">
+           
+           <div class="tarjeta section">
+             <form action="UsuariosServlet" method="post">
+            <h3>Buscar Usuario: <input type="text" name="busqueda"/>
+            <input type="submit" value="Buscar"/>
+            </form>
+            </div>
+           
            <div class="tarjeta section">
                <div id="borrarProductos" class="tarjeta button" onclick="activarEliminar()">Borrar o editar algún Usuario</div>
             <div class="fila">
