@@ -6,7 +6,6 @@
 package wallapidea.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -16,12 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import wallapidea.dao.PalabraclaveFacade;
 import wallapidea.dao.ProductoFacade;
 import wallapidea.dao.ValoracionFacade;
 import wallapidea.entity.Producto;
 import wallapidea.entity.Usuario;
-import wallapidea.entity.Valoracion;
 import wallapidea.service.BuscarProductoService;
 
 /**

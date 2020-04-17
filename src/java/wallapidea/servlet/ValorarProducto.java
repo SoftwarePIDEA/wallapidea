@@ -15,11 +15,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import wallapidea.dao.ProductoFacade;
 import wallapidea.dao.ValoracionFacade;
 import wallapidea.entity.Producto;
-import wallapidea.entity.Usuario;
 import wallapidea.entity.Valoracion;
 import wallapidea.service.BuscarProductoService;
 
