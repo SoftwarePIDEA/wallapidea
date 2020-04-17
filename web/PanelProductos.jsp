@@ -4,6 +4,7 @@
     Author     : ivanl
 --%>
 
+<%@page import="wallapidea.entity.Categoria"%>
 <%@page import="wallapidea.entity.Palabraclave"%>
 <%@page import="wallapidea.entity.Producto"%>
 <%@page import="java.util.List"%>
@@ -11,7 +12,8 @@
 <!DOCTYPE html>
 <%
   List <Producto> listaProductos = (List)request.getAttribute("productos");
-  
+  String catpadre = "";
+  List<Categoria> categorias = (List)request.getAttribute("categorias");
 %>
 
 <html>
@@ -19,11 +21,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
         <title>Productos</title>
+        
+        <script>
+            function showOrHide(selectorModo){
+                var s = document.getElementById("categoria");
+                
+                if(selectorModo.value === "Categoria"){
+                    s.style.display = "inline";
+                }else{
+                    s.style.display = "none";
+                }
+            }
+        </script>
+        
     </head>
     <body>
         <form action="ProductosServlet" method="post">
             Buscar Producto: <input type="text" name="busqueda"/>
-            <select name="modoBusqueda">Modo de busqueda
+            <select name="modoBusqueda" onchange="showOrHide(this)">Modo de busqueda
                 <option value="Todos">Todos</option>
                 <option value="Recientes">Recientes</option>
                 <option value="TituloDescripcion">Titulo y Descripcion</option>
@@ -31,6 +46,20 @@
                 <option value="PalabrasClave">Palabras Clave</option>
                 <option value="Fecha">Fecha</option>    
             </select>
+            
+            <select name="Categoria" id="categoria" style="display:none">
+                <%
+                    for(Categoria cat : categorias){ 
+                        if(cat.getCategoriaPadre()==null){
+                            catpadre="style=\"font-weight:bold;\" ";
+                        }else{
+                            catpadre="";
+                        }
+                %>
+                    <option value="<%=cat.getCatId()%>" <%=catpadre%>  >  <%=cat.getNombreCategoria()%> </option> 
+                     <% } %>
+            </select>
+            
             <input type="submit" value="Buscar"/>
         </form>
         

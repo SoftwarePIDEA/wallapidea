@@ -6,7 +6,6 @@
 package wallapidea.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -16,7 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import wallapidea.dao.ProductoFacade;
+import wallapidea.dao.CategoriaFacade;
+import wallapidea.entity.Categoria;
 import wallapidea.entity.Producto;
 import wallapidea.entity.Usuario;
 import wallapidea.service.BuscarProductoService;
@@ -30,6 +30,9 @@ public class ProductosServlet extends HttpServlet {
 
     @EJB
     private BuscarProductoService buscarProductoService;
+    @EJB
+    private CategoriaFacade categoriaFacade;
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,9 +47,11 @@ public class ProductosServlet extends HttpServlet {
             throws ServletException, IOException {     
         response.setContentType("text/html;charset=UTF-8");
         
+        
         String buscar = request.getParameter("busqueda");
         String modo = request.getParameter("modoBusqueda");
-        List<Producto> productos;
+        List<Producto> productos = null;
+        List<Categoria> categorias = categoriaFacade.findAll();
         HttpSession session = request.getSession();
         
         Usuario u = (Usuario) session.getAttribute("usuario");
@@ -63,7 +68,7 @@ public class ProductosServlet extends HttpServlet {
                     break;
                     
                 case "TituloDescripcion":
-                    //productos = buscarProductoService
+                    productos = buscarProductoService.findByDescOrTitle(buscar, u.getUsuarioId());
                     break;
                     
                 case "Categoria":
@@ -75,7 +80,7 @@ public class ProductosServlet extends HttpServlet {
                     break;
                     
                 case "Fecha":
-                    
+                    //productos = buscarProductoService
                     break;
                 default:
                     productos = buscarProductoService.getAll(u.getUsuarioId());
@@ -84,6 +89,7 @@ public class ProductosServlet extends HttpServlet {
         }
         
         request.setAttribute("productos", productos);
+        request.setAttribute("categorias", categorias);
         
        if(u.getIsadmin()){
            RequestDispatcher rd = request.getRequestDispatcher("ListadoProductos.jsp");
