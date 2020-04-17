@@ -63,12 +63,12 @@ public class ModificarProducto extends HttpServlet {
         // obtengo datos nuevos del producto
         String idP = request.getParameter("productoId");
         String categoriaId = request.getParameter("cat");
-        String titulo = new String(request.getParameter("tituloProducto").getBytes(),"UTF-8");
-        String descripcion = new String(request.getParameter("descripcion").getBytes(),"UTF-8");
+        String titulo = new String(request.getParameter("tituloProducto").getBytes(), "UTF-8");
+        String descripcion = new String(request.getParameter("descripcion").getBytes(), "UTF-8");
         String precio = request.getParameter("precioProducto");
         String foto = request.getParameter("fotoProducto");
-        String pCs = new String(request.getParameter("palabrasClaveProducto").getBytes(),"UTF-8");
-        pCs = pCs.replaceAll("\\s+","").toUpperCase();
+        String pCs = new String(request.getParameter("palabrasClaveProducto").getBytes(), "UTF-8");
+        pCs = pCs.replaceAll("\\s+", "").toUpperCase();
         String[] palabrasClave = pCs.split(",");
 
         // obtengo el producto por atributos
@@ -84,27 +84,27 @@ public class ModificarProducto extends HttpServlet {
         //añadimos nuevas palabras clave
         Palabraclave pclave;
         //Empezamos a recorrer las palabras claves escritas por el usuario.
-        if(palabrasClave.length>0 && !palabrasClave[0].equals("")){
+        if (palabrasClave.length > 0 && !palabrasClave[0].equals("")) {
             for (String palabra : palabrasClave) {
-                  palabra = new String(palabra.getBytes(),"UTF-8");
+                palabra = new String(palabra.getBytes(), "UTF-8");
                 if (!palabraclaveFacade.existsPalabra(palabra)) { //creamos una pclave si antes no existia en la bd
-                    pclave= new Palabraclave();
-                    listaProd= new LinkedList<>();
+                    pclave = new Palabraclave();
+                    listaProd = new LinkedList<>();
                     pclave.setPalabra(palabra);
                     pclave.setProductoList(listaProd);
-                    palabraclaveFacade.create(pclave);             
+                    palabraclaveFacade.create(pclave);
                 }
-                pclave= palabraclaveFacade.findByPalabra(palabra); //se busca esa palabraclave (estamos seguros de que essta porque si no estaba la hemos creado antes.)
+                pclave = palabraclaveFacade.findByPalabra(palabra); //se busca esa palabraclave (estamos seguros de que essta porque si no estaba la hemos creado antes.)
                 listaProd = pclave.getProductoList(); //vemos su lista de productos (si es nueva o no tiene ningun producto estara vacía)
-                if(!listaProd.contains(producto)){
+                if (!listaProd.contains(producto)) {
                     listaProd.add(producto); //le añadimos nuestro producto (si ya está..?)
-                    pclave.setProductoList(listaProd);  
-                    palabraclaveFacade.edit(pclave); 
+                    pclave.setProductoList(listaProd);
+                    palabraclaveFacade.edit(pclave);
                 }
                 //editamos esa palabraclave
-                if(!listaClave.contains(pclave)){
+                if (!listaClave.contains(pclave)) {
                     listaClave.add(pclave);
-                }              
+                }
             }
         }
         //actulizamos p.clave a producto
@@ -119,21 +119,20 @@ public class ModificarProducto extends HttpServlet {
         productoFacade.edit(producto);
         productoFacade.updateByProduct(producto.getProductId(), producto.getCatId(), producto.getTitulo(), producto.getDescripcion(), producto.getPrecio(), producto.getFoto(), producto.getValoracionmedia());
         lista.add(producto);
-        
-        if(u.getIsadmin()){
-            
-            List<Producto> productos = buscarProductoService.getAll(u.getUsuarioId()); 
-        
-        /// hay que controlar como se llama realmente esta jsp 
-        // Si es admin lo envia al panel de admin de productos
-       
+
+        if (u.getIsadmin()) {
+
+            List<Producto> productos = buscarProductoService.getAll(u.getUsuarioId());
+
+            /// hay que controlar como se llama realmente esta jsp 
+            // Si es admin lo envia al panel de admin de productos
             request.setAttribute("productos", productos);
-        RequestDispatcher rd = request.getRequestDispatcher("ListadoProductos.jsp");
-        rd.forward(request, response);    
-            
-        }else{
-        RequestDispatcher rd = request.getRequestDispatcher("PerfilUsuario.jsp");
-        rd.forward(request, response);
+            RequestDispatcher rd = request.getRequestDispatcher("ListadoProductos.jsp");
+            rd.forward(request, response);
+
+        } else {
+            RequestDispatcher rd = request.getRequestDispatcher("PerfilUsuario.jsp");
+            rd.forward(request, response);
         }
     }
 

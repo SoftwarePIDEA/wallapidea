@@ -25,7 +25,7 @@ public class preModiUsuario extends HttpServlet {
 
     @EJB
     private UsuarioFacade usuarioFacade;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,20 +38,18 @@ public class preModiUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
-       String id = request.getParameter("id");
+
+        String id = request.getParameter("id");
         // obtenemos el producto
-       Usuario usuario = usuarioFacade.find(Integer.parseInt(id));
-       System.out.print(id);
-       System.out.print(usuario);
-       
-       request.setAttribute("usuario", usuario);
-       
-       RequestDispatcher rd = request.getRequestDispatcher("modificarUsuario.jsp");
-       rd.forward(request, response);
-        }
-    
+        Usuario usuario = usuarioFacade.find(Integer.parseInt(id));
+        System.out.print(id);
+        System.out.print(usuario);
+
+        request.setAttribute("usuario", usuario);
+
+        RequestDispatcher rd = request.getRequestDispatcher("modificarUsuario.jsp");
+        rd.forward(request, response);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

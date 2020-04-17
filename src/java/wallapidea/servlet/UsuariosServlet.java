@@ -27,7 +27,7 @@ public class UsuariosServlet extends HttpServlet {
 
     @EJB
     private UsuarioFacade usuarioFacade;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,24 +40,23 @@ public class UsuariosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         response.setContentType("text/html;charset=UTF-8");
-        
-         String buscar = request.getParameter("busqueda");
-         
+        response.setContentType("text/html;charset=UTF-8");
+
+        String buscar = request.getParameter("busqueda");
+
         Usuario us = usuarioFacade.findByNombre(buscar);
-        
-        
-        if(us!=null){
-            List<Usuario> lista= new LinkedList<Usuario>();
+
+        if (us != null) {
+            List<Usuario> lista = new LinkedList<Usuario>();
             lista.add(us);
-             request.setAttribute("listaUsuarios",lista);
-        }else{
+            request.setAttribute("listaUsuarios", lista);
+        } else {
             List<Usuario> lista = usuarioFacade.findAll();
-             request.setAttribute("listaUsuarios",lista);
+            request.setAttribute("listaUsuarios", lista);
         }
-        
-         RequestDispatcher rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
-           rd.forward(request, response);
+
+        RequestDispatcher rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

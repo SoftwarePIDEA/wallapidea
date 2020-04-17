@@ -24,7 +24,7 @@ public class PerfilServlet extends HttpServlet {
 
     @EJB
     private UsuarioFacade usuarioFacade;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,11 +37,11 @@ public class PerfilServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         HttpSession session = request.getSession();
-        
+
         session.setAttribute("usuarioActivo", usuarioFacade.find(1));
-        
+
         response.sendRedirect("PerfilUsuario.jsp");
     }
 

@@ -30,13 +30,11 @@ public class EliminarProducto extends HttpServlet {
 
     @EJB
     private BuscarProductoService buscarProductoService;
-    
+
     @EJB
     private ProductoFacade productoFacade;
     @EJB
     private ValoracionFacade valFacade;
-    
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,38 +50,36 @@ public class EliminarProducto extends HttpServlet {
         RequestDispatcher rd;
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        Usuario u = (Usuario)session.getAttribute("usuario");
+        Usuario u = (Usuario) session.getAttribute("usuario");
         //pasamos por parámetro el id del producto a eliminar
         String idS = request.getParameter("idProducto");
-        System.out.println("ID DEL PRODUCTO A ELIMINAR: __"+idS);
+        System.out.println("ID DEL PRODUCTO A ELIMINAR: __" + idS);
         // obtenemos el producto
         Integer id;
-        id =Integer.parseInt(idS);
+        id = Integer.parseInt(idS);
         Producto producto = productoFacade.find(id);
         //eliminamos sus valoraciones
         valFacade.deleteByProduct(producto);
-      
-       
-        
+
         // eliminamos de la lista de productos de usuario 
-        List<Producto>lista=u.getProductoList();
+        List<Producto> lista = u.getProductoList();
         lista.remove(producto);
         u.setProductoList(lista);
         // lo elimninamos
-        System.out.println("PRODUCTO A ELIMINAR: "+producto.getTitulo());
+        System.out.println("PRODUCTO A ELIMINAR: " + producto.getTitulo());
         // ver como hacer el cascade para que elimine demás relaciones en base de datos 
         productoFacade.remove(producto);
-        
-        List<Producto> productos = buscarProductoService.getAll(u.getUsuarioId()); 
-        
+
+        List<Producto> productos = buscarProductoService.getAll(u.getUsuarioId());
+
         /// hay que controlar como se llama realmente esta jsp 
         // Si es admin lo envia al panel de admin de productos
-        if(u.getIsadmin()){
+        if (u.getIsadmin()) {
             request.setAttribute("productos", productos);
             rd = request.getRequestDispatcher("ListadoProductos.jsp");
-                        rd.forward(request, response);
-        }else{
-        response.sendRedirect("PerfilUsuario.jsp");
+            rd.forward(request, response);
+        } else {
+            response.sendRedirect("PerfilUsuario.jsp");
         }
     }
 

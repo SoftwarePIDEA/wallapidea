@@ -24,8 +24,10 @@ import wallapidea.entity.Categoria;
  */
 @WebServlet(name = "preAnyProducto", urlPatterns = {"/preAnyProducto"})
 public class preAnyProducto extends HttpServlet {
-@EJB
+
+    @EJB
     CategoriaFacade catfacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,10 +43,9 @@ public class preAnyProducto extends HttpServlet {
         List<Categoria> lista = new LinkedList<Categoria>();
         lista.addAll(catfacade.findAll());
         request.setAttribute("listaCat", lista);
-        
-        
-       RequestDispatcher rd = request.getRequestDispatcher("AnyadirProducto.jsp");
-       rd.forward(request, response);
+
+        RequestDispatcher rd = request.getRequestDispatcher("AnyadirProducto.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

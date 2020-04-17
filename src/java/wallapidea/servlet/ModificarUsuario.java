@@ -26,8 +26,7 @@ public class ModificarUsuario extends HttpServlet {
 
     @EJB
     private UsuarioFacade usuarioFacade;
-    
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,19 +42,16 @@ public class ModificarUsuario extends HttpServlet {
         String idU = request.getParameter("usuarioId");
         String nombre = request.getParameter("nombreUsuario");
         String pass = request.getParameter("passUsuario");
-        
+
         Usuario usuario = usuarioFacade.find(Integer.parseInt(idU));
-        
+
         usuario.setNombre(nombre);
         usuario.setPass(pass);
         usuarioFacade.edit(usuario);
-        
-        
         List<Usuario> listaUsuarios = usuarioFacade.findAll();
-        
-           request.setAttribute("listaUsuarios", listaUsuarios);
-        
-        
+
+        request.setAttribute("listaUsuarios", listaUsuarios);
+
         RequestDispatcher rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
         rd.forward(request, response);
     }
