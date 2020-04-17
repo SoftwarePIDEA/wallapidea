@@ -64,7 +64,7 @@
             <form name="requestForm" method="post">
                 <div class="topPanelButton" onclick="location.href='ProductosServlet'">Buscar producto</div>
                 <div class="topPanelButton" onclick="location.href='AnyadirUsuario.jsp'">Añadir un nuevo Usuario</div>
-                <div class="topPanelButton" >Buscar usuario</div>
+                <div class="topPanelButton" onclick="location.href='UsuariosServlet'">Buscar usuario</div>
             </form>
         </div>
         

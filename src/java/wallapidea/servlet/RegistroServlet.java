@@ -47,8 +47,12 @@ public class RegistroServlet extends HttpServlet {
         String user= request.getParameter("user");
         String pass= request.getParameter("pass");
         String status;
-        
-        
+        if(user.length()<5 || pass.length()<5){
+            status = "La contraseña o el usuario es muy corto.";
+            request.setAttribute("status", status);
+            rd = request.getRequestDispatcher("Registro.jsp");
+        }
+        else{
         //CREAMOS LOS DATOS DE USUARIO
         if(!usuarioFacade.isNombreRegistered(user)){
             usuarioService.Anyadir(user, pass, Boolean.FALSE);
@@ -59,6 +63,7 @@ public class RegistroServlet extends HttpServlet {
             status = "El usuario ya existe en wallaPIDEA, inicie sesion";
             request.setAttribute("status", status);
             rd = request.getRequestDispatcher("Registro.jsp");
+        }
         }
             rd.forward(request, response); 
     }
