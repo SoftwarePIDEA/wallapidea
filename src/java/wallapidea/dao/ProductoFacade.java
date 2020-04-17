@@ -109,9 +109,9 @@ public class ProductoFacade extends AbstractFacade<Producto> {
 
         q = this.getEntityManager().createQuery("SELECT p " 
                                                 + "FROM Producto p "                                                
-                                                + "WHERE p.catId = :catid AND "
+                                                + "WHERE p.catId.catId = :catid AND "
                                                 + "p.usuarioId.usuarioId <> :user_id");
-        q.setParameter("catid", "%" + catid + "%");
+        q.setParameter("catid", catid);
         q.setParameter("user_id", user_id);
         
         return q.getResultList();

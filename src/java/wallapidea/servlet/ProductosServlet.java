@@ -50,7 +50,7 @@ public class ProductosServlet extends HttpServlet {
         
         String buscar = request.getParameter("busqueda");
         String modo = request.getParameter("modoBusqueda");
-
+        
         List<Producto> productos = null;
         List<Categoria> categorias = categoriaFacade.findAll();
 
@@ -74,7 +74,8 @@ public class ProductosServlet extends HttpServlet {
                     break;
                     
                 case "Categoria":
-                    
+                    int categoria_id = Integer.parseInt(request.getParameter("Categoria"));
+                    productos = buscarProductoService.findByCatId(categoria_id, u.getUsuarioId());
                     break;
                     
                 case "PalabrasClave":
