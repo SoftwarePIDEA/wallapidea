@@ -46,7 +46,7 @@ public class ProductosServlet extends HttpServlet {
         
         String buscar = request.getParameter("busqueda");
         String modo = request.getParameter("modoBusqueda");
-        List<Producto> productos;
+        List<Producto> productos=null;
         HttpSession session = request.getSession();
         
         Usuario u = (Usuario) session.getAttribute("usuario");
