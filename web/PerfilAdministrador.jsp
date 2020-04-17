@@ -9,10 +9,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
+    RequestDispatcher rd;
     Usuario u = (Usuario)session.getAttribute("usuario");
-    System.out.println("Ha entrado en el PANEL ADMIN: " + u.getNombre());
-    List<Usuario> lista = (List) request.getAttribute("listaUsuarios");
-    
+    //
+    List<Usuario> lista = null;
+    if(u==null || !u.getIsadmin()){
+        rd = request.getRequestDispatcher("InicioSesion.jsp");
+        rd.forward(request, response);
+    }else{
+        lista=(List) request.getAttribute("listaUsuarios");
+        System.out.println("Ha entrado en el PANEL ADMIN: "+u.getNombre());
+    }
 %>  
 <!DOCTYPE html>
 <html>

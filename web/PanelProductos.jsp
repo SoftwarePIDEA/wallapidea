@@ -23,6 +23,14 @@
     <body>
         <form action="ProductosServlet" method="post">
             Buscar Producto: <input type="text" name="busqueda"/>
+            <select name="modoBusqueda">Modo de busqueda
+                <option value="Todos">Todos</option>
+                <option value="Recientes">Recientes</option>
+                <option value="TituloDescripcion">Titulo y Descripcion</option>
+                <option value="Categoria">Categoria</option>
+                <option value="PalabrasClave">Palabras Clave</option>
+                <option value="Fecha">Fecha</option>    
+            </select>
             <input type="submit" value="Buscar"/>
         </form>
         

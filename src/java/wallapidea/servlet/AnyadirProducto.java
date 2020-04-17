@@ -6,7 +6,6 @@
 package wallapidea.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,6 +60,12 @@ public class AnyadirProducto extends HttpServlet {
         String pCs = new String(request.getParameter("palabrasclave").getBytes(),"UTF-8");
         pCs = pCs.replaceAll("\\s+","").toUpperCase();
         String[] palabrasClave = pCs.split(",");
+        
+        //Control de errores
+        if(precio.equals("") || titulo.equals("") || descripcion.equals("")){
+            RequestDispatcher rd = request.getRequestDispatcher("preAnyProducto");
+            rd.forward(request, response);
+        }else{
         
         Producto producto = new Producto();
         Categoria categoria = categoriaFacade.find(Integer.parseInt(categoriaId));
@@ -118,8 +123,9 @@ public class AnyadirProducto extends HttpServlet {
         lista.add(producto);
         u.setProductoList(lista);
         //VOLVEMOS
-        RequestDispatcher rd = request.getRequestDispatcher("PerfilUsuario.jsp");
-        rd.forward(request, response);
+        RequestDispatcher rd1 = request.getRequestDispatcher("PerfilUsuario.jsp");
+        rd1.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

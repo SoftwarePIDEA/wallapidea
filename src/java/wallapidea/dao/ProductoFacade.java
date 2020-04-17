@@ -103,7 +103,20 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         
         return q.getResultList();
     }
-     
+    
+      public List<Producto> findByCategoria(int catid, int user_id){
+        Query q;
+
+        q = this.getEntityManager().createQuery("SELECT p " 
+                                                + "FROM Producto p "                                                
+                                                + "WHERE p.catId = :catid AND "
+                                                + "p.usuarioId.usuarioId <> :user_id");
+        q.setParameter("catid", "%" + catid + "%");
+        q.setParameter("user_id", user_id);
+        
+        return q.getResultList();
+    }
+          
     public List<Producto> findAllExceptUserProduct(int user_id){
         Query q;
         
@@ -114,6 +127,13 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         return q.getResultList();
     }
     
-    
+    public List<Producto> getRecentProducts(int user_id){
+        Query q;
+        
+        q = this.getEntityManager().createQuery("SELECT p FROM Producto p WHERE p.usuarioId.usuarioId <> :user_id ORDER BY p.fechayhora DESC");
+        q.setParameter("user_id", user_id);
+        
+        return q.getResultList();
+    } 
     
 }
