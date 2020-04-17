@@ -326,15 +326,13 @@ html {
 .comentarioSection .comentario .pInfComentario{
     overflow: hidden;
     padding: 0px 10px 10px 10px;
-    text-align: center;
 }
 
 .comentarioSection .comentario .pInfComentario h2{
-    float: right;
     color: #3c4147;
     font-size: 18px;
     font-weight: 400;
-    text-align: start;
+    text-align: left;
     margin: 0px 10px;
 }
 
