@@ -75,7 +75,8 @@ public class ProductosServlet extends HttpServlet {
                     
                 case "Categoria":
                     int categoria_id = Integer.parseInt(request.getParameter("Categoria"));
-                    productos = buscarProductoService.findByCatId(categoria_id, u.getUsuarioId());
+                    //productos = buscarProductoService.findByCatId(categoria_id, u.getUsuarioId());
+                    productos= buscarProductoService.findByCatAndKeysOrTitleOrDesc(buscar,categoria_id, u.getUsuarioId());
                     break;
                     
                 case "PalabrasClave":
