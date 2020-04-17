@@ -44,14 +44,15 @@ public class UsuariosServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-
         String buscar = request.getParameter("busqueda");
-        if (buscar.equals("")) {
+
+        if (buscar == null || buscar.equals("")) {
             request.setAttribute("listaUsuarios", usuarioFacade.findAll());
         } else {
             List<Usuario> lista = usuarioService.BuscarPorNombreoID(buscar);
             request.setAttribute("listaUsuarios", lista);
         }
+
         /*
         Usuario us = usuarioFacade.findByNombre(buscar);
 
@@ -63,7 +64,6 @@ public class UsuariosServlet extends HttpServlet {
             List<Usuario> lista = usuarioFacade.findAll();
             request.setAttribute("listaUsuarios", lista);
         }*/
-
         RequestDispatcher rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
         rd.forward(request, response);
     }
