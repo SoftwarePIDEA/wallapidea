@@ -37,20 +37,21 @@ String catpadre="";
            <div class="header">
             <form name="requestForm" method="post">
                 <div class="tarjeta button cerrarSesion" onclick="location.href='CerrarSesionServlet'">Cerrar sesión</div>
+                <img src="img/home.svg" onclick="location.href='PerfilUsuario.jsp'">
             </form>
-            <h1>Bienvenido, <%= u.getNombre() %></h1>
+            
         </div>
         
         <div class="topPanel">
             <form name="requestForm" method="post">
                 <div class="topPanelButton" onclick="location.href='EditarPerfil.jsp'">Editar perfil</div>
-                <div class="topPanelButton">Añadir un nuevo producto</div>
+                <div class="topPanelButton" onclick="location.href='preAnyProducto'">Añadir un nuevo producto</div>
                 <div class="topPanelButton" onclick="location.href='ProductosServlet'">Buscar algún producto</div>
             </form>
         </div>
-        <div class="tarjeta section">
-        <h3>Modificar Producto</h3>
-        </div>
+        <div class="centralSection tarjeta">
+        <h1>Modificar Producto</h1>
+        
         <form action="ModificarProducto" method="post">
         Categoria:           
         <select name="cat">
@@ -81,7 +82,8 @@ String catpadre="";
         
         Palabras Clave :<br/> <textarea name="palabrasClaveProducto" rows="5" cols="50"><%=palabrasclavesstring%></textarea><br/>
         <input type="submit" value="Enviar modificación">
-        </form>    
+        </form>
+        </div>
     </body>
 </html>
 
