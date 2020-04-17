@@ -84,6 +84,7 @@ public class ValorarProducto extends HttpServlet {
         //actualizamos valoracion media del producto 
         productoFacade.updateValoracion(producto.getProductId(),valoracionFinal);
         
+        /*
         
         List<Producto> productos;
         HttpSession session = request.getSession();
@@ -92,7 +93,12 @@ public class ValorarProducto extends HttpServlet {
         productos = buscarProductoService.getAll(u.getUsuarioId()); 
         
         request.setAttribute("productos", productos);
-        RequestDispatcher rd = request.getRequestDispatcher("PanelProductos.jsp");
+        
+        */
+        
+        request.setAttribute("producto", producto);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("VistaProducto.jsp");
         rd.forward(request, response);
      
         
