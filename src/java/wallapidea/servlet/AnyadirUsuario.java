@@ -22,10 +22,12 @@ import wallapidea.service.UsuarioService;
  */
 @WebServlet(name = "AnyadirUsuario", urlPatterns = {"/AnyadirUsuario"})
 public class AnyadirUsuario extends HttpServlet {
-   @EJB
+
+    @EJB
     private UsuarioFacade usuarioFacade;
-       @EJB
-        private UsuarioService usuarioService;
+    @EJB
+    private UsuarioService usuarioService;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,12 +43,12 @@ public class AnyadirUsuario extends HttpServlet {
         RequestDispatcher rd;
         String status;
         //OBTENEMOS LOS PARAMETROS DEL FORM DE AnyadirUsuario.jsp
-        String user= request.getParameter("user");
-        String pass= request.getParameter("pass");
-        String isAdminParameter= request.getParameter("isAdmin");
-        Boolean isAdmin= !isAdminParameter.equals("0");
+        String user = request.getParameter("user");
+        String pass = request.getParameter("pass");
+        String isAdminParameter = request.getParameter("isAdmin");
+        Boolean isAdmin = !isAdminParameter.equals("0");
 
-        if(!usuarioFacade.isNombreRegistered(user)){
+        if (!usuarioFacade.isNombreRegistered(user)) {
             usuarioService.Anyadir(user, pass, isAdmin);
             status = "Usuario registrado correctamente en wallaPIDEA";
             System.out.println(status);
@@ -54,16 +56,15 @@ public class AnyadirUsuario extends HttpServlet {
             request.setAttribute("listaUsuarios", usuarioFacade.findAll());
             rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
             rd.forward(request, response);
-        }else{
+        } else {
             status = "El usuario ya existe en wallaPIDEA";
             System.out.println(status);
             request.setAttribute("status", status);
             rd = request.getRequestDispatcher("AnyadirUsuario.jsp");
-            rd.forward(request, response); 
+            rd.forward(request, response);
         }
-            
+
     }
-        
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

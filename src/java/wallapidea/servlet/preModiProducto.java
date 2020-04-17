@@ -6,7 +6,6 @@
 package wallapidea.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -16,11 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.servlet.http.HttpSession;
-
 import wallapidea.dao.CategoriaFacade;
-
 import wallapidea.dao.ProductoFacade;
 import wallapidea.entity.Categoria;
 import wallapidea.entity.Producto;
@@ -36,6 +32,7 @@ public class preModiProducto extends HttpServlet {
     private ProductoFacade productoFacade;
     @EJB
     CategoriaFacade catfacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,30 +46,27 @@ public class preModiProducto extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-         HttpSession session = request.getSession();
-        if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
-            response.sendRedirect("login.jsp");            
-        }else{
+        HttpSession session = request.getSession();
+        if (session.getAttribute("usuario") == null) { // Se ha llamado al servlet sin haberse autenticado
+            response.sendRedirect("login.jsp");
+        } else {
 
-      
-        List<Categoria> lista = new LinkedList<Categoria>();
-        lista.addAll(catfacade.findAll());
-        request.setAttribute("listaCat", lista);
-        
+            List<Categoria> lista = new LinkedList<Categoria>();
+            lista.addAll(catfacade.findAll());
+            request.setAttribute("listaCat", lista);
 
-       
-       String id = request.getParameter("idProducto");
-        // obtenemos el producto
-       Producto producto = productoFacade.find(Integer.parseInt(id));
-       System.out.print(id);
-       System.out.print(producto);
-       
-       request.setAttribute("producto", producto);
-       
-       RequestDispatcher rd = request.getRequestDispatcher("modificarProducto.jsp");
-       rd.forward(request, response);
+            String id = request.getParameter("idProducto");
+            // obtenemos el producto
+            Producto producto = productoFacade.find(Integer.parseInt(id));
+            System.out.print(id);
+            System.out.print(producto);
+
+            request.setAttribute("producto", producto);
+
+            RequestDispatcher rd = request.getRequestDispatcher("modificarProducto.jsp");
+            rd.forward(request, response);
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

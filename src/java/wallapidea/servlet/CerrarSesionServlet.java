@@ -32,7 +32,7 @@ public class CerrarSesionServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();  
+        HttpSession session = request.getSession();
         session.removeAttribute("usuario");
         response.sendRedirect("InicioSesion.jsp");
     }

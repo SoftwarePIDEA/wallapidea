@@ -6,24 +6,30 @@
 package wallapidea.servlet;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import wallapidea.dao.UsuarioFacade;
+import wallapidea.entity.Usuario;
+import wallapidea.service.UsuarioService;
 
 /**
  *
- * @author eduge
+ * @author ivanl
  */
-@WebServlet(name = "PerfilServlet", urlPatterns = {"/PerfilServlet"})
-public class PerfilServlet extends HttpServlet {
+@WebServlet(name = "UsuariosServlet", urlPatterns = {"/UsuariosServlet"})
+public class UsuariosServlet extends HttpServlet {
 
     @EJB
     private UsuarioFacade usuarioFacade;
+    @EJB
+    private UsuarioService usuarioService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,12 +43,29 @@ public class PerfilServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        String buscar = request.getParameter("busqueda");
 
-        HttpSession session = request.getSession();
+        if (buscar == null || buscar.equals("")) {
+            request.setAttribute("listaUsuarios", usuarioFacade.findAll());
+        } else {
+            List<Usuario> lista = usuarioService.BuscarPorNombreoID(buscar);
+            request.setAttribute("listaUsuarios", lista);
+        }
 
-        session.setAttribute("usuarioActivo", usuarioFacade.find(1));
+        /*
+        Usuario us = usuarioFacade.findByNombre(buscar);
 
-        response.sendRedirect("PerfilUsuario.jsp");
+        if (us != null) {
+            List<Usuario> lista = new LinkedList<>();
+            lista.add(us);
+            request.setAttribute("listaUsuarios", lista);
+        } else {
+            List<Usuario> lista = usuarioFacade.findAll();
+            request.setAttribute("listaUsuarios", lista);
+        }*/
+        RequestDispatcher rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

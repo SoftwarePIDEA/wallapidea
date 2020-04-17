@@ -33,7 +33,6 @@ public class ProductosServlet extends HttpServlet {
     @EJB
     private CategoriaFacade categoriaFacade;
 
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,10 +43,9 @@ public class ProductosServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {     
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
+
         String buscar = request.getParameter("busqueda");
         String modo = request.getParameter("modoBusqueda");
 
@@ -55,12 +53,12 @@ public class ProductosServlet extends HttpServlet {
         List<Categoria> categorias = categoriaFacade.findAll();
 
         HttpSession session = request.getSession();
-        
+
         Usuario u = (Usuario) session.getAttribute("usuario");
-        
-        if(modo == null){
+
+        if (modo == null) {
             productos = buscarProductoService.getAll(u.getUsuarioId());
-        }else{
+        } else {
             switch (modo) {
                 case "Todo":
                     productos = buscarProductoService.getAll(u.getUsuarioId());
@@ -68,40 +66,42 @@ public class ProductosServlet extends HttpServlet {
                 case "Recientes":
                     productos = buscarProductoService.getRecentProducts(u.getUsuarioId());
                     break;
-                    
+
                 case "TituloDescripcion":
                     productos = buscarProductoService.findByDescOrTitle(buscar, u.getUsuarioId());
                     break;
-                    
+
                 case "Categoria":
-                    
+                    int categoria_id = Integer.parseInt(request.getParameter("Categoria"));
+                    //productos = buscarProductoService.findByCatId(categoria_id, u.getUsuarioId());
+                    productos = buscarProductoService.findByCatAndKeysOrTitleOrDesc(buscar, categoria_id, u.getUsuarioId());
                     break;
-                    
+
                 case "PalabrasClave":
                     productos = buscarProductoService.findByKeys(buscar, u.getUsuarioId());
                     break;
-                    
+
                 case "Fecha":
-                    //productos = buscarProductoService
+                    String fecha = request.getParameter("Calendario");
+                    productos = buscarProductoService.getProductByDate(u.getUsuarioId(), fecha);
                     break;
                 default:
                     productos = buscarProductoService.getAll(u.getUsuarioId());
                     break;
-            }       
+            }
         }
-        
+
         request.setAttribute("productos", productos);
         request.setAttribute("categorias", categorias);
-        
-       if(u.getIsadmin()){
-           RequestDispatcher rd = request.getRequestDispatcher("ListadoProductos.jsp");
+
+        if (u.getIsadmin()) {
+            RequestDispatcher rd = request.getRequestDispatcher("ListadoProductos.jsp");
             rd.forward(request, response);
-       }else{
-           RequestDispatcher rd = request.getRequestDispatcher("PanelProductos.jsp");
-           rd.forward(request, response);
-       }
-        
-        
+        } else {
+            RequestDispatcher rd = request.getRequestDispatcher("PanelProductos.jsp");
+            rd.forward(request, response);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

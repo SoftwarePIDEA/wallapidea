@@ -6,7 +6,6 @@
 package wallapidea.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,9 +24,9 @@ import wallapidea.entity.Producto;
 @WebServlet(name = "MostrarProducto", urlPatterns = {"/MostrarProducto"})
 public class MostrarProducto extends HttpServlet {
 
-    
     @EJB
     private ProductoFacade productoFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,19 +38,19 @@ public class MostrarProducto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
-        if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
+        if (session.getAttribute("usuario") == null) { // Se ha llamado al servlet sin haberse autenticado
             response.sendRedirect("login.jsp");
-        }else{
+        } else {
             String id = request.getParameter("idProducto");
             Producto producto = productoFacade.find(Integer.parseInt(id));
             request.setAttribute("producto", producto);
-            
+
             RequestDispatcher rd = request.getRequestDispatcher("VistaProducto.jsp");
             rd.forward(request, response);
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -45,14 +45,14 @@
             <form name="requestForm" method="post">
                 <div class="tarjeta button cerrarSesion" onclick="location.href='CerrarSesionServlet'">Cerrar sesión</div>
             </form>
-            <h1>Bienvenido, <%= u.getNombre() %></h1>
+            <h1>Bienvenido Administrador, <%= u.getNombre() %></h1>
         </div>
         
         <div class="topPanel">
             <form name="requestForm" method="post">
                 <div class="topPanelButton">Buscar producto</div>
-                <div class="topPanelButton" ></div>
-                <div class="topPanelButton">Buscar usuario</div>
+                <div class="topPanelButton" onclick="location.href='AnyadirUsuario.jsp'" >Añadir un nuevo usuario</div>
+                <div class="topPanelButton" onclick="location.href='UsuariosServlet'" >Buscar usuario</div>
             </form>
         </div>
         

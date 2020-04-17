@@ -6,7 +6,6 @@
 package wallapidea.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -49,15 +48,15 @@ public class preVerComentario extends HttpServlet {
         String id = request.getParameter("idProducto");
         String titulo = request.getParameter("titulo");
         Producto p = productoFacade.find(Integer.parseInt(id));
-        List<Valoracion> comentarios = (List<Valoracion>)valoracionFacade.findByProductId(p);
-        
+        List<Valoracion> comentarios = (List<Valoracion>) valoracionFacade.findByProductId(p);
+
         // añadimos el atributo comentarios para mostrarlos a continuacion en una jsp 
         request.setAttribute("comentarios", comentarios);
-     
+
         // damos el control a la jsp que muestra los comentarios
         RequestDispatcher rd = request.getRequestDispatcher("VerComentarios.jsp");
         rd.forward(request, response);
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -5,7 +5,6 @@
  */
 package wallapidea.servlet;
 
-
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -14,9 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import wallapidea.dao.UsuarioFacade;
-import wallapidea.entity.Usuario;
 import wallapidea.service.UsuarioService;
 
 /**
@@ -25,10 +22,12 @@ import wallapidea.service.UsuarioService;
  */
 @WebServlet(name = "RegistroServlet", urlPatterns = {"/RegistroServlet"})
 public class RegistroServlet extends HttpServlet {
+
     @EJB
-        private UsuarioFacade usuarioFacade;
+    private UsuarioFacade usuarioFacade;
     @EJB
-        private UsuarioService usuarioService;
+    private UsuarioService usuarioService;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,25 +41,29 @@ public class RegistroServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher rd;
-        
+
         //OBTENEMOS LOS PARAMETROS DEL FORM DE iniciosesion.JSP
-        String user= request.getParameter("user");
-        String pass= request.getParameter("pass");
+        String user = request.getParameter("user");
+        String pass = request.getParameter("pass");
         String status;
-        
-        
-        //CREAMOS LOS DATOS DE USUARIO
-        if(!usuarioFacade.isNombreRegistered(user)){
-            usuarioService.Anyadir(user, pass, Boolean.FALSE);
-            status = "Usuario registrado correctamente en wallaPIDEA";
-            request.setAttribute("status", status);
-            rd = request.getRequestDispatcher("InicioSesion.jsp");
-        }else{
-            status = "El usuario ya existe en wallaPIDEA, inicie sesion";
+        if (user.length() < 5 || pass.length() < 5) {
+            status = "La contraseña o el usuario es muy corto.";
             request.setAttribute("status", status);
             rd = request.getRequestDispatcher("Registro.jsp");
+        } else {
+            //CREAMOS LOS DATOS DE USUARIO
+            if (!usuarioFacade.isNombreRegistered(user)) {
+                usuarioService.Anyadir(user, pass, Boolean.FALSE);
+                status = "Usuario registrado correctamente en wallaPIDEA";
+                request.setAttribute("status", status);
+                rd = request.getRequestDispatcher("InicioSesion.jsp");
+            } else {
+                status = "El usuario ya existe en wallaPIDEA, inicie sesion";
+                request.setAttribute("status", status);
+                rd = request.getRequestDispatcher("Registro.jsp");
+            }
         }
-            rd.forward(request, response); 
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

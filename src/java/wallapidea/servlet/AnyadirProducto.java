@@ -31,12 +31,14 @@ import wallapidea.entity.Usuario;
  */
 @WebServlet(name = "AnyadirProducto", urlPatterns = {"/AnyadirProducto"})
 public class AnyadirProducto extends HttpServlet {
+
     @EJB
     CategoriaFacade categoriaFacade;
     @EJB
     ProductoFacade prodFacade;
     @EJB
     PalabraclaveFacade palabraclaveFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -51,80 +53,80 @@ public class AnyadirProducto extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Usuario u = (Usuario) session.getAttribute("usuario");
-        
+
         String categoriaId = request.getParameter("cat");
-        String titulo = new String(request.getParameter("titulo").getBytes(),"UTF-8");
-        String descripcion = new String(request.getParameter("descripcion").getBytes(),"UTF-8");
+        String titulo = new String(request.getParameter("titulo").getBytes(), "UTF-8");
+        String descripcion = new String(request.getParameter("descripcion").getBytes(), "UTF-8");
         String precio = request.getParameter("precio");
         String foto = request.getParameter("foto");
-        String pCs = new String(request.getParameter("palabrasclave").getBytes(),"UTF-8");
-        pCs = pCs.replaceAll("\\s+","").toUpperCase();
+        String pCs = new String(request.getParameter("palabrasclave").getBytes(), "UTF-8");
+        pCs = pCs.replaceAll("\\s+", "").toUpperCase();
         String[] palabrasClave = pCs.split(",");
-        
+
         //Control de errores
-        if(precio.equals("") || titulo.equals("") || descripcion.equals("")){
+        if (precio.equals("") || titulo.equals("") || descripcion.equals("")) {
             RequestDispatcher rd = request.getRequestDispatcher("preAnyProducto");
             rd.forward(request, response);
-        }else{
-        
-        Producto producto = new Producto();
-        Categoria categoria = categoriaFacade.find(Integer.parseInt(categoriaId));
-        
-        //Creamos la lista de productos que va a tener una pclave(listaProd) y la lista de palabras clave que va a tener nuestro producto (listaClave)
-        List<Palabraclave> listaClave = new LinkedList<>(); //siempre es nueva ya que las cogemos del campo de texto (textarea)
-        List<Producto> listaProd; //La lista de productos de una palabra clave existe ya si la palabra ya era palabra clave.
-        //añadimos nuevas palabras clave
-        Palabraclave pclave;
-        //Empezamos a recorrer las palabras claves escritas por el usuario y las añadimos a la lista de pclaves que va a tener nuestro producto.
-        if(palabrasClave.length>0 && !palabrasClave[0].equals("")){
-            for (String palabra : palabrasClave) {
-                  palabra = new String(palabra.getBytes(),"UTF-8");
-                if (!palabraclaveFacade.existsPalabra(palabra)) { //creamos una pclave si antes no existia en la bd
-                    pclave= new Palabraclave();
-                    listaProd= new LinkedList<>();
-                    pclave.setPalabra(palabra);
-                    pclave.setProductoList(listaProd);
-                    palabraclaveFacade.create(pclave);             
+        } else {
+
+            Producto producto = new Producto();
+            Categoria categoria = categoriaFacade.find(Integer.parseInt(categoriaId));
+
+            //Creamos la lista de productos que va a tener una pclave(listaProd) y la lista de palabras clave que va a tener nuestro producto (listaClave)
+            List<Palabraclave> listaClave = new LinkedList<>(); //siempre es nueva ya que las cogemos del campo de texto (textarea)
+            List<Producto> listaProd; //La lista de productos de una palabra clave existe ya si la palabra ya era palabra clave.
+            //añadimos nuevas palabras clave
+            Palabraclave pclave;
+            //Empezamos a recorrer las palabras claves escritas por el usuario y las añadimos a la lista de pclaves que va a tener nuestro producto.
+            if (palabrasClave.length > 0 && !palabrasClave[0].equals("")) {
+                for (String palabra : palabrasClave) {
+                    palabra = new String(palabra.getBytes(), "UTF-8");
+                    if (!palabraclaveFacade.existsPalabra(palabra)) { //creamos una pclave si antes no existia en la bd
+                        pclave = new Palabraclave();
+                        listaProd = new LinkedList<>();
+                        pclave.setPalabra(palabra);
+                        pclave.setProductoList(listaProd);
+                        palabraclaveFacade.create(pclave);
+                    }
+                    pclave = palabraclaveFacade.findByPalabra(palabra); //se busca esa palabraclave (estamos seguros de que essta porque si no estaba la hemos creado antes.)
+                    //editamos la lista de pclaves que tiene nuestro producto
+                    if (!listaClave.contains(pclave)) {
+                        listaClave.add(pclave);
+                    }
                 }
-                pclave= palabraclaveFacade.findByPalabra(palabra); //se busca esa palabraclave (estamos seguros de que essta porque si no estaba la hemos creado antes.)
-                //editamos la lista de pclaves que tiene nuestro producto
-                if(!listaClave.contains(pclave)){
-                    listaClave.add(pclave);
-                }              
             }
-        }       
-        //RELLENAR PRODUCTO
-        producto.setUsuarioId(u);
-        producto.setCatId(categoria);
-        producto.setTitulo(titulo);
-        producto.setDescripcion(descripcion);
-        producto.setPrecio(Double.parseDouble(precio));
-        producto.setFoto(foto);
-        producto.setPalabraclaveList(listaClave);
-        producto.setFechayhora(new Date());
-        
-        //CREAMOS EL PRODUCTO
-        prodFacade.create(producto);
-        
-        //Añadimos nuestro producto ya creado a todas las palabras clave
-        if(palabrasClave.length>0 && !palabrasClave[0].equals("")){
-            for (String palabra : palabrasClave){
-                palabra = new String(palabra.getBytes(),"UTF-8");
-                pclave= palabraclaveFacade.findByPalabra(palabra); //se busca esa palabraclave (estamos seguros de que essta porque si no estaba la hemos creado antes.)
-                listaProd = pclave.getProductoList(); //vemos su lista de productos (si es nueva o no tiene ningun producto estara vacía)
-                listaProd.add(producto); //le añadimos nuestro producto (si ya está..?)
-                pclave.setProductoList(listaProd);  
-                palabraclaveFacade.edit(pclave); 
+            //RELLENAR PRODUCTO
+            producto.setUsuarioId(u);
+            producto.setCatId(categoria);
+            producto.setTitulo(titulo);
+            producto.setDescripcion(descripcion);
+            producto.setPrecio(Double.parseDouble(precio));
+            producto.setFoto(foto);
+            producto.setPalabraclaveList(listaClave);
+            producto.setFechayhora(new Date());
+
+            //CREAMOS EL PRODUCTO
+            prodFacade.create(producto);
+
+            //Añadimos nuestro producto ya creado a todas las palabras clave
+            if (palabrasClave.length > 0 && !palabrasClave[0].equals("")) {
+                for (String palabra : palabrasClave) {
+                    palabra = new String(palabra.getBytes(), "UTF-8");
+                    pclave = palabraclaveFacade.findByPalabra(palabra); //se busca esa palabraclave (estamos seguros de que essta porque si no estaba la hemos creado antes.)
+                    listaProd = pclave.getProductoList(); //vemos su lista de productos (si es nueva o no tiene ningun producto estara vacía)
+                    listaProd.add(producto); //le añadimos nuestro producto (si ya está..?)
+                    pclave.setProductoList(listaProd);
+                    palabraclaveFacade.edit(pclave);
+                }
             }
-        }
-        
-        //LISTAPRODUCTOS
-        List<Producto> lista = u.getProductoList();
-        lista.add(producto);
-        u.setProductoList(lista);
-        //VOLVEMOS
-        RequestDispatcher rd1 = request.getRequestDispatcher("PerfilUsuario.jsp");
-        rd1.forward(request, response);
+
+            //LISTAPRODUCTOS
+            List<Producto> lista = u.getProductoList();
+            lista.add(producto);
+            u.setProductoList(lista);
+            //VOLVEMOS
+            RequestDispatcher rd1 = request.getRequestDispatcher("PerfilUsuario.jsp");
+            rd1.forward(request, response);
         }
     }
 

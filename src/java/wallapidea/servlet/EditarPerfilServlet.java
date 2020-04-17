@@ -6,7 +6,6 @@
 package wallapidea.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,7 +26,7 @@ public class EditarPerfilServlet extends HttpServlet {
 
     @EJB
     private UsuarioFacade usuarioFacade;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,21 +38,21 @@ public class EditarPerfilServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         RequestDispatcher rd;
-        
+
         int mode = Integer.parseInt(request.getParameter("mode"));
         HttpSession session = request.getSession();
         Usuario u = (Usuario) session.getAttribute("usuario");
-        
+
         String status = "";
-        
-        switch (mode){
-            case 0: 
+
+        switch (mode) {
+            case 0:
                 String user = request.getParameter("user");
-                if(!u.getNombre().equals(user)){
-                    
-                    if(!usuarioFacade.isNombreRegistered(user)){
+                if (!u.getNombre().equals(user)) {
+
+                    if (!usuarioFacade.isNombreRegistered(user)) {
                         u.setNombre(user);
                         usuarioFacade.edit(u);
                         status = "Nombre cambiado con éxito";
@@ -61,60 +60,60 @@ public class EditarPerfilServlet extends HttpServlet {
                         request.setAttribute("statusC", "green");
                         rd = request.getRequestDispatcher("EditarPerfil.jsp");
                         rd.forward(request, response);
-                    }else{
+                    } else {
                         status = "El nombre que ha introducido ya existe";
                         request.setAttribute("status", status);
                         request.setAttribute("statusC", "red");
                         rd = request.getRequestDispatcher("EditarPerfil.jsp");
                         rd.forward(request, response);
                     }
-                    
-                }else{
+
+                } else {
                     status = "El nombre que ha introducido es el mismo";
                     request.setAttribute("status", status);
                     request.setAttribute("statusC", "red");
                     rd = request.getRequestDispatcher("EditarPerfil.jsp");
                     rd.forward(request, response);
                 }
-                
+
                 break;
             case 1:
                 String passA = request.getParameter("passAntigua");
                 String passN = request.getParameter("passNueva");
                 String passN2 = request.getParameter("passNueva2");
-                
-                if(!passA.equals(u.getPass())){
+
+                if (!passA.equals(u.getPass())) {
                     status = "La contraseña antigua es incorrecta";
                     request.setAttribute("status", status);
                     request.setAttribute("statusC", "red");
                     rd = request.getRequestDispatcher("EditarPerfil.jsp");
                     rd.forward(request, response);
-                }else{
-                    
-                    if(!passN.equals(passN2)){
+                } else {
+
+                    if (!passN.equals(passN2)) {
                         status = "Las contraseñas nuevas no coinciden";
                         request.setAttribute("status", status);
                         request.setAttribute("statusC", "red");
                         rd = request.getRequestDispatcher("EditarPerfil.jsp");
                         rd.forward(request, response);
-                    }else if(passN.equals(passA)){
+                    } else if (passN.equals(passA)) {
                         status = "La contraseña nueva debe de ser diferente de la antigua";
                         request.setAttribute("status", status);
                         request.setAttribute("statusC", "red");
                         rd = request.getRequestDispatcher("EditarPerfil.jsp");
                         rd.forward(request, response);
-                    }else{
+                    } else {
                         u.setPass(passN);
-                        usuarioFacade.edit(u);  
+                        usuarioFacade.edit(u);
                         status = "Contraseña cambiada con éxito";
                         request.setAttribute("status", status);
                         request.setAttribute("statusC", "green");
                         rd = request.getRequestDispatcher("EditarPerfil.jsp");
                         rd.forward(request, response);
                     }
-                    
+
                 }
-                
+
         }
     }
 
