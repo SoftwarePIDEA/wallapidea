@@ -83,7 +83,8 @@ public class ProductosServlet extends HttpServlet {
                     break;
                     
                 case "Fecha":
-                    //productos = buscarProductoService
+                    String fecha = request.getParameter("Calendario");
+                    productos = buscarProductoService.getProductByDate(u.getUsuarioId(), fecha);
                     break;
                 default:
                     productos = buscarProductoService.getAll(u.getUsuarioId());

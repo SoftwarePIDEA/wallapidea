@@ -5,16 +5,13 @@
  */
 package wallapidea.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.ejb.EJB;
 import wallapidea.dao.ProductoFacade;
-import wallapidea.entity.Palabraclave;
 import wallapidea.entity.Producto;
 
 /**
@@ -87,5 +84,19 @@ public class BuscarProductoService {
         
     public List<Producto> getRecentProducts(int user_id){
         return this.productoFacade.getRecentProducts(user_id);
+    }
+    
+    public List<Producto> getProductByDate(int user_id, String fecha){
+        List<Producto> productos = this.productoFacade.findAllExceptUserProduct(user_id);
+        List<Producto> seleccionados = new ArrayList<Producto>();
+        
+        for(Producto p : productos){
+            String f = new SimpleDateFormat("yyyy-MM-dd").format(p.getFechayhora());
+            if(f.equals(fecha)){
+                seleccionados.add(p);
+            }
+        }
+        
+        return seleccionados;
     }
 }
