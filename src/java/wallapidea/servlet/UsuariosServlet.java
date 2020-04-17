@@ -47,7 +47,7 @@ public class UsuariosServlet extends HttpServlet {
         Usuario us = usuarioFacade.findByNombre(buscar);
 
         if (us != null) {
-            List<Usuario> lista = new LinkedList<Usuario>();
+            List<Usuario> lista = new LinkedList<>();
             lista.add(us);
             request.setAttribute("listaUsuarios", lista);
         } else {

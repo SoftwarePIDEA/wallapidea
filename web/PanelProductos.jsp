@@ -11,9 +11,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-  List <Producto> listaProductos = (List)request.getAttribute("productos");
-  String catpadre = "";
-  List<Categoria> categorias = (List)request.getAttribute("categorias");
+    List<Producto> listaProductos = (List) request.getAttribute("productos");
+    String catpadre = "";
+    List<Categoria> categorias = (List) request.getAttribute("categorias");
 %>
 
 <html>
@@ -21,26 +21,31 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
         <title>Productos</title>
-        
+
         <script>
-            function showOrHide(selectorModo){
+            function showOrHide(selectorModo) {
                 var s = document.getElementById("categoria");
                 var c = document.getElementById("calendario");
-                
-                if(selectorModo.value === "Categoria"){
+
+                if (selectorModo.value === "Categoria") {
                     s.style.display = "inline";
-                    
-                }else if(selectorModo.value === "Fecha"){
+
+                } else if (selectorModo.value === "Fecha") {
                     c.style.display = "inline";
-                }else{
+                } else {
                     s.style.display = "none";
-                    c.style.display ="none";
+                    c.style.display = "none";
                 }
             }
         </script>
-        
+
     </head>
     <body>
+        <div class="header">
+            <form name="requestForm" method="post">
+                <div class="tarjeta button cerrarSesion" onclick="location.href = 'CerrarSesionServlet'">Cerrar sesión</div>
+            </form>
+        </div>
         <form action="ProductosServlet" method="post">
             Buscar Producto: <input type="text" name="busqueda"/>
             <select name="modoBusqueda" onchange="showOrHide(this)">Modo de busqueda
@@ -51,54 +56,54 @@
                 <option value="PalabrasClave">Palabras Clave</option>
                 <option value="Fecha">Fecha</option>    
             </select>
-            
+
             <select name="Categoria" id="categoria" style="display:none">
                 <%
-                    for(Categoria cat : categorias){ 
-                        if(cat.getCategoriaPadre()==null){
-                            catpadre="style=\"font-weight:bold;\" ";
-                        }else{
-                            catpadre="";
+                    for (Categoria cat : categorias) {
+                        if (cat.getCategoriaPadre() == null) {
+                            catpadre = "style=\"font-weight:bold;\" ";
+                        } else {
+                            catpadre = "";
                         }
                 %>
-                    <option value="<%=cat.getCatId()%>" <%=catpadre%>  >  <%=cat.getNombreCategoria()%> </option> 
-                     <% } %>
+                <option value="<%=cat.getCatId()%>" <%=catpadre%>  >  <%=cat.getNombreCategoria()%> </option> 
+                <% } %>
             </select>
-            
+
             <input type="date" name="Calendario" id="calendario" style="display:none"/>
-            
+
             <input type="submit" value="Buscar"/>
         </form>
-        
-            <div class="fila">
+
+        <div class="fila">
+            <%
+                for (Producto p : listaProductos) {
+            %>
+
+            <div class="producto">
+
+                <img src=<%= p.getFoto()%>>
+                <h1><b><%= p.getTitulo()%></b></h1>
+                <h4> <b>Propietario: </b><%= p.getUsuarioId().getNombre()%></h4>
+                <h4> <b>Descripción: </b></br> <%= p.getDescripcion()%></h4>
+                <h4><b> Fecha: </b></br> <%= p.getFechayhora()%></h4>
+                <h4> <b>Valoración:</b> <%= p.getValoracionmedia()%></h4>
+                <h4> <b>Categoría:</b> <%= p.getCatId().getNombreCategoria()%></h4>
+                <h4> <b>Palabras Claves: </b>  
                     <%
-                        for(Producto p: listaProductos){
+                        for (Palabraclave pc : p.getPalabraclaveList()) {
                     %>
-                    
-                    <div class="producto">
-                     
-                        <img src=<%= p.getFoto()%>>
-                        <h1><b><%= p.getTitulo()%></b></h1>
-                        <h4> <b>Propietario: </b><%= p.getUsuarioId().getNombre()    %></h4>
-                        <h4> <b>Descripción: </b></br> <%= p.getDescripcion()    %></h4>
-                        <h4><b> Fecha: </b></br> <%= p.getFechayhora()    %></h4>
-                        <h4> <b>Valoración:</b> <%= p.getValoracionmedia()    %></h4>
-                        <h4> <b>Categoría:</b> <%= p.getCatId().getNombreCategoria()  %></h4>
-                        <h4> <b>Palabras Claves: </b>  
-                        <%
-                        for(Palabraclave pc: p.getPalabraclaveList()){
-                            %>
-                            <%= pc.getPalabra()   %>
-                            <% }%>
-                        </h4>
-                        <h2><%= p.getPrecio()%> €</h2>
-                        <div class="tarjeta button comentar" onclick="location.href='preVerComentario?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Ver Comentarios</div>
-                        <div class="tarjeta button valorar" onclick="location.href='preValorarProducto.jsp?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Valorar</div>
-                    </div>
-                    
-                    <%
-                        }
-                    %>
-                </div>
+                    <%= pc.getPalabra()%>
+                    <% }%>
+                </h4>
+                <h2><%= p.getPrecio()%> €</h2>
+                <div class="tarjeta button comentar" onclick="location.href = 'preVerComentario?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Ver Comentarios</div>
+                <div class="tarjeta button valorar" onclick="location.href = 'preValorarProducto.jsp?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Valorar</div>
+            </div>
+
+            <%
+                }
+            %>
+        </div>
     </body>
 </html>
