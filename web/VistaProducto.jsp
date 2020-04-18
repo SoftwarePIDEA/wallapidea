@@ -69,12 +69,14 @@
                         Comentario sobre el producto : <br/> <textarea name="comentarioProducto" rows="5" cols="50" requiered=""></textarea> <br/>
                         Puntuación : <br/> <input name="notaProducto" id="quantity" type="number" min="1" max="5">
                         <input name="idProducto" type="hidden" value="20">
-                        
-                        <input type="submit" value="Valorar"> <h3><%=status %></h3>
-                        <div class="tarjeta valorar" onclick="document.forms['crearComentario'].submit();">
+                         
+                        <%if(u.getUsuarioId() != p.getUsuarioId().getUsuarioId()){ %>
+                            
+                            <div class="tarjeta valorar" onclick="document.forms['crearComentario'].submit();">
                             Valorar
                              
-                        </div>
+                            </div>
+                        <% } %>
                        
                     </form>
                 </div>
