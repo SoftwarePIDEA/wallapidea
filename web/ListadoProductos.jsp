@@ -45,6 +45,7 @@
             <form name="requestForm" method="post">
                 <div class="tarjeta button cerrarSesion" onclick="location.href='CerrarSesionServlet'">Cerrar sesión</div>
             </form>
+             <img src="img/home.svg" onclick="location.href='PerfilAdministrador.jsp'">
             <h1>Bienvenido Administrador, <%= u.getNombre() %></h1>
         </div>
         
