@@ -127,6 +127,7 @@ public class ModificarProducto extends HttpServlet {
             /// hay que controlar como se llama realmente esta jsp 
             // Si es admin lo envia al panel de admin de productos
             request.setAttribute("productos", productos);
+            request.setAttribute("categorias",categoriaFacade.findAll());
             RequestDispatcher rd = request.getRequestDispatcher("ListadoProductos.jsp");
             rd.forward(request, response);
 
