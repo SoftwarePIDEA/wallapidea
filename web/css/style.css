@@ -361,3 +361,9 @@ html {
     background-color: rgb(228, 177, 37);
 }
 
+.buscador {
+    margin: 3px;
+    padding: 10px;
+    overflow: hidden;
+}
+

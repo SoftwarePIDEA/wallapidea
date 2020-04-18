@@ -46,6 +46,7 @@
                 <div class="tarjeta button cerrarSesion" onclick="location.href='CerrarSesionServlet'">Cerrar sesión</div>
             </form>
             <h1>Bienvenido Administrador, <%= u.getNombre() %></h1>
+            <img src="img/home.svg" onclick="location.href='PerfilUsuario.jsp'">
         </div>
         
         <div class="topPanel">
@@ -59,10 +60,10 @@
         <div class="body">
             
             <div class="tarjeta section">
-             <form action="ProductosServlet" method="post">
-            <h3>Buscar Producto: <input type="text" name="busqueda"/>
-            <input type="submit" value="Buscar"/>
-            </form>
+                <form action="ProductosServlet" method="post">
+                    <h3>Buscar Producto: <input type="text" name="busqueda"/>
+                    <input type="submit" value="Buscar"/>
+                </form>
             </div>
             <div class="tarjeta section">
                 <div id="borrarProductos" class="tarjeta button" onclick="activarEliminar()">Borrar o editar algún producto</div>
