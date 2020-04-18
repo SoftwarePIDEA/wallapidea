@@ -33,13 +33,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
-        <title>JSP Page</title>
+        <title>Viendo <%=p.getTitulo() %></title>
     </head>
     <body>
         <div class="header">
             <form name="requestForm" method="post">
                 <div class="tarjeta button cerrarSesion" onclick="location.href='CerrarSesionServlet'">Cerrar sesión</div>
             </form>
+            <img src="img/home.svg" onclick="location.href='PerfilUsuario.jsp'">
         </div>
         
         <div class="body">
