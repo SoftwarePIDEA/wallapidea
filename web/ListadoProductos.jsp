@@ -59,13 +59,13 @@
         
         <div class="body">
             
-            <div class="tarjeta section">
+            <div class="tarjeta buscador">
                 <form action="ProductosServlet" method="post">
                     <h3>Buscar Producto: <input type="text" name="busqueda"/>
                     <input type="submit" value="Buscar"/>
                 </form>
             </div>
-            <div class="tarjeta section">
+            <div class="tarjeta section2">
                 <div id="borrarProductos" class="tarjeta button" onclick="activarEliminar()">Borrar o editar algún producto</div>
                 <div class="fila">
                     <h3>Todos los Productos: </h3>
