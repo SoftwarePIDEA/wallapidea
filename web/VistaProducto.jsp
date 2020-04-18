@@ -4,6 +4,7 @@
     Author     : eduge
 --%>
 
+<%@page import="wallapidea.entity.Palabraclave"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="wallapidea.entity.Valoracion"%>
 <%@page import="wallapidea.entity.Producto"%>
@@ -57,6 +58,26 @@
                     <h2>Valoración: <%= p.getValoracionmedia() %></h2>
                     <h3><%= p.getDescripcion() %></h3>
                     <h3>Categoría: <%= p.getCatId().getNombreCategoria() %></h3>
+                    
+                    <%
+                        if(u.getIsadmin()){
+                    %>
+                    
+                    <h3>Propietario: <%= u.getNombre() %></h3>
+                    <h3>Fecha de publicación: <%= p.getFechayhora() %></h3>
+                    <h3> <b>Palabras Claves: </b>  
+                        <%
+                        for(Palabraclave pc: p.getPalabraclaveList()){
+                        %>
+                            <%= pc.getPalabra()   %>
+                        <%
+                        }
+                        %>
+                    </h3>
+                    
+                    <%
+                        }                        
+                    %>
                 </div>
 
             </div>
