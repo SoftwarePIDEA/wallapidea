@@ -21,11 +21,18 @@
 
    
     String status;
+    String casita="";
     status=(String) request.getAttribute("status");
     System.out.println(status);
     if(status==null){
     status="";
     }
+    if(u.getIsadmin()){
+        casita="PerfilAdministrador.jsp";
+    }else{
+        casita="PerfilUsuario.jsp";
+    }
+
 %>   
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -41,7 +48,7 @@
             <form name="requestForm" method="post">
                 <div class="tarjeta button cerrarSesion" onclick="location.href='CerrarSesionServlet'">Cerrar sesión</div>
             </form>
-            <img src="img/home.svg" onclick="location.href='PerfilUsuario.jsp'">
+            <img src="img/home.svg" onclick="location.href='<%=casita%>'">
         </div>
         
         <div class="body">
