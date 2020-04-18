@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import wallapidea.dao.UsuarioFacade;
 import wallapidea.entity.Usuario;
 import wallapidea.service.UsuarioService;
@@ -44,13 +45,14 @@ public class UsuariosServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         String buscar = request.getParameter("busqueda");
 
         if (buscar == null || buscar.equals("")) {
             request.setAttribute("listaUsuarios", usuarioFacade.findAll());
         } else {
             List<Usuario> lista = usuarioService.BuscarPorNombreoID(buscar);
-            request.setAttribute("listaUsuarios", lista);
+            session.setAttribute("listaUsuarios", lista);
         }
 
         /*
