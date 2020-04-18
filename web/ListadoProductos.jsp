@@ -104,7 +104,7 @@
             <input type="submit" value="Buscar"/>
         </form>
             </div>
-            <div class="tarjeta section">
+            <div class="tarjeta section2">
                 <div id="borrarProductos" class="tarjeta button" onclick="activarEliminar()">Borrar o editar algún producto</div>
                 <div class="fila">
                     <h3>Todos los Productos: </h3>

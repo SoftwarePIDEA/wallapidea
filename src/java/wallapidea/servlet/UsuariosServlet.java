@@ -49,7 +49,7 @@ public class UsuariosServlet extends HttpServlet {
         String buscar = request.getParameter("busqueda");
 
         if (buscar == null || buscar.equals("")) {
-            request.setAttribute("listaUsuarios", usuarioFacade.findAll());
+            session.setAttribute("listaUsuarios", usuarioFacade.findAll());
         } else {
             List<Usuario> lista = usuarioService.BuscarPorNombreoID(buscar);
             session.setAttribute("listaUsuarios", lista);
