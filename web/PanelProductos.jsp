@@ -47,59 +47,50 @@
             </form>
             <img src="img/home.svg" onclick="location.href='PerfilUsuario.jsp'">
         </div>
-        <form action="ProductosServlet" method="post">
-            Buscar Producto: <input type="text" name="busqueda"/>
-            <select name="modoBusqueda" onchange="showOrHide(this)">Modo de busqueda
-                <option value="Todos">Todos</option>
-                <option value="Recientes">Recientes</option>
-                <option value="TituloDescripcion">Titulo y Descripcion</option>
-                <option value="Categoria">Categoria</option>
-                <option value="PalabrasClave">Palabras Clave</option>
-                <option value="Fecha">Fecha</option>    
-            </select>
+        
+        
+        <div class="tarjeta buscador">
+                <form action="ProductosServlet" method="post">
+                    Buscar Producto: <input type="text" name="busqueda"/>
+                    <select name="modoBusqueda" onchange="showOrHide(this)">Modo de busqueda
+                        <option value="Todos">Todos</option>
+                        <option value="Recientes">Recientes</option>
+                        <option value="TituloDescripcion">Titulo y Descripcion</option>
+                        <option value="Categoria">Categoria</option>
+                        <option value="PalabrasClave">Palabras Clave</option>
+                        <option value="Fecha">Fecha</option>    
+                    </select>
 
-            <select name="Categoria" id="categoria" style="display:none">
-                <%
-                    for (Categoria cat : categorias) {
-                        if (cat.getCategoriaPadre() == null) {
-                            catpadre = "style=\"font-weight:bold;\" ";
-                        } else {
-                            catpadre = "";
-                        }
-                %>
-                <option value="<%=cat.getCatId()%>" <%=catpadre%>  >  <%=cat.getNombreCategoria()%> </option> 
-                <% } %>
-            </select>
+                    <select name="Categoria" id="categoria" style="display:none">
+                        <%
+                            for (Categoria cat : categorias) {
+                                if (cat.getCategoriaPadre() == null) {
+                                    catpadre = "style=\"font-weight:bold;\" ";
+                                } else {
+                                    catpadre = "";
+                                }
+                        %>
+                        <option value="<%=cat.getCatId()%>" <%=catpadre%>  >  <%=cat.getNombreCategoria()%> </option> 
+                        <% } %>
+                    </select>
 
-            <input type="date" name="Calendario" id="calendario" style="display:none"/>
+                    <input type="date" name="Calendario" id="calendario" style="display:none"/>
 
-            <input type="submit" value="Buscar"/>
-        </form>
+                    <input type="submit" value="Buscar"/>
+                </form>
+        </div>
 
         <div class="fila">
             <%
                 for (Producto p : listaProductos) {
             %>
 
-            <div class="producto">
+            <div class="producto" onclick="location.href='MostrarProducto?idProducto=<%=p.getProductId()%>'">
 
                 <img src=<%= p.getFoto()%>>
-                <h1><b><%= p.getTitulo()%></b></h1>
-                <h4> <b>Propietario: </b><%= p.getUsuarioId().getNombre()%></h4>
-                <h4> <b>Descripción: </b></br> <%= p.getDescripcion()%></h4>
-                <h4><b> Fecha: </b></br> <%= p.getFechayhora()%></h4>
-                <h4> <b>Valoración:</b> <%= p.getValoracionmedia()%></h4>
-                <h4> <b>Categoría:</b> <%= p.getCatId().getNombreCategoria()%></h4>
-                <h4> <b>Palabras Claves: </b>  
-                    <%
-                        for (Palabraclave pc : p.getPalabraclaveList()) {
-                    %>
-                    <%= pc.getPalabra()%>
-                    <% }%>
-                </h4>
+                <h1><%= p.getTitulo()%></h1>
                 <h2><%= p.getPrecio()%> €</h2>
-                <div class="tarjeta button comentar" onclick="location.href = 'preVerComentario?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Ver Comentarios</div>
-                <div class="tarjeta button valorar" onclick="location.href = 'preValorarProducto.jsp?idProducto=<%=p.getProductId()%>&titulo=<%=p.getTitulo()%>'">Valorar</div>
+              
             </div>
 
             <%
