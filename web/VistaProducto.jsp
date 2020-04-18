@@ -67,10 +67,10 @@
                     <form id="crearComentario" action="ValorarProducto" method="post">
                         <input type="hidden" name="idProducto" value="<%= p.getProductId() %>">
                         Comentario sobre el producto : <br/> <textarea name="comentarioProducto" rows="5" cols="50" requiered=""></textarea> <br/>
-                        Puntuación : <br/> <input name="notaProducto" id="quantity" type="number" min="1" max="5">
-                        <input name="idProducto" type="hidden" value="20">
-                         
-                        <%if(u.getUsuarioId() != p.getUsuarioId().getUsuarioId()){ %>
+                        
+                        <%if(u.getUsuarioId() != p.getUsuarioId().getUsuarioId() || !u.getIsadmin()){ %>
+                        
+                            Puntuación : <br/> <input name="notaProducto" id="quantity" type="number" min="1" max="5">
                             
                             <div class="tarjeta valorar" onclick="document.forms['crearComentario'].submit();">
                             Valorar
