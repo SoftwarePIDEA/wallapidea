@@ -4,6 +4,7 @@
     Author     : ivanl
 --%>
 
+<%@page import="wallapidea.entity.Categoria"%>
 <%@page import="wallapidea.entity.Palabraclave"%>
 <%@page import="wallapidea.entity.Usuario"%>
 <%@page import="java.util.List"%>
@@ -14,7 +15,8 @@
     
     Usuario u = (Usuario)session.getAttribute("usuario");
     List<Producto> lista = (List) request.getAttribute("productos");
-    
+    String catpadre="";
+    List<Categoria> categorias = (List) request.getAttribute("categorias");
 
  %>
 <html>
@@ -35,7 +37,20 @@
                     }
                 }
             }
-            
+            function showOrHide(selectorModo) {
+                var s = document.getElementById("categoria");
+                var c = document.getElementById("calendario");
+
+                if (selectorModo.value === "Categoria") {
+                    s.style.display = "inline";
+
+                } else if (selectorModo.value === "Fecha") {
+                    c.style.display = "inline";
+                } else {
+                    s.style.display = "none";
+                    c.style.display = "none";
+                }
+            }
             
         </script>
     </head>
@@ -47,7 +62,6 @@
             </form>
              <img src="img/home.svg" onclick="location.href='PerfilAdministrador.jsp'">
             <h1>Bienvenido Administrador, <%= u.getNombre() %></h1>
-            <img src="img/home.svg" onclick="location.href='PerfilUsuario.jsp'">
         </div>
         
         <div class="topPanel">
@@ -61,10 +75,34 @@
         <div class="body">
             
             <div class="tarjeta section">
-                <form action="ProductosServlet" method="post">
-                    <h3>Buscar Producto: <input type="text" name="busqueda"/>
-                    <input type="submit" value="Buscar"/>
-                </form>
+                      <form action="ProductosServlet" method="post">
+            Buscar Producto: <input type="text" name="busqueda"/>
+            <select name="modoBusqueda" onchange="showOrHide(this)">Modo de busqueda
+                <option value="Todos">Todos</option>
+                <option value="Recientes">Recientes</option>
+                <option value="TituloDescripcion">Titulo y Descripcion</option>
+                <option value="Categoria">Categoria</option>
+                <option value="PalabrasClave">Palabras Clave</option>
+                <option value="Fecha">Fecha</option>    
+            </select>
+
+            <select name="Categoria" id="categoria" style="display:none">
+                <%
+                    for (Categoria cat : categorias) {
+                        if (cat.getCategoriaPadre() == null) {
+                            catpadre = "style=\"font-weight:bold;\" ";
+                        } else {
+                            catpadre = "";
+                        }
+                %>
+                <option value="<%=cat.getCatId()%>" <%=catpadre%>  >  <%=cat.getNombreCategoria()%> </option> 
+                <% } %>
+            </select>
+
+            <input type="date" name="Calendario" id="calendario" style="display:none"/>
+
+            <input type="submit" value="Buscar"/>
+        </form>
             </div>
             <div class="tarjeta section">
                 <div id="borrarProductos" class="tarjeta button" onclick="activarEliminar()">Borrar o editar algún producto</div>
