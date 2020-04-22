@@ -98,8 +98,8 @@
                         Comentario sobre el producto : <br/> 
                         
                         <%if(u.getUsuarioId() != p.getUsuarioId().getUsuarioId() && !u.getIsadmin()){ %>
-                            <textarea name="comentarioProducto" rows="5" cols="50" requiered=""></textarea> <br/>
-                            Puntuación : <br/> <input name="notaProducto" id="quantity" type="number" min="1" max="5">
+                            <textarea name="comentarioProducto" rows="5" cols="50"  required></textarea> <br/>
+                            Puntuación : <br/> <input name="notaProducto" id="quantity" type="number" min="1" max="5" value="3" required="">
                             
                             <div class="tarjeta valorar" onclick="document.forms['crearComentario'].submit();">
                             Valorar

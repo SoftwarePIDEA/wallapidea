@@ -103,7 +103,7 @@ public class ValorarProducto extends HttpServlet {
         }
         request.setAttribute("producto", producto);
 
-        RequestDispatcher rd = request.getRequestDispatcher("PerfilUsuario.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("VistaProducto.jsp");
         rd.forward(request, response);
 
     }
