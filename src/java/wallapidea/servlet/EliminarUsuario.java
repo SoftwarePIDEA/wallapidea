@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import wallapidea.dao.UsuarioFacade;
 import wallapidea.entity.Usuario;
 
@@ -40,7 +41,7 @@ public class EliminarUsuario extends HttpServlet {
             throws ServletException, IOException {
         RequestDispatcher rd;
         response.setContentType("text/html;charset=UTF-8");
-
+        HttpSession session = request.getSession();
         //pasamos por parámetro el id del producto a eliminar
         String id = request.getParameter("id");
 
@@ -50,10 +51,11 @@ public class EliminarUsuario extends HttpServlet {
         usuarioFacade.remove(usuario);
 
         List<Usuario> listaUsuarios = usuarioFacade.findAll();
-        request.setAttribute("listaUsuarios", listaUsuarios);
-        /// hay que controlar como se llama realmente esta jsp 
-        rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
-        rd.forward(request, response);
+        session.setAttribute("listaUsuarios", listaUsuarios);
+        /// hay que controlar como se llama realmente esta jsp
+        response.sendRedirect("PerfilAdministrador.jsp");
+        /*rd = request.getRequestDispatcher("PerfilAdministrador.jsp");
+        rd.forward(request, response);*/
 
     }
 
