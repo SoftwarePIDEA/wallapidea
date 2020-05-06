@@ -87,14 +87,15 @@ public class ModificarProducto extends HttpServlet {
         if (palabrasClave.length > 0 && !palabrasClave[0].equals("")) {
             for (String palabra : palabrasClave) {
                 palabra = new String(palabra.getBytes(), "UTF-8");
-                if (!palabraclaveFacade.existsPalabra(palabra)) { //creamos una pclave si antes no existia en la bd
+                pclave = palabraclaveFacade.findByPalabra(palabra);
+                if (pclave == null) { //creamos una pclave si antes no existia en la bd
                     pclave = new Palabraclave();
                     listaProd = new LinkedList<>();
                     pclave.setPalabra(palabra);
                     pclave.setProductoList(listaProd);
                     palabraclaveFacade.create(pclave);
                 }
-                pclave = palabraclaveFacade.findByPalabra(palabra); //se busca esa palabraclave (estamos seguros de que essta porque si no estaba la hemos creado antes.)
+                pclave = palabraclaveFacade.findByPalabra(palabra);    //se busca esa palabraclave (estamos seguros de que essta porque si no estaba la hemos creado antes.)
                 listaProd = pclave.getProductoList(); //vemos su lista de productos (si es nueva o no tiene ningun producto estara vacía)
                 if (!listaProd.contains(producto)) {
                     listaProd.add(producto); //le añadimos nuestro producto (si ya está..?)

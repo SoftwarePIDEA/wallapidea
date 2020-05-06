@@ -33,6 +33,8 @@ public class PalabraclaveFacade extends AbstractFacade<Palabraclave> {
     public PalabraclaveFacade() {
         super(Palabraclave.class);
     }
+    
+    /*
     public boolean existsPalabra (String palabra){
         Query q;
        Palabraclave pc=null; //Inicializamos la posible palabra clave que haya en la BD
@@ -51,6 +53,7 @@ public class PalabraclaveFacade extends AbstractFacade<Palabraclave> {
         return pc != null; //Si es null-> no existe ninguna Palabraclave-> devuelve FALSE, si no -> existe una Palabaclave ya en la bd con esa palabra -> devuelve TRUE
         //Para llamar a este metodo se instancia en cualquier servlet un PalabraclaveFacade y se llama al metodo existsPalabra y se le pasa como argumento la palabra que queremos comprobar que existe.
     }
+*/
         public Palabraclave findByPalabra (String palabra){
         Query q;
         Palabraclave pc=null; //Inicializamos la posible palabra clave que haya en la BD
@@ -70,9 +73,7 @@ public class PalabraclaveFacade extends AbstractFacade<Palabraclave> {
         //Para llamar a este metodo se instancia en cualquier servlet un PalabraclaveFacade y se llama al metodo existsPalabra y se le pasa como argumento la palabra que queremos comprobar que existe.
     }
     
-    public List<Integer> finAllByPalabraClave(){
-        return null;
-    }
+   
         
         
      public void insertPalabraClave (String palabraClave) {

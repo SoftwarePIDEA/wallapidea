@@ -53,6 +53,8 @@ public class AnyadirProducto extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Usuario u = (Usuario) session.getAttribute("usuario");
+        
+        
 
         String categoriaId = request.getParameter("cat");
         String titulo = new String(request.getParameter("titulo").getBytes(), "UTF-8");
@@ -81,14 +83,15 @@ public class AnyadirProducto extends HttpServlet {
             if (palabrasClave.length > 0 && !palabrasClave[0].equals("")) {
                 for (String palabra : palabrasClave) {
                     palabra = new String(palabra.getBytes(), "UTF-8");
-                    if (!palabraclaveFacade.existsPalabra(palabra)) { //creamos una pclave si antes no existia en la bd
+                    pclave = palabraclaveFacade.findByPalabra(palabra);
+                    if (pclave == null) { //creamos una pclave si antes no existia en la bd
                         pclave = new Palabraclave();
                         listaProd = new LinkedList<>();
                         pclave.setPalabra(palabra);
                         pclave.setProductoList(listaProd);
                         palabraclaveFacade.create(pclave);
                     }
-                    pclave = palabraclaveFacade.findByPalabra(palabra); //se busca esa palabraclave (estamos seguros de que essta porque si no estaba la hemos creado antes.)
+                  
                     //editamos la lista de pclaves que tiene nuestro producto
                     if (!listaClave.contains(pclave)) {
                         listaClave.add(pclave);
@@ -127,6 +130,49 @@ public class AnyadirProducto extends HttpServlet {
             //VOLVEMOS
             RequestDispatcher rd1 = request.getRequestDispatcher("PerfilUsuario.jsp");
             rd1.forward(request, response);
+            
+            /*
+            public List<Actor> findActorsByCategories (String [] categorias) {
+
+        
+
+        Query q;
+
+        List<Short> listaCategoriasId = new ArrayList<>(); 
+
+        
+
+        if (categorias != null) {
+
+            for (String str: categorias) {
+
+                listaCategoriasId.add(new Short(str));
+
+            }
+
+        }
+
+
+
+        q = this.getEntityManager().createQuery("select a from Actor a join a.filmList f join f.categoryList c where c.categoryId in :lista");
+
+        q.setParameter("lista", listaCategoriasId);
+
+        
+
+        return q.getResultList();
+
+}
+            
+            */
+            
+            
+            
+            
+            
+            // Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1); 
+            
+            
         }
     }
 
