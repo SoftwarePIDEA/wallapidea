@@ -80,9 +80,13 @@ public class ValorarProducto extends HttpServlet {
             // formato de la fecha 
             valoracion.setFechayhora(new Date());
             valoracionFacade.create(valoracion);
+        
 
             //actualizamos valoracion media del producto 
             productoFacade.updateValoracion(producto.getProductId(), valoracionFinal);
+            
+            valoraciones.add(valoracion);
+            producto.setValoracionList(valoraciones);
 
             String status = "Valoración insertada correctamente.";
             request.setAttribute("status", status);
@@ -105,6 +109,8 @@ public class ValorarProducto extends HttpServlet {
 
         RequestDispatcher rd = request.getRequestDispatcher("VistaProducto.jsp");
         rd.forward(request, response);
+        
+       
 
     }
 
