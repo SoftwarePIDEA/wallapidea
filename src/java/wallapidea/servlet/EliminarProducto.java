@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import wallapidea.dao.CategoriaFacade;
 import wallapidea.dao.ProductoFacade;
 import wallapidea.dao.ValoracionFacade;
 import wallapidea.entity.Producto;
@@ -35,6 +36,8 @@ public class EliminarProducto extends HttpServlet {
     private ProductoFacade productoFacade;
     @EJB
     private ValoracionFacade valFacade;
+    @EJB
+    private CategoriaFacade catFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -76,6 +79,7 @@ public class EliminarProducto extends HttpServlet {
         // Si es admin lo envia al panel de admin de productos
         if (u.getIsadmin()) {
             request.setAttribute("productos", productos);
+            request.setAttribute("categorias", catFacade.findAll());
             rd = request.getRequestDispatcher("ListadoProductos.jsp");
             rd.forward(request, response);
         } else {
