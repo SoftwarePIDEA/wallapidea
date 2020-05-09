@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import wallapidea.dao.UsuarioFacade;
 import wallapidea.entity.Usuario;
+import wallapidea.service.UsuarioService;
 
 /**
  *
@@ -27,7 +28,8 @@ public class EliminarUsuario extends HttpServlet {
 
     @EJB
     private UsuarioFacade usuarioFacade;
-
+    @EJB
+    private UsuarioService usuarioService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,10 +48,8 @@ public class EliminarUsuario extends HttpServlet {
         String id = request.getParameter("id");
 
         // obtenemos el producto
-        Usuario usuario = usuarioFacade.find(Integer.parseInt(id));
-        // lo elimninamos
-        usuarioFacade.remove(usuario);
-
+        int idint=Integer.parseInt(id);
+        usuarioService.eliminar(idint);
         List<Usuario> listaUsuarios = usuarioFacade.findAll();
         session.setAttribute("listaUsuarios", listaUsuarios);
         /// hay que controlar como se llama realmente esta jsp

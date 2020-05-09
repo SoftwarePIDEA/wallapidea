@@ -9,7 +9,10 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import wallapidea.dao.ProductoFacade;
 import wallapidea.dao.UsuarioFacade;
+import wallapidea.dao.ValoracionFacade;
+import wallapidea.entity.Producto;
 import wallapidea.entity.Usuario;
 
 /**
@@ -21,6 +24,10 @@ public class UsuarioService {
 
     @EJB
     private UsuarioFacade usuarioFacade;
+    @EJB
+    private ValoracionFacade valFacade;
+    @EJB
+    private ProductoFacade prodFacade;
 
     public void Anyadir(String user, String pass, Boolean admin) {
         Usuario usuario = new Usuario();
@@ -28,6 +35,15 @@ public class UsuarioService {
         usuario.setPass(pass);
         usuario.setIsadmin(admin);
         usuarioFacade.create(usuario);
+    }
+    public void eliminar(int id) {
+        Usuario user = usuarioFacade.find(id);
+        for(Producto p: user.getProductoList()){
+            valFacade.deleteByProduct(p);
+            prodFacade.remove(p);           
+            }
+        user.setProductoList(new LinkedList());
+        usuarioFacade.remove(user);
     }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
