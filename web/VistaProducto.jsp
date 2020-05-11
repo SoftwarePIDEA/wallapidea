@@ -4,6 +4,7 @@
     Author     : eduge
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="wallapidea.entity.Palabraclave"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="wallapidea.entity.Valoracion"%>
@@ -17,9 +18,8 @@
     
     List<Valoracion> lista = p.getValoracionList();
     
-    //List<Valoracion> lista = new ArrayList<>();
+    int totalValoraciones = lista.size(); 
 
-   
     String status;
     String casita="";
     status=(String) request.getAttribute("status");
@@ -62,7 +62,14 @@
                 <div class="datosProducto"> 
                     <h1><%= p.getTitulo() %></h1>
                     <h2>Precio: <%= p.getPrecio() %>€</h2>
-                    <h2>Valoración: <%= p.getValoracionmedia() %></h2>
+                    <%if(p.getValoracionmedia() != null) {
+                    DecimalFormat df = new DecimalFormat("0.0");
+                    %>
+                    <h2>Valoración: <%= df.format(p.getValoracionmedia()) %> de <%=totalValoraciones%> valoraciones</h2>
+                    <%} else {%>
+                    <h2>No existen valoraciones para este producto</h2>
+                    <%}%>
+                    
                     <h3><%= p.getDescripcion() %></h3>
                     <h3>Categoría: <%= p.getCatId().getNombreCategoria() %></h3>
                     

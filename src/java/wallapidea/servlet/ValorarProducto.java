@@ -60,6 +60,7 @@ public class ValorarProducto extends HttpServlet {
         List<Valoracion> valoraciones = valoracionFacade.findByProductId(producto);
 
         int notafinal = Integer.parseInt(nota);
+        
         if (notafinal >= 0 && notafinal <= 5) {
 
             double sumaTotal = 0;
@@ -105,6 +106,8 @@ public class ValorarProducto extends HttpServlet {
             String status = "El numero debe ser mayor que cero y menor que cinco.";
             request.setAttribute("status", status);
         }
+        
+
         request.setAttribute("producto", producto);
 
         RequestDispatcher rd = request.getRequestDispatcher("VistaProducto.jsp");
